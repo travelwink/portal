@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="home" />
+        <module name="home (2)" />
+        <module name="manage" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="home" target="1.8" />
+      <module name="home (2)" target="1.8" />
+      <module name="manage" target="1.8" />
+      <module name="portal" target="1.8" />
+      <module name="portal-manage" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
