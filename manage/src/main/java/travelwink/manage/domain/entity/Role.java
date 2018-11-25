@@ -9,5 +9,7 @@ import lombok.ToString;
 @ToString
 public class Role extends BaseEntity {
     private int roleId;
+
+
     private String roleName;
 }

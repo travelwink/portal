@@ -18,16 +18,17 @@ public class UserController {
     @PostMapping(value="/signIn")
     public RestBody signIn(@RequestBody User user){
         User data = userService.signIn(user);
-        return new RestBody().success("登陆成功",data);
+        return RestBody.success("登陆成功",data);
     }
 
+    @PostMapping(value = "/signUp")
     public RestBody signUp(@RequestBody User user){
         try{
             userService.createUser(user);
-            return new RestBody().success("注册成功",null);
+            return RestBody.success("注册成功",null);
         } catch (Exception e){
             e.printStackTrace();
-            return new RestBody().success("注册失败",e.getMessage());
+            return RestBody.success("注册失败",e.getMessage());
         }
     }
 

@@ -4,6 +4,7 @@
     <resultMap id="recursionMenuMap" type="travelwink.manage.domain.entity.Menu">
         <id column="menu_id" property="menuId"/>
         <result column="menu_name" property="menuName"/>
+        <result column="parent_menu_id" property="parentMenuId"/>
         <result column="priority" property="priority"/>
         <result column="icon" property="icon"/>
         <result column="href" property="href"/>
@@ -13,18 +14,27 @@
         <result column="update_by" property="updateBy"/>
         <result column="update_date" property="updateDate"/>
         <result column="status" property="status"/>
-        <collection property="subMenu" ofType="travelwink.manage.domain.entity.Menu" column="menu_id" select="getMenuByParentId"/>
+        <collection property="subMenu"
+                    ofType="travelwink.manage.domain.entity.Menu"
+                    column="menu_id"
+                    select="getMenuByParentId">
+        </collection>
     </resultMap>
     <select id="getMenu" resultMap="recursionMenuMap" parameterType="travelwink.manage.domain.entity.Menu">
         SELECT * FROM t_menu tm
         <where>
-            <if test="menuId != null">AND tm.parent_menu_id = #{menuId}</if>
+            AND tm.level = 1
             AND status = 1
         </where>
         ORDER BY tm.priority ASC
     </select>
-    <select id="getMenuByParentId" resultType="travelwink.manage.domain.entity.Menu">
-        SELECT * FROM t_menu tm WHERE tm.parent_menu_id = #{menuId} AND status = 1 ORDER BY tm.priority ASC
+    <select id="getMenuByParentId" parameterType="java.lang.Integer" resultMap="recursionMenuMap">
+        SELECT * FROM t_menu tm
+        <where>
+            tm.parent_menu_id = #{menuId}
+            AND status = 1
+        </where>
+        ORDER BY tm.priority ASC
     </select>
     <select id="getFirstMenu" resultType="travelwink.manage.domain.entity.Menu">
         SELECT * FROM t_menu WHERE parent_menu_id = 0 AND status = 1
