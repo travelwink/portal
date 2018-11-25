@@ -12,11 +12,21 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    public UserDao userDao;
+    private UserDao userDao;
+
 
     @Override
-    public List<User> queryUser() {
+    public User signIn(User user) {
+        return userDao.getUser(user).get(0);
+    }
 
-        return userDao.queryUser();
+    @Override
+    public void createUser(User user) {
+        userDao.createUser(user);
+    }
+
+    @Override
+    public List<User> queryUser(User user) {
+        return userDao.getUser(user);
     }
 }

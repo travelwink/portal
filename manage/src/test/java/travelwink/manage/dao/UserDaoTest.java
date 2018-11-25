@@ -23,13 +23,17 @@ public class UserDaoTest {
     @Test
     @Ignore
     public void queryUser() {
-        List<User> userList = userDao.queryUser();
-        assertEquals(2,userList.size());
+        User user = new User();
+        List<User> userList = userDao.getUser(user);
+        assertEquals(3,userList.size());
     }
 
     @Test
-    public void queryUserById() {
-        User user = userDao.queryUserById(1);
+    public void queryUserByName() {
+        User userDto = new User();
+        userDto.setUserName("travelwink");
+        userDto.setStatus(1);
+        User user = userDao.getUser(userDto).get(0);
         assertEquals("travelwink", user.getUserName());
     }
 
