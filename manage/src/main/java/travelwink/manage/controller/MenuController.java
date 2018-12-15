@@ -24,5 +24,4 @@ public class MenuController {
         return RestBody.success();
     }
 
-
 }

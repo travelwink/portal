@@ -1,0 +1,46 @@
+server:
+  port: 80
+  servlet:
+    context-path: /manage
+
+mybatis:
+  configuration:
+#    输出log
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    自增主键
+    use-generated-keys: true
+#    驼峰命名转换
+    map-underscore-to-camel-case: true
+#    懒加载
+    lazy-loading-enabled: true
+#    缓存
+    cache-enabled: true
+#  映射定位
+  mapper-locations: classpath:mapper/*.xml
+#  类型别名包
+  type-aliases-package: com.travelwink.portal.manage.domain.entity
+
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.56.101:3306/travelwink_portal?characterEncoding=UTF-8&autoReconnect=true&useSSL=false&useAffectedRows=true&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    type: org.apache.commons.dbcp2.BasicDataSource
+#    dbcp2连接池
+#    dbcp2:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      max-wait-millis: 10000
+#      min-idle: 5
+#      initial-size: 5
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    suffix: .html
+  security:
+    user:
+      name: user
+      password: 123

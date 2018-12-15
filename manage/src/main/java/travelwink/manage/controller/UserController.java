@@ -1,6 +1,8 @@
 package travelwink.manage.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import travelwink.manage.bean.RestBody;
 import travelwink.manage.domain.entity.User;
@@ -8,32 +10,32 @@ import travelwink.manage.service.UserService;
 
 import java.util.List;
 
-@RestController
+@Slf4j
+@Controller
 @RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping(value="/signIn")
-    public RestBody signIn(@RequestBody User user){
-        User data = userService.signIn(user);
-        return RestBody.success("登陆成功",data);
-    }
-
-    @PostMapping(value = "/signUp")
-    public RestBody signUp(@RequestBody User user){
-        try{
-            userService.createUser(user);
-            return RestBody.success("注册成功",null);
-        } catch (Exception e){
-            e.printStackTrace();
-            return RestBody.success("注册失败",e.getMessage());
-        }
+    @GetMapping
+    public String userPage () {
+        log.info("--------------> # 跳转用户管理页面 # <--------------");
+        return "user";
     }
 
     @GetMapping(value="/getUserList")
     public List<User> getUserList(@RequestBody User user){
+        log.info("--------------> # 查询用户列表 # <--------------");
         return userService.queryUser(user);
     }
+
+    @PostMapping(value="/signIn")
+    public RestBody signIn(@RequestBody User user){
+        log.info("--------------> # 用户登陆 # <--------------");
+        User data = userService.signIn(user);
+        return RestBody.success("登陆成功",data);
+    }
+
+
 }

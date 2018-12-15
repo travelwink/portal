@@ -1,80 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>后台管理</title>
-    <!--icheck-->
-    <link href="js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
-    <link href="js/iCheck/skins/square/square.css" rel="stylesheet">
-    <link href="js/iCheck/skins/square/red.css" rel="stylesheet">
-    <link href="js/iCheck/skins/square/blue.css" rel="stylesheet">
-
-    <!--dashboard calendar-->
-    <link href="css/clndr.css" rel="stylesheet">
-
-    <!--common-->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/style-responsive.css" rel="stylesheet">
-
-
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head :: head"></head>
 <body class="sticky-header">
     <section>
-        <div class="left-side sticky-left-side">
-            <div class="logo">
-                <a href="index.html"><img src="images/logo.png" alt=""></a>
-            </div>
-            <div class="logo-icon text-center">
-                <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
-            </div>
-            <div class="left-side-inner">
-                <ul class="nav nav-pills nav-stacked custom-nav">
-                    <li class="menu-list">
-                        <a href="">
-                            <i class="fa fa-cogs"></i>
-                            <span>系统设置</span>
-                        </a>
-                        <ul class="sub-menu-list">
-                            <li>
-                                <a href="user.html">用户管理</a>
-                            </li>
-                        </ul>
-                        <ul class="sub-menu-list">
-                            <li>
-                                <a href="">角色管理</a>
-                            </li>
-                        </ul>
-                        <ul class="sub-menu-list">
-                            <li>
-                                <a href="">菜单管理</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <div class="left-side sticky-left-side" th:replace="common/menu :: menu"></div>
         <div class="main-content">
-            <div class="header-section">
-                <a href="#" class="toggle-btn"><i class="fa fa-bars"></i></a>
-                <div class="menu-right">
-                    <ul class="notification-menu">
-                        <li>
-                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/photos/user-avatar.png" alt="">
-                                John Doe
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                                <li><a href="#"><i class="fa fa-sign-out">退出登陆</i></a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div class="header-section" th:replace="common/header :: header"></div>
             <div class="page-heading"></div>
-            <div class="wrapper">
-
-            </div>
+            <div class="wrapper"></div>
         </div>
     </section>
 

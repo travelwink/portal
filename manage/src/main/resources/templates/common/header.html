@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <div class="header-section" th:fragment="header">
+        <a href="#" class="toggle-btn"><i class="fa fa-bars"></i></a>
+        <div class="menu-right">
+            <ul class="notification-menu">
+                <li>
+                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="images/photos/user-avatar.png" alt="">
+                        John Doe
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a href="/manage/logout"><i class="fa fa-sign-out">退出登陆</i></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</html>
