@@ -19,9 +19,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public String userPage () {
+    public String initPage () {
         log.info("--------------> # 跳转用户管理页面 # <--------------");
-        return "user";
+        return "user :: user";
     }
 
     @GetMapping(value="/getUserList")

@@ -64,7 +64,12 @@
                             <div class="panel-body">
                                 <div class="adv-table">
                                     <div class="dataTables_wrapper form-inline" role="grid" id="dynamic-table_wrapper">
-                                        <table id="dynamic-table" class="table table-bordered table-hover table-striped dataTable" aria-describedby="dynamic-table_info">
+                                        <div class="btn-group">
+                                            <button id="editable-sample_new" class="btn btn-primary">
+                                                新增 <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <table id="dynamic-table" class="table table-hover table-striped dataTable" aria-describedby="dynamic-table_info">
                                             <thead>
                                                 <tr role="row">
                                                     <th class="sorting_disabled" role="columnheader" tabindex="0" aria-controls="dynamic-table" rowspan="1" colspan="1">编号</th>
@@ -83,7 +88,7 @@
                                                     <td>admin</td>
                                                     <td>admin@123.com</td>
                                                     <td>
-                                                        <div class="btn-group btn-group-xs pull-right">
+                                                        <div class="btn-group btn-group-xs">
                                                             <button class="btn btn-info" type="button"><i class="fa fa-edit"></i> 编辑 </button>
                                                             <button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i> 删除 </button>
                                                         </div>
@@ -96,7 +101,7 @@
                                                     <td>user</td>
                                                     <td>user@123.com</td>
                                                     <td>
-                                                        <div class="btn-group btn-group-xs pull-right">
+                                                        <div class="btn-group btn-group-xs">
                                                             <button class="btn btn-info" type="button"><i class="fa fa-edit"></i> 编辑 </button>
                                                             <button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i> 删除 </button>
                                                         </div>
@@ -115,42 +120,6 @@
         </div>
     </section>
 
-    <!-- Framework -->
-    <script src="js/jquery-1.10.2.min.js"></script>
-    <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
-    <script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/modernizr.min.js"></script>
-    <script src="js/jquery.nicescroll.js"></script>
-
-    <!--easy pie chart-->
-    <script src="js/easypiechart/jquery.easypiechart.js"></script>
-    <script src="js/easypiechart/easypiechart-init.js"></script>
-
-    <!--Sparkline Chart-->
-    <script src="js/sparkline/jquery.sparkline.js"></script>
-    <script src="js/sparkline/sparkline-init.js"></script>
-
-    <!--icheck -->
-    <script src="js/iCheck/jquery.icheck.js"></script>
-    <script src="js/icheck-init.js"></script>
-
-    <!-- jQuery Flot Chart-->
-    <script src="js/flot-chart/jquery.flot.js"></script>
-    <script src="js/flot-chart/jquery.flot.tooltip.js"></script>
-    <script src="js/flot-chart/jquery.flot.resize.js"></script>
-    <script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
-    <script src="js/flot-chart/jquery.flot.selection.js"></script>
-    <script src="js/flot-chart/jquery.flot.stack.js"></script>
-    <script src="js/flot-chart/jquery.flot.time.js"></script>
-    <script src="js/main-chart.js"></script>
-
-    <!--dynamic table-->
-    <script type="text/javascript" language="javascript" src="js/dynamicTable/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="js/dynamicTable/DT_bootstrap.js"></script>
-    <script src="js/dynamicTable/dynamic_table_init.js"></script>
-
-    <!--common scripts for all pages-->
-    <script src="js/scripts.js"></script>
+    <block th:replace="common/jsblock :: jsblock"></block>
 </body>
 </html>
