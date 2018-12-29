@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <div class="left-side sticky-left-side" th:fragment="menu">
         <div class="logo">
-            <a href="index.html"><img src="images/logo.png" alt=""></a>
+            <a th:href="@{/}"><img src="images/logo.png" alt=""></a>
         </div>
         <div class="logo-icon text-center">
-            <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+            <a th:href="@{/}"><img src="images/logo_icon.png" alt=""></a>
         </div>
         <div class="left-side-inner">
             <ul class="nav nav-pills nav-stacked custom-nav">
