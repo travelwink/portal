@@ -31,17 +31,17 @@ public class UserDaoTest {
     @Test
     public void queryUserByName() {
         User userDto = new User();
-        userDto.setUserName("travelwink");
+        userDto.setName("travelwink");
         userDto.setStatus(1);
         User user = userDao.getUser(userDto).get(0);
-        assertEquals("travelwink", user.getUserName());
+        assertEquals("travelwink", user.getName());
     }
 
     @Test
     @Ignore
     public void createUser() {
         User user = new User();
-        user.setUserName("root");
+        user.setName("root");
         user.setPassword("root");
         user.setNickName("root");
         user.setEmail("root@travelwink.com");
@@ -55,7 +55,7 @@ public class UserDaoTest {
     @Test
     public void modifyUser() {
         User user = new User();
-        user.setUserId(1);
+        user.setId(1);
         user.setMobile("17701677661");
         user.setUpdateDate(new Date());
         user.setStatus(1);
