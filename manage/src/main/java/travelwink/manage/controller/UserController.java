@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping
     public String initPage () {
         log.info("--------------> # 跳转用户管理页面 # <--------------");
-        return "user :: user";
+        return "/manage/user";
     }
 
     @GetMapping(value="/getUserList")
