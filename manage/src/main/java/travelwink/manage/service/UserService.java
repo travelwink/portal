@@ -10,5 +10,5 @@ public interface UserService {
 
     void createUser(User user);
 
-    List<User> queryUser(User user);
+    List<User> queryUser();
 }

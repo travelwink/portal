@@ -12,8 +12,9 @@ function fnFormatDetails ( oTable, nTr )
 
 $(document).ready(function() {
 
+    // 初始化页面排序字段
     $('#dynamic-table').dataTable( {
-        "aaSorting": [[ 4, "desc" ]]
+        "aaSorting": [[ 0, "asc" ]]
     } );
 
     /*

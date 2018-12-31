@@ -12,13 +12,14 @@ import java.util.Date;
 @Setter
 @ToString
 public class User extends BaseEntity{
-    private int userId;
-    private String userName;
+    private int id;
+    private String name;
     private String password;
     private String nickName;
     private String avatar;
     private String email;
     private String mobile;
+    private Department department;
 
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date latestSignIn;

@@ -70,44 +70,44 @@
                         <header class="panel-heading">
                             用户列表
                             <span class="tools pull-right">
-                                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                <!--<a href="javascript:;" class="fa fa-chevron-down"></a>-->
                                 <!--<a href="javascript:;" class="fa fa-times"></a>-->
                             </span>
                         </header>
                         <div class="panel-body">
                             <div class="adv-table">
+                                <div class="clearfix">
+                                    <div class="btn-group">
+                                        <button id="editable-sample_new" class="btn btn-primary">
+                                            新增 <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
                                 <table  class="display table table-bordered table-striped" id="dynamic-table">
                                     <thead>
-                                    <tr>
-                                        <th>编号</th>
-                                        <th>部门</th>
-                                        <th>姓名</th>
-                                        <th class="hidden-phone">用户名</th>
-                                        <th class="hidden-phone">邮件地址</th>
-                                    </tr>
+                                        <tr>
+                                            <th>编号</th>
+                                            <th>部门</th>
+                                            <th>姓名</th>
+                                            <th>用户名</th>
+                                            <th>邮件地址</th>
+                                            <th>操作</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="gradeX">
-                                        <td>1</td>
-                                        <td>管理部</td>
-                                        <td>管理员</td>
-                                        <td class="center hidden-phone">admin</td>
-                                        <td class="center hidden-phone">admin@abc.com</td>
-                                    </tr>
-                                    <tr class="gradeC">
-                                        <td>2</td>
-                                        <td>市场部</td>
-                                        <td>市场专员</td>
-                                        <td class="center hidden-phone">user</td>
-                                        <td class="center hidden-phone">user@abc.com</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>3</td>
-                                        <td>IT部</td>
-                                        <td>测试袁</td>
-                                        <td class="center hidden-phone">test</td>
-                                        <td class="center hidden-phone">test@abc.com</td>
-                                    </tr>
+                                        <tr th:each="user : ${userList}">
+                                            <td th:text="${user.userId}"></td>
+                                            <td th:text="123"></td>
+                                            <td th:text="${user.userName}"></td>
+                                            <td th:text="${user.nickName}"></td>
+                                            <td th:text="${user.email}"></td>
+                                            <td>
+                                                <div class="btn-group btn-group-xs">
+                                                    <button class="btn btn-info" type="button"><i class="fa fa-edit"></i> 编辑 </button>
+                                                    <button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i> 删除 </button>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> queryUser(User user) {
-        return userDao.getUser(user);
+    public List<User> queryUser() {
+        return userDao.findAll();
     }
 }
