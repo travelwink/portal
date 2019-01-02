@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("/naviMenu")
-public class NaviMenuController {
+@RequestMapping("/navigation")
+public class NavigationController {
 
     @GetMapping
     public String initPage(Model model) {
-        return "page/naviMenu";
+        model.addAttribute("navigationList");
+        return "page/navigation";
     }
 
 }

@@ -1,14 +1,10 @@
 package travelwink.manage.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class Menu extends BaseEntity{
     private int menuId;
     private String menuName;

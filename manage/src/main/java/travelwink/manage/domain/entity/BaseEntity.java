@@ -1,13 +1,11 @@
 package travelwink.manage.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 public class BaseEntity {
     private String createBy;
 

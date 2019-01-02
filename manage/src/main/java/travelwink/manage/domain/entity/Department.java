@@ -19,6 +19,8 @@ public class Department extends BaseEntity {
     @NotNull(message = "顺序不可为空")
     private int seq;
 
+    private int status;
+
     @Length(max = 150, message = "备注长度不能超过150字符")
     private String remark;
 }
