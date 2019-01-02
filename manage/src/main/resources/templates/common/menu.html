@@ -18,8 +18,13 @@
                 <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>系统设置</span></a>
                     <ul class="sub-menu-list">
                         <li><a th:href="@{/user}"> 用户管理</a></li>
-                        <li><a href="#"> 权限管理</a></li>
-                        <li><a href="#"> 部门管理</a></li>
+                        <li><a th:href="@{/department}"> 部门管理</a></li>
+                    </ul>
+                </li>
+                <li class="menu-list"><a href=""><i class="fa fa-th"></i> <span>主页管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a th:href="@{/naviMenu}"> 菜单管理</a></li>
+                        <li><a href="#"> 内容管理</a></li>
                     </ul>
                 </li>
             </ul>

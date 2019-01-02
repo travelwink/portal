@@ -34,28 +34,28 @@
                         <div class="panel-body">
                             <form action="" class="form-inline">
                                 <div class="form-group">
-                                    <label class="control-label" for="userId">编号：
-                                        <input class="form-control" type="text" id="userId" name="userId">
+                                    <label class="control-label" for="qId">编号：
+                                        <input class="form-control" type="text" id="qId" name="id">
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" for="dept"> 部门：
-                                        <input class="form-control" type="text" id="dept" name="dept">
+                                    <label class="control-label" for="qDept"> 部门：
+                                        <input class="form-control" type="text" id="qDept" name="dept">
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" for="nickName"> 姓名：
-                                        <input class="form-control" type="text" id="nickName" name="nickName">
+                                    <label class="control-label" for="qNickName"> 姓名：
+                                        <input class="form-control" type="text" id="qNickName" name="nickName">
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" for="userName"> 用户名：
-                                        <input class="form-control" type="text" id="userName" name="userName">
+                                    <label class="control-label" for="qName"> 用户名：
+                                        <input class="form-control" type="text" id="qName" name="userName">
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" for="email"> 邮件地址：
-                                        <input class="form-control" type="text" id="email" name="email">
+                                    <label class="control-label" for="qEmail"> 邮件地址：
+                                        <input class="form-control" type="text" id="qEmail" name="email">
                                     </label>
                                 </div>
                                 <div class="pull-right">
@@ -78,9 +78,9 @@
                             <div class="adv-table">
                                 <div class="clearfix">
                                     <div class="btn-group">
-                                        <button id="editable-sample_new" class="btn btn-primary">
+                                        <a id="editable-sample_new" class="btn btn-primary" href="#myModal" data-toggle="modal">
                                             新增 <i class="fa fa-plus"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                                 <table  class="display table table-bordered table-striped" id="dynamic-table">
@@ -96,9 +96,9 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="user : ${userList}">
-                                            <td th:text="${user.userId}"></td>
-                                            <td th:text="123"></td>
-                                            <td th:text="${user.userName}"></td>
+                                            <td th:text="${user.id}"></td>
+                                            <td th:text="${user.department.name}"></td>
+                                            <td th:text="${user.name}"></td>
                                             <td th:text="${user.nickName}"></td>
                                             <td th:text="${user.email}"></td>
                                             <td>
@@ -127,6 +127,67 @@
     </div>
     <!-- main content end-->
 </section>
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">新增用户</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="name" class="col-lg-2 col-sm-2 control-label">用户名</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="name" placeholder="用户名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nickName" class="col-lg-2 col-sm-2 control-label">姓名</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="nickName" placeholder="姓名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-lg-2 col-sm-2 control-label">Email</label>
+                        <div class="col-lg-10">
+                            <input type="email" class="form-control" id="email" placeholder="电子邮件">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept" class="col-lg-2 col-sm-2 control-label">部门</label>
+                        <div class="col-lg-10">
+                            <select name="dept" id="dept" class="form-control m-bot15">
+                                <option value="">请选择</option>
+                                <option th:each="department:${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept" class="col-lg-2 col-sm-2 control-label"></label>
+                        <div class="col-lg-10">
+                            <span class="label label-danger ">提示</span>
+                            <span>
+                                新用户初始密码为6个1
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <!-- Placed js at the end of the document so the pages load faster -->
 <script src="js/jquery-1.10.2.min.js"></script>

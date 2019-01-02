@@ -14,19 +14,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-
     @Override
     public User signIn(User user) {
-        return userDao.getUser(user).get(0);
+        return userDao.findById(user.getId()).get(0);
     }
 
     @Override
-    public void createUser(User user) {
-        userDao.createUser(user);
+    public int add(User user) {
+        return userDao.create(user);
     }
 
     @Override
-    public List<User> queryUser() {
+    public List<User> query() {
         return userDao.findAll();
     }
 }

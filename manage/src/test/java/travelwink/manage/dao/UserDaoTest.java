@@ -24,7 +24,7 @@ public class UserDaoTest {
     @Ignore
     public void queryUser() {
         User user = new User();
-        List<User> userList = userDao.getUser(user);
+        List<User> userList = userDao.findById(user.getId());
         assertEquals(3,userList.size());
     }
 
@@ -33,7 +33,7 @@ public class UserDaoTest {
         User userDto = new User();
         userDto.setName("travelwink");
         userDto.setStatus(1);
-        User user = userDao.getUser(userDto).get(0);
+        User user = userDao.findById(userDto.getId()).get(0);
         assertEquals("travelwink", user.getName());
     }
 
@@ -48,7 +48,7 @@ public class UserDaoTest {
         user.setStatus(1);
         user.setCreateDate(new Date());
         user.setMobile("1234567890");
-        int effectedNum = userDao.createUser(user);
+        int effectedNum = userDao.create(user);
         assertEquals(1,effectedNum);
     }
 

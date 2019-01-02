@@ -8,7 +8,7 @@ public interface UserService {
 
     User signIn(User user);
 
-    void createUser(User user);
+    int add(User user);
 
-    List<User> queryUser();
+    List<User> query();
 }

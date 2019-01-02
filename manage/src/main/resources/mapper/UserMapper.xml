@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="travelwink.manage.dao.UserDao">
-    <insert id="createUser" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id" parameterType="travelwink.manage.domain.entity.User">
-        INSERT INTO t_user (user_name, password, nick_name, avatar, email, mobile, status, create_date)
-        VALUES (#{userName}, #{password}, #{nickName}, #{avatar}, #{email}, #{mobile}, #{status}, #{createDate})
-    </insert>
     <select id="getUser" parameterType="travelwink.manage.domain.entity.User" resultType="travelwink.manage.domain.entity.User">
         SELECT * FROM t_user
         <where>

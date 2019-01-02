@@ -3,14 +3,14 @@ package travelwink.manage.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
-import travelwink.manage.domain.entity.TempEntity;
+import travelwink.manage.domain.entity.Department;
 
 import java.util.List;
 
 @Mapper
 @Repository
-public interface TempDao {
+public interface DepartmentDao {
 
-    @Select("SELECT * FROM temp")
-    List<TempEntity> getJSON();
+    @Select("SELECT * FROM t_department")
+    List<Department> findAll();
 }

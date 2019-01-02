@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head :: head"></head>
+
+<body class="sticky-header">
+
+<section>
+    <div th:replace="common/menu :: menu"></div>
+
+    <!-- main content start-->
+    <div class="main-content">
+
+        <div class="header-section" th:replace="common/header :: header"></div>
+
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                菜单管理
+            </h3>
+            <ul class="breadcrumb">
+                <li> 主页管理 </li>
+                <li class="active"> 菜单管理 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            导航菜单
+                            <!--<span class="tools pull-right">-->
+                                <!--<a class="fa fa-chevron-down" href="javascript:;"></a>-->
+                                <!--<a class="fa fa-times" href="javascript:;"></a>-->
+                            <!--</span>-->
+                        </div>
+                        <div class="panel-body">
+                            <div id="FlatTree" class="tree tree-plus-minus">
+                                <div class = "tree-folder" style="display:none;">
+                                    <div class="tree-folder-header">
+                                        <i class="fa fa-folder"></i>
+                                        <div class="tree-folder-name"></div>
+                                    </div>
+                                    <div class="tree-folder-content"></div>
+                                    <div class="tree-loader" style="display:none"></div>
+                                </div>
+                                <div class="tree-item" style="display:none;">
+                                    <i class="tree-dot"></i>
+                                    <div class="tree-item-name"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--body wrapper end-->
+
+        <!--footer section start-->
+        <footer th:replace="common/footer :: footer"></footer>
+        <!--footer section end-->
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">新增用户</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="name" class="col-lg-2 col-sm-2 control-label">用户名</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="name" placeholder="用户名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nickName" class="col-lg-2 col-sm-2 control-label">姓名</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="nickName" placeholder="姓名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-lg-2 col-sm-2 control-label">Email</label>
+                        <div class="col-lg-10">
+                            <input type="email" class="form-control" id="email" placeholder="电子邮件">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept" class="col-lg-2 col-sm-2 control-label">部门</label>
+                        <div class="col-lg-10">
+                            <select name="dept" id="dept" class="form-control m-bot15">
+                                <option value="">请选择</option>
+                                <option th:each="department:${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept" class="col-lg-2 col-sm-2 control-label"></label>
+                        <div class="col-lg-10">
+                            <span class="label label-danger ">提示</span>
+                            <span>
+                                新用户初始密码为6个1
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+
+<!--tree-->
+<script src="js/fuelux/js/tree.min.js"></script>
+<script src="js/tree-init.js"></script>
+
+<!--common scripts for all pages-->
+<script src="js/scripts.js"></script>
+
+<script>
+    jQuery(document).ready(function() {
+        TreeView.init();
+    });
+</script>
+
+</body>
+</html>
