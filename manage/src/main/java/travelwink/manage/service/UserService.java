@@ -10,5 +10,5 @@ public interface UserService {
 
     int add(User user);
 
-    List<User> query();
+    List<User> findAll();
 }

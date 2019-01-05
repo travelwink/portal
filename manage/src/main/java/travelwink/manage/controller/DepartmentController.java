@@ -24,7 +24,7 @@ public class DepartmentController {
     @GetMapping
     public String initPage(Model model){
         log.info("--------------> # 查询所有部门 #");
-        List<Department> departments = departmentService.query();
+        List<Department> departments = departmentService.findAll();
         model.addAttribute("departments", departments);
         log.info("--------------> # 跳转部门管理页面 #");
         return "manage/department";

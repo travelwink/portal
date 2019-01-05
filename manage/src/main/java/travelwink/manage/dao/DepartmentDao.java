@@ -13,4 +13,7 @@ public interface DepartmentDao {
 
     @Select("SELECT * FROM t_department")
     List<Department> findAll();
+
+    @Select("SELECT * FROM t_department WHERE id = #{id}")
+    Department findById(int id);
 }

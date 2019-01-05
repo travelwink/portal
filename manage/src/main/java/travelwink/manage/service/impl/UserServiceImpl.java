@@ -21,11 +21,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int add(User user) {
+
         return userDao.create(user);
     }
 
     @Override
-    public List<User> query() {
+    public List<User> findAll() {
         return userDao.findAll();
     }
 }

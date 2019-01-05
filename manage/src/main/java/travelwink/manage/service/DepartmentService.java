@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface DepartmentService {
 
-    List<Department> query();
+    List<Department> findAll();
+
+    Department findById(int id);
 }

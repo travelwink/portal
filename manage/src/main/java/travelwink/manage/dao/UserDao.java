@@ -12,13 +12,12 @@ import java.util.List;
 @Repository
 public interface UserDao {
 
-    @Insert("INSERT INTO t_user (name, password, nick_name, avatar, email, mobile, status, create_date, create_by) VALUES (#{name}, #{password}, #{nickName}, #{avatar}, #{email}, #{mobile}, #{status}, #{createDate}, #{createBy})")
-
+    @Insert("INSERT INTO t_user (name, password, nick_name, avatar, email, mobile, fk_dept_id, status, create_date, create_by) VALUES (#{name}, #{password}, #{nickName}, #{avatar}, #{email}, #{mobile}, #{department.id}, #{status}, #{createDate}, #{createBy})")
     int create(User user);
 
     int modifyUser(User user);
 
-    @Select("SELECT * FROM t_user")
+    @Select("SELECT * FROM t_user tu WHERE tu.status = 1")
     @Results(
             @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.UserDao.getDeptById", fetchType = FetchType.EAGER))
     )
