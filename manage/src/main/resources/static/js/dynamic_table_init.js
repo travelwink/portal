@@ -14,6 +14,9 @@ $(document).ready(function() {
 
     // 初始化页面排序字段
     $('#dynamic-table').dataTable( {
+        // "aoColumnDefs": [
+        //     { "bSortable": false, "aTargets": [ 5 ] }
+        // ],
         "aaSorting": [[ 0, "asc" ]]
     } );
 

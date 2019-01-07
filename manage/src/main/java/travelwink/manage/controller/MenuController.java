@@ -19,7 +19,7 @@ public class MenuController {
 
     @GetMapping(value = "/getMenu")
     public RestBody getMenu (){
-        List<Menu> menuList = menuService.getMenu();
+        List<Menu> menuList = menuService.findAll();
         System.out.println(menuList);
         return RestBody.success();
     }

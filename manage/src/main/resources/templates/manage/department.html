@@ -28,28 +28,6 @@
         <div class="wrapper">
             <div class="row">
                 <div class="col-sm-12">
-                    <!--查询条件区域-->
-                    <section class="panel">
-                        <header class="panel-heading">输入查询条件</header>
-                        <div class="panel-body">
-                            <form action="" class="form-inline">
-                                <div class="form-group">
-                                    <label class="control-label" for="qDept"> 部门：
-                                        <input class="form-control" type="text" id="qDept" name="dept">
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="qName"> 菜单权限：
-                                        <input class="form-control" type="text" id="qName" name="userName">
-                                    </label>
-                                </div>
-                                <div class="pull-right">
-                                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> 查询 </button>
-                                    <button class="btn btn-default" type="reset"><i class="fa fa-refresh"></i> 重置 </button>
-                                </div>
-                            </form>
-                        </div>
-                    </section>
                     <!--数据展示区域-->
                     <section class="panel">
                         <header class="panel-heading">
@@ -63,30 +41,30 @@
                             <div class="adv-table">
                                 <div class="clearfix">
                                     <div class="btn-group">
-                                        <a id="editable-sample_new" class="btn btn-primary" href="#myModal" data-toggle="modal">
+                                        <a id="editable-sample_new" class="btn btn-primary" href="#addModal" data-toggle="modal">
                                             新增 <i class="fa fa-plus"></i>
                                         </a>
                                     </div>
                                 </div>
-                                <table  class="display table table-bordered table-striped" id="dynamic-table">
+                                <table class="display table table-bordered table-striped table-hover" id="dynamic-table">
                                     <thead>
-                                        <tr>
-                                            <th>部门</th>
-                                            <th>菜单权限</th>
-                                            <th>操作</th>
-                                        </tr>
+                                    <tr>
+                                        <th hidden>id</th>
+                                        <th>部门名称</th>
+                                        <th>操作</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="department : ${departments}">
-                                            <td th:text="${department.name}"></td>
-                                            <td th:text="${department.name}"></td>
-                                            <td>
-                                                <div class="btn-group btn-group-xs">
-                                                    <button class="btn btn-info" type="button"><i class="fa fa-edit"></i> 编辑 </button>
-                                                    <button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i> 删除 </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    <tr th:each="department: ${departments}">
+                                        <td th:text="${department.id}" hidden></td>
+                                        <td th:text="${department.name}"></td>
+                                        <td>
+                                            <div class="btn-group btn-group-xs">
+                                                <button class="btn btn-info" type="button"><i class="fa fa-edit"></i> 编辑 </button>
+                                                <a class="btn btn-danger" href="#deleteModal" data-toggle="modal" name="delete" th:value="${department.id}"><i class="fa fa-trash-o"></i> 删除 </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -107,25 +85,25 @@
     <!-- main content end-->
 </section>
 
-<div aria-hidden="true" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+<div aria-hidden="true" role="dialog" tabindex="-1" id="addModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">新增用户</h4>
+                <h4 class="modal-title">新增部门</h4>
             </div>
             <div class="modal-body">
-
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal" role="form" th:action="@{/department/add}" th:object="${department}" method="post">
                     <div class="form-group">
                         <label for="name" class="col-lg-2 col-sm-2 control-label">部门名称</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="name" placeholder="部门名称">
+                            <input type="text" class="form-control"th:field="*{name}">
                         </div>
                     </div>
+                    <br>
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
-                            <button type="submit" class="btn btn-primary">保存</button>
+                            <button type="submit" class="btn btn-primary" name="add">保存</button>
                         </div>
                     </div>
 
@@ -133,6 +111,26 @@
 
             </div>
 
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="deleteModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">删除确认</h4>
+            </div>
+            <div class="modal-body">
+
+                确认删除部门？
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                <button type="button" class="btn btn-danger"> 确认</button>
+            </div>
         </div>
     </div>
 </div>

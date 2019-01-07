@@ -21,8 +21,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int add(User user) {
-
         return userDao.create(user);
+    }
+
+    @Override
+    public int delete(int id){
+        return userDao.delete(id);
     }
 
     @Override

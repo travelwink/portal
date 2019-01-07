@@ -8061,7 +8061,7 @@
 		 *      } );
 		 *    } );
 		 */
-		"bAutoWidth": true,
+		"bAutoWidth": false,
 	
 	
 		/**

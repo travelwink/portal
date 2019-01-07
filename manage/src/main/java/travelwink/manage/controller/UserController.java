@@ -12,6 +12,7 @@ import travelwink.manage.domain.entity.User;
 import travelwink.manage.service.DepartmentService;
 import travelwink.manage.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +58,13 @@ public class UserController {
             log.info("--------------> # 新增用户 #" + result + "个");
             return "redirect:/user";
         }
+    }
+
+    @RequestMapping(value = "/delete", params = {"delete"})
+    public String delete(User user, BindingResult bindingResult, HttpServletRequest request) {
+        int userId = Integer.valueOf(request.getParameter("delete"));
+        userService.delete(userId);
+        return "redirect:/user";
     }
 
     @GetMapping(value="/getUserList")

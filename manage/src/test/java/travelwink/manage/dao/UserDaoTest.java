@@ -29,6 +29,7 @@ public class UserDaoTest {
     }
 
     @Test
+    @Ignore
     public void queryUserByName() {
         User userDto = new User();
         userDto.setName("travelwink");
@@ -53,6 +54,7 @@ public class UserDaoTest {
     }
 
     @Test
+    @Ignore
     public void modifyUser() {
         User user = new User();
         user.setId(1);

@@ -17,18 +17,18 @@
         <collection property="subMenu"
                     ofType="travelwink.manage.domain.entity.Menu"
                     column="menu_id"
-                    select="getMenuByParentId">
+                    select="findByParentId">
         </collection>
     </resultMap>
-    <select id="getMenu" resultMap="recursionMenuMap" parameterType="travelwink.manage.domain.entity.Menu">
+    <select id="findAll" resultMap="recursionMenuMap" parameterType="travelwink.manage.domain.entity.Menu">
         SELECT * FROM t_menu tm
         <where>
-            AND tm.level = 1
+            AND tm.parent_menu_id = 0
             AND status = 1
         </where>
         ORDER BY tm.priority ASC
     </select>
-    <select id="getMenuByParentId" parameterType="java.lang.Integer" resultMap="recursionMenuMap">
+    <select id="findByParentId" parameterType="java.lang.Integer" resultMap="recursionMenuMap">
         SELECT * FROM t_menu tm
         <where>
             tm.parent_menu_id = #{menuId}

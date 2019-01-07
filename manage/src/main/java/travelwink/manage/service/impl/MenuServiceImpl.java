@@ -15,9 +15,7 @@ public class MenuServiceImpl implements MenuService {
     private MenuDao menuDao;
 
     @Override
-    public List<Menu> getMenu() {
-        Menu menuDto = new Menu();
-        menuDto.setMenuId(1);
-        return menuDao.getMenu(menuDto);
+    public List<Menu> findAll() {
+        return menuDao.findAll();
     }
 }

@@ -17,6 +17,9 @@ public interface UserDao {
 
     int modifyUser(User user);
 
+    @Delete("Delete t_user tu WHERE tu.id = #{id}")
+    int delete(int id);
+
     @Select("SELECT * FROM t_user tu WHERE tu.status = 1")
     @Results(
             @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.UserDao.getDeptById", fetchType = FetchType.EAGER))

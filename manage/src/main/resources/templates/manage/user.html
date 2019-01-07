@@ -83,7 +83,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <table  class="display table table-bordered table-striped" id="dynamic-table">
+                                <table class="display table table-bordered table-striped table-hover" id="dynamic-table">
                                     <thead>
                                         <tr>
                                             <th hidden>id</th>
@@ -104,7 +104,7 @@
                                             <td>
                                                 <div class="btn-group btn-group-xs">
                                                     <button class="btn btn-info" type="button"><i class="fa fa-edit"></i> 编辑 </button>
-                                                    <button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i> 删除 </button>
+                                                    <a class="btn btn-danger" href="#deleteModal" data-toggle="modal" name="delete" th:value="${user.id}"><i class="fa fa-trash-o"></i> 删除 </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -183,6 +183,26 @@
 
             </div>
 
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="deleteModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">删除确认</h4>
+            </div>
+            <div class="modal-body">
+
+                确认删除用户？
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                <button type="button" class="btn btn-danger"> 确认</button>
+            </div>
         </div>
     </div>
 </div>
