@@ -3,11 +3,13 @@ package travelwink.manage.domain.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
 public class User extends BaseEntity{
     private int id;
+    @NotBlank(message = "用户编号不可为空")
     private String name;
     private String password;
     private String nickName;
