@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 public interface UserDao {
 
+    @Select("SELECT * FROM t_user tu WHERE tu.name = #{name}")
+    User loadUserByUsername(String name);
+
     @Insert("INSERT INTO t_user (name, password, nick_name, avatar, email, mobile, fk_dept_id, status, create_date, create_by) VALUES (#{name}, #{password}, #{nickName}, #{avatar}, #{email}, #{mobile}, #{department.id}, #{status}, #{createDate}, #{createBy})")
     int create(User user);
 

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import travelwink.manage.bean.RestBody;
 import travelwink.manage.common.Constant;
 import travelwink.manage.domain.entity.Department;
 import travelwink.manage.domain.entity.User;
@@ -71,13 +70,5 @@ public class UserController {
     public List<User> getUserList(@RequestBody User user){
         return null;
     }
-
-    @PostMapping("/signIn")
-    public RestBody signIn(@RequestBody User user){
-        log.info("--------------> # 用户登陆 # <--------------");
-        User data = userService.signIn(user);
-        return RestBody.success("登陆成功",data);
-    }
-
 
 }

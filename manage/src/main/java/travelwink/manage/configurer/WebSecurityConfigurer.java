@@ -17,11 +17,14 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 //                .and()
 //                    .logout().logoutSuccessUrl("/login.html")
                 .and()
-                    .authorizeRequests().antMatchers(
+                    .authorizeRequests()
+                        .antMatchers(
                             "/css/**",
                             "/fonts/**",
                             "/images/**",
                             "/js/**"
-                    ).permitAll().anyRequest().authenticated();
+                        )
+                        .permitAll()
+                    .anyRequest().authenticated();
     }
 }

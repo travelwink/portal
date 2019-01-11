@@ -46,7 +46,7 @@ spring:
     cache: false
     encoding: UTF-8
     suffix: .html
-  security:
-    user:
-      name: user
-      password: 123
+#  security:
+#    user:
+#      name: user
+#      password: 123
