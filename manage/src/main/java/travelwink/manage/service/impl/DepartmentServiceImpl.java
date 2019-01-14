@@ -22,9 +22,19 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public List<Department> findAllForSelect() {
+        return departmentDao.findAllForSelect();
+    }
+
+    @Override
     public Department findById(int id) {
         Department department = departmentDao.findById(id);
         log.info(department.toString());
         return department;
+    }
+
+    @Override
+    public Department findSimpleDataById(int id) {
+        return departmentDao.findSimpleDataById(id);
     }
 }

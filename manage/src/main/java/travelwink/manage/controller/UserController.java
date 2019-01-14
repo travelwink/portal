@@ -3,7 +3,7 @@ package travelwink.manage.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import travelwink.manage.common.Constant;
@@ -27,20 +27,24 @@ public class UserController {
     @Autowired
     private DepartmentService departmentService;
 
-    @ModelAttribute("departments")
-    public List<Department> populateDepartments() {
-        log.info("--------------> # 部门列表 #");
-        return this.departmentService.findAll();
-    }
+//    @ModelAttribute("departments")
+//    public List<Department> populateDepartments() {
+//        log.info("--------------> # 部门列表 #");
+//        return this.departmentService.findAll();
+//    }
 
-    @ModelAttribute("users")
-    public List<User> populateUsers() {
-        log.info("--------------> # 用户列表 #");
-        return this.userService.findAll();
-    }
+//    @ModelAttribute("users")
+//    public List<User> populateUsers() {
+//        log.info("--------------> # 用户列表 #");
+//        return this.userService.findAll();
+//    }
 
     @RequestMapping
-    public String initPage (User user) {
+    public String initPage (User user, Model model) {
+        List<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        List<Department> departments = departmentService.findAllForSelect();
+        model.addAttribute("departments", departments);
         log.info("--------------> # 跳转用户管理页面 #");
         return "manage/user";
     }

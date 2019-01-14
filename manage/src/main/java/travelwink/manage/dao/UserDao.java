@@ -24,14 +24,17 @@ public interface UserDao {
     int delete(int id);
 
     @Select("SELECT * FROM t_user tu WHERE tu.status = 1")
-    @Results(
-            @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.DepartmentDao.findById", fetchType = FetchType.EAGER))
-    )
+    @Results({
+            @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.UserDao.findDepartment", fetchType = FetchType.LAZY))
+    })
     List<User> findAll();
 
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
-    @Results(
+    @Results({
             @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.DepartmentDao.findById", fetchType = FetchType.EAGER))
-    )
+    })
     List<User> findById(int id);
+
+    @Select("SELECT * FROM t_department td WHERE td.id = #{id} ")
+    Department findDepartment(int id);
 }

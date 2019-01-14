@@ -8,5 +8,9 @@ public interface DepartmentService {
 
     List<Department> findAll();
 
+    List<Department> findAllForSelect();
+
     Department findById(int id);
+
+    Department findSimpleDataById(int id);
 }

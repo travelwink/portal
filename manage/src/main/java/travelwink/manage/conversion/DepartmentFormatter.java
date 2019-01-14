@@ -17,7 +17,7 @@ public class DepartmentFormatter implements Formatter<Department> {
     public Department parse(String s, Locale locale) {
         if (StringUtils.isNotBlank(s)){
             int departmentId = Integer.valueOf(s);
-            return this.departmentService.findById(departmentId);
+            return this.departmentService.findSimpleDataById(departmentId);
         }
         return null;
     }

@@ -15,9 +15,12 @@ public interface DepartmentDao {
     @Select("SELECT * FROM t_department td WHERE td.status = 1")
     @Results({
             @Result(column = "id", property = "id"),
-            @Result(column = "id", property = "menus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByDeptId", fetchType = FetchType.EAGER))
+            @Result(column = "id", property = "menus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByDeptId", fetchType = FetchType.LAZY))
     })
     List<Department> findAll();
+
+    @Select("SELECT * FROM t_department td WHERE td.status = 1")
+    List<Department> findAllForSelect();
 
     @Select("SELECT * FROM t_department td WHERE td.id = #{deptId};")
     @Results({
@@ -25,6 +28,9 @@ public interface DepartmentDao {
             @Result(column = "id", property = "menus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByDeptId", fetchType = FetchType.EAGER))
     })
     Department findById(int deptId);
+
+    @Select("SELECT * FROM t_department td WHERE td.id = #{deptId};")
+    Department findSimpleDataById(int deptId);
 
     @Select("SELECT * FROM t_department td, t_menu tm, tr_department_menu rdm WHERE rdm.fk_department_id = td.id AND rdm.fk_menu_id = tm.id AND rdm.fk_department_id = #{id};")
     List<Menu> getMenuListById(String id);
