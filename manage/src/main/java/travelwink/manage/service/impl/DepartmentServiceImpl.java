@@ -22,6 +22,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public List<Department> findAllWithMenu() {
+        return departmentDao.findAllWithMenu();
+    }
+
+    @Override
     public Department findById(int id) {
         Department department = departmentDao.findById(id);
         log.info(department.toString());

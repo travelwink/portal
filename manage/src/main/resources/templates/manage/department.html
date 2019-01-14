@@ -51,6 +51,7 @@
                                     <tr>
                                         <th hidden>id</th>
                                         <th>部门名称</th>
+                                        <th >菜单权限</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -58,6 +59,11 @@
                                     <tr th:each="department: ${departments}">
                                         <td th:text="${department.id}" hidden></td>
                                         <td th:text="${department.name}"></td>
+                                        <td th:if="${department.menus} != null">
+                                            <span th:each="menu: ${department.menus}">
+                                                <span th:text="${menu.name}">, </span>
+                                            </span>
+                                        </td>
                                         <td>
                                             <div class="btn-group btn-group-xs">
                                                 <button class="btn btn-info" type="button"><i class="fa fa-edit"></i> 编辑 </button>

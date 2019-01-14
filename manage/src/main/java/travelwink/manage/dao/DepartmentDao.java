@@ -15,6 +15,12 @@ public interface DepartmentDao {
     @Select("SELECT * FROM t_department td WHERE td.status = 1")
     List<Department> findAll();
 
+    @Select("SELECT * FROM t_department td WHERE td.status = 1")
+    @Results(
+            @Result(column = "id", property = "menus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByDeptId", fetchType = FetchType.EAGER))
+    )
+    List<Department> findAllWithMenu();
+
     @Select("SELECT * FROM t_department td WHERE td.id = #{id};")
     @Results(
             @Result(column = "id", property = "menus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByDeptId", fetchType = FetchType.EAGER))
