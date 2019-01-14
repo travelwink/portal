@@ -27,10 +27,19 @@ public class MenuDaoTest {
 
 
     @Test
-    @Ignore
     public void getMenu() {
         Menu menuDto = new Menu();
-        menuDto.setMenuId(1);
-        menuDao.findAll();
+        menuDto.setId(1);
+        List<Menu> menuList = menuDao.findAll();
+        assertEquals(2,menuList.size());
     }
+
+    @Test
+    public void findByDeptId() {
+        int deptId = 1;
+        List<Menu> menus = menuDao.findByDeptId(deptId);
+        assertEquals(3, menus.size());
+    }
+
+
 }

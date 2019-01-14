@@ -12,4 +12,8 @@ public interface MenuDao {
     List<Menu> getFirstMenu();
 
     List<Menu> findAll();
+
+    Menu findByid(int id);
+
+    List<Menu> findByDeptId(int deptId);
 }

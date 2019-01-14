@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="travelwink.manage.dao.MenuDao">
     <resultMap id="recursionMenuMap" type="travelwink.manage.domain.entity.Menu">
-        <id column="menu_id" property="menuId"/>
-        <result column="menu_name" property="menuName"/>
-        <result column="parent_menu_id" property="parentMenuId"/>
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
         <result column="priority" property="priority"/>
         <result column="icon" property="icon"/>
         <result column="href" property="href"/>
@@ -16,27 +16,41 @@
         <result column="status" property="status"/>
         <collection property="subMenu"
                     ofType="travelwink.manage.domain.entity.Menu"
-                    column="menu_id"
+                    column="id"
                     select="findByParentId">
         </collection>
     </resultMap>
     <select id="findAll" resultMap="recursionMenuMap" parameterType="travelwink.manage.domain.entity.Menu">
         SELECT * FROM t_menu tm
         <where>
-            AND tm.parent_menu_id = 0
+            AND tm.parent_id = 0
             AND status = 1
         </where>
         ORDER BY tm.priority ASC
     </select>
+    <select id="findById" resultMap="recursionMenuMap" parameterType="travelwink.manage.domain.entity.Menu">
+        SELECT * FROM t_menu tm
+        <where>
+            AND tm.id = #{id}
+            AND status = 1
+        </where>
+    </select>
+    <select id="findByDeptId" resultMap="recursionMenuMap" parameterType="travelwink.manage.domain.entity.Menu">
+        SELECT * FROM t_menu tm
+        <where>
+            AND tm.id IN (SELECT rdm.fk_menu_id FROM tr_department_menu rdm WHERE rdm.fk_department_id= #{id})
+            AND status = 1
+        </where>
+    </select>
     <select id="findByParentId" parameterType="java.lang.Integer" resultMap="recursionMenuMap">
         SELECT * FROM t_menu tm
         <where>
-            tm.parent_menu_id = #{menuId}
+            tm.parent_id = #{id}
             AND status = 1
         </where>
         ORDER BY tm.priority ASC
     </select>
     <select id="getFirstMenu" resultType="travelwink.manage.domain.entity.Menu">
-        SELECT * FROM t_menu WHERE parent_menu_id = 0 AND status = 1
+        SELECT * FROM t_menu WHERE parent_id = 0 AND status = 1
     </select>
 </mapper>

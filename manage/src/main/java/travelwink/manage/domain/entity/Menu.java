@@ -6,9 +6,9 @@ import java.util.List;
 
 @Data
 public class Menu extends BaseEntity{
-    private int menuId;
-    private String menuName;
-    private int parentMenuId;
+    private int id;
+    private String name;
+    private int parentId;
     private int priority;
     private String icon;
     private String href;
