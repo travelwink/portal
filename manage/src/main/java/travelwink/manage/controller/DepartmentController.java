@@ -29,7 +29,7 @@ public class DepartmentController {
     @ModelAttribute("departments")
     public List<Department> populateDepartments() {
         log.info("--------------> # 部门列表 #");
-        return this.departmentService.findAllWithMenu();
+        return this.departmentService.findAll();
     }
 
     @ModelAttribute("menus")

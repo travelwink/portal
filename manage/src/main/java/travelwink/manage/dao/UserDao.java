@@ -25,16 +25,13 @@ public interface UserDao {
 
     @Select("SELECT * FROM t_user tu WHERE tu.status = 1")
     @Results(
-            @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.UserDao.getDeptById", fetchType = FetchType.EAGER))
+            @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.DepartmentDao.findById", fetchType = FetchType.EAGER))
     )
     List<User> findAll();
 
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
     @Results(
-            @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.UserDao.getDeptById", fetchType = FetchType.EAGER))
+            @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.DepartmentDao.findById", fetchType = FetchType.EAGER))
     )
     List<User> findById(int id);
-
-    @Select("SELECT * FROM t_department WHERE id = #{id}")
-    Department getDeptById(String id);
 }

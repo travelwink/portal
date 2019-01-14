@@ -8,7 +8,5 @@ public interface DepartmentService {
 
     List<Department> findAll();
 
-    List<Department> findAllWithMenu();
-
     Department findById(int id);
 }

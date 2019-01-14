@@ -13,19 +13,18 @@ import java.util.List;
 public interface DepartmentDao {
 
     @Select("SELECT * FROM t_department td WHERE td.status = 1")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "id", property = "menus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByDeptId", fetchType = FetchType.EAGER))
+    })
     List<Department> findAll();
 
-    @Select("SELECT * FROM t_department td WHERE td.status = 1")
-    @Results(
+    @Select("SELECT * FROM t_department td WHERE td.id = #{deptId};")
+    @Results({
+            @Result(column = "id", property = "id"),
             @Result(column = "id", property = "menus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByDeptId", fetchType = FetchType.EAGER))
-    )
-    List<Department> findAllWithMenu();
-
-    @Select("SELECT * FROM t_department td WHERE td.id = #{id};")
-    @Results(
-            @Result(column = "id", property = "menus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByDeptId", fetchType = FetchType.EAGER))
-    )
-    Department findById(int id);
+    })
+    Department findById(int deptId);
 
     @Select("SELECT * FROM t_department td, t_menu tm, tr_department_menu rdm WHERE rdm.fk_department_id = td.id AND rdm.fk_menu_id = tm.id AND rdm.fk_department_id = #{id};")
     List<Menu> getMenuListById(String id);
