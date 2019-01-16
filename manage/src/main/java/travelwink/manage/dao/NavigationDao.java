@@ -19,5 +19,9 @@ public interface NavigationDao {
     List<Navigation> findAll();
 
     @Select("SELECT * FROM t_navigation tn WHERE tn.status = 1 and tn.parent_id = #{parentId}")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "id", property = "subNavigation", one = @One(select = "travelwink.manage.dao.NavigationDao.findByParentId", fetchType = FetchType.LAZY))
+    })
     List<Navigation> findByParentId(int parentId);
 }
