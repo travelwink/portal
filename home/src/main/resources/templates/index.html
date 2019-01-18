@@ -17,6 +17,7 @@
     <script th:src="@{js/jquery/3.3.1/jquery-3.3.1.min.js}"></script>
     <script th:src="@{js/popper/1.14.6/popper.js}"></script>
     <script th:src="@{css/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
     <header class="site-header">
@@ -89,6 +90,131 @@
         </div>
     </header>
 
-    <script src="js/main.min.js"></script>
+    <div class="hero-widget-zone">
+        <div class="widget showcase" id="showcase">
+            <!-- Slides //-->
+            <ul>
+                <li class="colour-dark background-image" style="background-image: url('image/GetCroppedImage.jpg')">
+                    <div class="text-wrapper">
+                        <div class='big-text'>Join our team</div>
+                        <div class='small-text'>Find your next career opportunity here</div>
+                        <a id="p_lt_ctl01_heroplaceholder_p_lt_ctl00_Showcase_rptShowcases_ctl07_lfFullImageLink_hlLink" class="icon-link link-internal" href="/About-WinGD/Careers">Find out more</a>
+                    </div>
+                    <img src="image/GetCroppedImage.jpg" class="hero-bg-cover" alt="">
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="constrained page-title"></div>
+        <div class="main-widget-zone">
+            <div class="widget widget-container heading-container container-background-light">
+                <div class="constrained">
+                    <div>
+                        <div class="widget widget-column-container">
+                            <div class="constrained grid">
+                                <div class="row equal-heights">
+                                    <div class="column one-third">
+                                        <article class="widget widget-bg-gr widget-latest-content">
+                                            <div class="content-type">最新发布新闻</div>
+                                            <div class="widget-header">WinGD入选LNG海洋燃料协会会员</div>
+                                            <div class="meta">发布时间 2018/11/29</div>
+                                            <ul class="actions-list">
+                                                <li>
+                                                    <a class="icon-link link-internal" href="">查看详情</a>
+                                                </li>
+                                                <li>
+                                                    <a class="icon-link link-document pdf" href="" target="_blank">
+                                                        下载
+                                                        <span>0.12MB</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="icon-link link-internal" href="">查看所有新闻</a>
+                                                </li>
+                                            </ul>
+                                        </article>
+                                    </div>
+
+                                    <div class="column one-third">
+                                        <article class="widget widget-bg-gr widget-latest-content">
+                                            <div class="content-type">下载</div>
+                                            <div class="widget-header">WinGD低速发动机2018</div>
+                                            <div class="meta">更新时间 2018/09/10</div>
+                                            <ul class="actions-list">
+                                                <li>
+                                                    <a class="icon-link link-document pdf" href="">
+                                                        下载
+                                                        <span>32.45MB</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget widget-feature-signpost background-position-top" style="background-image: url('images/middle.jpg')">
+                <div class="constrained clearfix">
+                    <div class="text-wrapper">
+                        <div class="content-type">探索</div>
+                        <h2 class="widget-feature-header">系列引擎</h2>
+                        <p>X-DF双燃料发动机或柴油发动机。 在这里浏览我们的产品</p>
+                        <a href="" class="icon-link link-internal">查看详情</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget widget-container heading-container container-background-dark" data-auto-indent="">
+                <div class="constrained">
+                    <div>
+                        <div class="widget widget-column-container ">
+                            <div class="constrained grid">
+                                <div class="row equal-heights">
+                                    <div class="column one-third">
+                                        <div class="widget widget-bg widget-bg-gr widget-cta">
+                                            <div class="content-type">接洽</div>
+                                            <h2 class="widget-header widget-header--uppercase">联系我们</h2>
+                                            <p>我们非常重视您的反馈。 您可以到这里联系我们。</p>
+                                            <a class="icon-link link-internal" href="">联系我们</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="column one-third">
+                                        <div class="widget widget-bg widget-bg-gr widget-cta">
+                                            <div class="content-type">接洽</div>
+                                            <h2 class="widget-header widget-header--uppercase">联系我们</h2>
+                                            <p>我们非常重视您的反馈。 您可以到这里联系我们。</p>
+                                            <a class="icon-link link-internal" href="">联系我们</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="column one-third">
+                                        <div class="widget widget-bg widget-bg-gr widget-cta">
+                                            <div class="content-type">招聘</div>
+                                            <h2 class="widget-header widget-header--uppercase">加入我们的团队</h2>
+                                            <p>WinGS的职业生涯是一种有益且具有挑战性的体验。</p>
+                                            <a class="icon-link link-internal" href="">查看详情</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script th:src="@{js/main.min.js}"></script>
+    <script th:src="@{js/swiper/4.4.6/swiper.min.js}"></script>
+    <script th:src="@{js/showcase.js}"></script>
 </body>
 </html>
