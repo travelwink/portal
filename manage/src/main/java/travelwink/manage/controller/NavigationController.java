@@ -26,7 +26,7 @@ public class NavigationController {
     @GetMapping
     public String initPage(Navigation navigation, Model model) {
         List<Navigation> navigationList =  navigationService.findAll();
-        List<NavigationTree> navigationTrees = recursionTreeData(navigationList);
+        List<NavigationTree> navigationTrees = recursiveTreeData(navigationList);
         model.addAttribute("navigationTrees", navigationTrees);
         return "page/navigation";
     }
@@ -35,7 +35,7 @@ public class NavigationController {
      * Recursion tree data for fuelux tree constructor method
      * @return List<NavigationTree>
      */
-    public List<NavigationTree> recursionTreeData(List<Navigation> navigationList) {
+    public List<NavigationTree> recursiveTreeData(List<Navigation> navigationList) {
         if(null != navigationList || !navigationList.isEmpty()) {
             List<NavigationTree> navigationTrees = new ArrayList<NavigationTree>();
             for(Navigation navigation : navigationList) {
@@ -45,7 +45,7 @@ public class NavigationController {
                 if (null != subNavigationList && !subNavigationList.isEmpty()) {
                     navigationTree.setType(Constant.NAVIGATION_FOLDER_TYPE);
                     navigationTree.setAdditionalParameters(
-                            new AdditionalParameters(navigation.getId(),recursionTreeData(subNavigationList)));
+                            new AdditionalParameters(navigation.getId(), recursiveTreeData(subNavigationList)));
                 } else {
                     navigationTree.setType(Constant.NAVIGATION_ITEM_TYPE);
                 }

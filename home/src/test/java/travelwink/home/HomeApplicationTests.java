@@ -1,4 +1,4 @@
-package com.travelwink.portal.home;
+package travelwink.home;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

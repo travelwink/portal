@@ -1,8 +1,9 @@
-package com.travelwink.portal.home;
+package travelwink.home;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+//@SpringBootApplication(scanBasePackages="travelwink.manage")
 @SpringBootApplication
 public class HomeApplication {
 
