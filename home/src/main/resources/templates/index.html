@@ -23,87 +23,235 @@
     <header class="site-header">
         <div class="site-header-top constrained">
 
+            <button type="button" id="button-search" class="icon-link icon-link-header icon-link-search desktop-only">
+                <span>搜索</span>
+            </button>
+
             <a  href="#" class="header-logo-wrapper">
                 <img src="images/logo-wingd-top.svg" alt="WinGD" class="header-logo">
             </a>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="点此输入关键字" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
-            </form>
+
+            <a class="icon-link icon-link-header icon-link-portal desktop-only" href="/#" target="_blank" style="opacity: 0">Portal</a>
+
+
+            <button type="button" class="mobile-nav-toggle desktop-hide" id="mobile-nav-toggle">
+				<span class="hide-text">
+                    菜单
+				</span>
+                <span class="burger-icon">
+					<span class="burger-icon-line top"></span>
+					<span class="burger-icon-line middle"></span>
+					<span class="burger-icon-line bottom"></span>
+				</span>
+            </button>
         </div>
 
-        <div class="header-menu-wrapper header-scroll-panel tab-content active">
-            <div class="header-scroll-panel-inner">
-                <div class="primary-navigation">
-                    <div class="constrained">
-                        <div class="meganav-wrapper" >
-                            <div class="meganav-level level-1">
-                                <ul>
-                                    <li th:each="navigation: ${navigationList}"
-                                        th:class="${null == navigation.children || navigation.children.isEmpty()}? '': 'has-children'" th:data-level="${navigation.level}">
-                                        <a href="#" th:text="${navigation.name}">父导航菜单</a>
-                                        <div class="dropdown-wrapper">
-                                            <div th:class="|meganav-level level-${navigation.level+1}|">
-                                                <a href="" class="meganav-level-title" th:text="${navigation.name}">父导航菜单</a>
-                                                <ul th:unless="${null == navigation.children || navigation.children.isEmpty()}">
-                                                    <li th:each="child : ${navigation.children}"
-                                                        th:class="${null == child.children || child.children.isEmpty()? '': 'has-children'}">
-                                                        <a href="" th:text="${child.name}">2级导航菜单</a>
+
+        <div id="mobile-navigation-panel" class="mobile-navigation-panel">
 
 
-                                                        <div th:class="|meganav-level level-${child.level+1}|" th:unless="${null == child.children || child.children.isEmpty()}">
-                                                            <a href="" class="meganav-level-title" th:text="${child.name}">2级导航菜单</a>
-                                                            <ul>
-                                                                <li th:each="sub : ${child.children}"
-                                                                    th:class="${null == sub.children || sub.children.isEmpty()? '' : 'has-children'}">
-                                                                    <span th:text="${sub.name}">3级导航菜单</span>
+            <div class="tab-group desktop-hide">
+                <button type="button" class="tab active" data-href="#header-menu-wrapper">
+					<span class="icon-link icon-link-menu stack-icon-on-tablet">
+                        菜单
+					</span>
+                </button>
+                <button type="button" class="tab" data-href="#header-search-wrapper">
+					<span class="icon-link icon-link-search stack-icon-on-tablet">
+                        搜索
+					</span>
+                </button>
+                <a class="tab" href="#" target="_blank" style="opacity: 0">
+                    <span class="icon-link icon-link-header icon-link-portal stack-icon-on-tablet">
+                        登陆管理
+                    </span>
+                </a>
+            </div><!-- / .header-tabs -->
+
+            <div class="header-menu-wrapper header-scroll-panel tab-content active" id="header-menu-wrapper">
+                <div class="header-scroll-panel-inner">
+                    <div class="primary-navigation">
+                        <div class="constrained">
+                            <button id="mobile-nav-back" class="desktop-hide mobile-nav-back" type="button"></button>
+                            <div class="meganav-wrapper" >
+                                <div class="meganav-level level-1">
+                                    <ul>
+                                        <li th:each="navigation: ${navigationList}"
+                                            th:class="${null == navigation.children || navigation.children.isEmpty()}? '': 'has-children'" th:data-level="${navigation.level}">
+                                            <a href="#" th:text="${navigation.name}">父导航菜单</a>
+                                            <div class="dropdown-wrapper">
+                                                <div th:class="|meganav-level level-${navigation.level+1}|">
+                                                    <a href="" class="meganav-level-title" th:text="${navigation.name}">父导航菜单</a>
+                                                    <ul th:unless="${null == navigation.children || navigation.children.isEmpty()}">
+                                                        <li th:each="child : ${navigation.children}"
+                                                            th:class="${null == child.children || child.children.isEmpty()? '': 'has-children'}">
+                                                            <a href="" th:text="${child.name}">2级导航菜单</a>
 
 
-                                                                    <div th:class="|meganav-level level-${sub.level+1}|"  th:unless="${null == sub.children || sub.children.isEmpty()}">
-                                                                        <a href="" class="meganav-level-title" th:text="${sub.name}">3级导航菜单</a>
-                                                                        <ul>
-                                                                            <li th:each="leaf : ${sub.children}">
-                                                                                <a href="" th:text="${leaf.name}">4级导航菜单</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
+                                                            <div th:class="|meganav-level level-${child.level+1}|" th:unless="${null == child.children || child.children.isEmpty()}">
+                                                                <a href="" class="meganav-level-title" th:text="${child.name}">2级导航菜单</a>
+                                                                <ul>
+                                                                    <li th:each="sub : ${child.children}"
+                                                                        th:class="${null == sub.children || sub.children.isEmpty()? '' : 'has-children'}">
+                                                                        <span th:text="${sub.name}">3级导航菜单</span>
+
+
+                                                                        <div th:class="|meganav-level level-${sub.level+1}|"  th:unless="${null == sub.children || sub.children.isEmpty()}">
+                                                                            <a href="" class="meganav-level-title" th:text="${sub.name}">3级导航菜单</a>
+                                                                            <ul>
+                                                                                <li th:each="leaf : ${sub.children}">
+                                                                                    <a href="" th:text="${leaf.name}">4级导航菜单</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
 
 
 
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
 
 
 
-                                                    </li>
-                                                </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+                    </div><!-- / .primary-navigation -->
+                </div><!-- / .header-menu-wrapper-inner -->
+            </div><!-- / .header-menu-wrapper -->
+
+            <div class="header-search-wrapper header-scroll-panel tab-content" id="header-search-wrapper">
+                <div class="constrained constrained--small">
+                    <div id="" class="widget quick-search-container" data-indexes="Documents;News;Pages_crawler;PressReleases;Images;Events" data-search-page="/en/search/" data-autocomplete-after="3">
+
+                        <div class="input-wrapper search-input-wrapper search-wrapper js-search-wrapper">
+                            <input name="" class="text-input" type="search" />
+                            <input name="" type="button" class="button button-submit button-search" value="搜索" />
+                            <i class="search-cancel alt js-search-cancel">取消</i>
+                        </div>
+
+                        <div class="no-results">
+                            <p>没有找到对应的结果</p>
+                        </div>
+
+                        <div class="loading-indicator">搜索中...</div>
+
+                        <ul class="quick-search-results-listing">
+                        </ul>
+
+                        <a class="icon-link link-internal search-view-all">查看所有结果</a>
+
                     </div>
+
                 </div>
-            </div>
+            </div>	<!-- / .header-search-wrapper -->
+
         </div>
+
     </header>
 
     <div class="hero-widget-zone">
+
         <div class="widget showcase" id="showcase">
             <!-- Slides //-->
             <ul>
-                <li class="colour-dark background-image" style="background-image: url('image/GetCroppedImage.jpg')">
+                <!-- 1: full-size image slide -->
+                <li class="colour-dark background-image">
                     <div class="text-wrapper">
-                        <div class='big-text'>Join our team</div>
-                        <div class='small-text'>Find your next career opportunity here</div>
-                        <a id="p_lt_ctl01_heroplaceholder_p_lt_ctl00_Showcase_rptShowcases_ctl07_lfFullImageLink_hlLink" class="icon-link link-internal" href="/About-WinGD/Careers">Find out more</a>
+                        <div class='big-text'>加入我们团队</div>
+                        <div class='small-text'>在这里找到下一个职涯的机会</div>
+                        <a class="icon-link link-internal" href="/About-WinGD/Careers">查看更多详情</a>
                     </div>
-                    <img src="image/GetCroppedImage.jpg" class="hero-bg-cover" alt="">
+                    <img src="images/career.jpg" class="hero-bg-cover" alt="">
+                </li>
+
+                <!-- 2: full-size image slide -->
+                <li class="colour-light background-image">
+                    <div class="text-wrapper">
+                        <div class='big-text'>对船舶动力的智慧展望</div>
+                        <div class='small-text'>WinGD 双冲程发动机</div>
+                        <a class="icon-link link-internal">查看更多详情</a>
+                    </div>
+                    <img src="images/index.png" class="hero-bg-cover" alt="">
+                </li>
+
+                <!-- 3: small image slide -->
+                <li class="colour-light gradient-1 cutout">
+                    <div class="constrained">
+                        <div class="text-wrapper">
+                            <div class='big-text'>X-DF 引擎: 卓越的内置功能</div>
+                            <div class='small-text'>更好的操作灵活性，确保未来的合规性，降低成本提升效益</div>
+                            <a class="icon-link link-internal" href="/#">查看更多详情</a>
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="images/engine.png" alt="">
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 4: small image slide -->
+                <li class="colour-dark gradient-2 cutout">
+                    <div class="constrained">
+                        <div class="text-wrapper">
+                            <div class='big-text'>减排奖得主</div>
+                            <div class='small-text'>WinGD 在 Sulphur Cap 2020 会议期间荣获优胜奖项</div>
+                            <a class="icon-link link-internal" href="/#">查看更多详情</a>
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="images/winner.png" alt="">
+                        </div>
+                    </div>
                 </li>
             </ul>
+
+            <!-- Spinny thing -->
+            <div class="spiral-overlay-wrapper">
+                <div class="constrained">
+                    <div class="spiral-overlay" id="overlay"></div>
+                </div>
+            </div>
+
+            <!-- .text-wrapper divs from each slide are dynamically placed here with JS so they always appear on top of the overlay fade (transitioning opacity was causing new stacking context) -->
+            <div id="text-wrapper-container" class="text-wrapper-container">
+                <div class="constrained">
+                </div>
+            </div>
+
+            <div class="showcase-pager" id="showcase-pager">
+                <div class="constrained">
+                </div>
+            </div>
+
+            <!-- 'fade' overlay that matches background images/gradient to make it look like spinny thing is fading out -->
+            <div class="overlay-fade-wrapper">
+                <!-- 1: Fade for full-size image slide -->
+                <svg class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
+                    <image x="0" y="0" width="1300" height="520" preserveAspectRatio="xMinYMid slice" xlink:href="/GetCroppedImage.axd?imageGuid=d6e55082-ef3e-4c2d-80d6-8378bfafb302&x=255&x2=2715&y=633&y2=1617&width=2500" mask="url(#fade-mask)"></image>
+                </svg>
+                <!-- 1: Fade for full-size image slide -->
+                <svg class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
+                    <image x="0" y="0" width="1300" height="520" preserveAspectRatio="xMinYMid slice" xlink:href="/GetCroppedImage.axd?imageGuid=5f381b61-a715-46b9-b698-5012486e9015&x=120&x2=2560&y=0&y2=976&width=2500" mask="url(#fade-mask)"></image>
+                </svg>
+                <!-- 2, 3: Fade for gradient background -->
+                <svg class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
+                    <rect x="0" y="0" width="1300" height="520" fill="url(#gradient-1)" mask="url(#fade-mask)" />
+                </svg>
+                <!-- 2, 3: Fade for gradient background -->
+                <svg class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
+                    <rect x="0" y="0" width="1300" height="520" fill="url(#gradient-2)" mask="url(#fade-mask)" />
+                </svg>
+            </div>
+
         </div>
+
+    </div>
+
     </div>
 
     <div class="main">
@@ -137,37 +285,34 @@
                                         </article>
                                     </div>
 
-                                    <div class="column one-third">
-                                        <article class="widget widget-bg-gr widget-latest-content">
-                                            <div class="content-type">下载</div>
-                                            <div class="widget-header">WinGD低速发动机2018</div>
-                                            <div class="meta">更新时间 2018/09/10</div>
-                                            <ul class="actions-list">
-                                                <li>
-                                                    <a class="icon-link link-document pdf" href="">
-                                                        下载
-                                                        <span>32.45MB</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </article>
+                                    <div class='column one-third'>
+                                        <div class="widget widget-document-download widget-bg widget-bg-gr" style="min-width: 355px">
+                                            <div class="content-type">
+                                                下载
+                                            </div>
+                                            <h2 class="widget-header widget-header--wrap">WinGD 低速引擎 2018</h2>
+                                            <div class="meta">更新于 2018/09/10</div>
+                                            <p></p>
+                                            <a class="icon-link link-document pdf" href="/" target="_blank">下载
+                                                <span>32.45MB</span>
+                                            </a>
+                                        </div>
                                     </div>
 
-                                    <div class="column one-third">
-                                        <article class="widget widget-bg-gr widget-latest-content">
-                                            <div class="content-type">下载</div>
-                                            <div class="widget-header">WinGD低速发动机2018</div>
-                                            <div class="meta">更新时间 2018/09/10</div>
-                                            <ul class="actions-list">
-                                                <li>
-                                                    <a class="icon-link link-document pdf" href="">
-                                                        下载
-                                                        <span>32.45MB</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </article>
+                                    <div class='column one-third'>
+                                        <div class="widget widget-document-download widget-bg widget-bg-gr" style="min-width: 355px">
+
+
+                                            <div class="content-type">
+                                                加入我们的团队
+                                            </div>
+                                            <h2 class="widget-header widget-header--wrap">开启WinGD的职业生涯</h2>
+                                            <p>我们正在招聘。可以在这里找到你的下一个职业生涯。</p>
+                                            <a class="icon-link link-internal" href="/">查看详情 </a>
+
+                                        </div>
                                     </div>
+
 
                                 </div>
                             </div>
@@ -264,7 +409,7 @@
     </footer>
 
     <script th:src="@{js/main.min.js}"></script>
-    <script th:src="@{js/swiper/4.4.6/swiper.min.js}"></script>
+    <script th:src="@{js/swiper/4.4.6/js/swiper.min.js}"></script>
     <script th:src="@{js/showcase.js}"></script>
 </body>
 </html>
