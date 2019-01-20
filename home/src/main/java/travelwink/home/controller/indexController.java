@@ -5,8 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import travelwink.home.entity.Content;
+import travelwink.home.entity.FooterNavigation;
 import travelwink.home.entity.Navigation;
+import travelwink.home.entity.Slide;
+import travelwink.home.service.ContentService;
+import travelwink.home.service.FooterNavigationService;
 import travelwink.home.service.NavigationService;
+import travelwink.home.service.SlideService;
 
 import java.util.List;
 
@@ -18,10 +24,27 @@ public class indexController {
     @Autowired
     NavigationService navigationService;
 
+    @Autowired
+    ContentService contentService;
+
+    @Autowired
+    SlideService slideService;
+
+    @Autowired
+    FooterNavigationService footerNavigationService;
+
     @RequestMapping({"/index","/"})
     public String init(Model model){
+        Content lastRelease = contentService.findLastRelease();
+        List<Content> contentsAtHome = contentService.findAtHome();
         List<Navigation> navigationList = navigationService.findAll();
+        List<Slide> slides = slideService.findAll();
+        List<FooterNavigation> footerNavigationList = footerNavigationService.findAll();
         model.addAttribute("navigationList", navigationList);
+        model.addAttribute("lastRelease", lastRelease);
+        model.addAttribute("contentsAtHome", contentsAtHome);
+        model.addAttribute("slides", slides);
+        model.addAttribute("footerNavigationList", footerNavigationList);
         return "index";
     }
 }

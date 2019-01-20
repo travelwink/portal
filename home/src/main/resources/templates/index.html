@@ -68,62 +68,7 @@
                 </a>
             </div><!-- / .header-tabs -->
 
-            <div class="header-menu-wrapper header-scroll-panel tab-content active" id="header-menu-wrapper">
-                <div class="header-scroll-panel-inner">
-                    <div class="primary-navigation">
-                        <div class="constrained">
-                            <button id="mobile-nav-back" class="desktop-hide mobile-nav-back" type="button"></button>
-                            <div class="meganav-wrapper" >
-                                <div class="meganav-level level-1">
-                                    <ul>
-                                        <li th:each="navigation: ${navigationList}"
-                                            th:class="${null == navigation.children || navigation.children.isEmpty()}? '': 'has-children'" th:data-level="${navigation.level}">
-                                            <a href="#" th:text="${navigation.name}">父导航菜单</a>
-                                            <div class="dropdown-wrapper">
-                                                <div th:class="|meganav-level level-${navigation.level+1}|">
-                                                    <a href="" class="meganav-level-title" th:text="${navigation.name}">父导航菜单</a>
-                                                    <ul th:unless="${null == navigation.children || navigation.children.isEmpty()}">
-                                                        <li th:each="child : ${navigation.children}"
-                                                            th:class="${null == child.children || child.children.isEmpty()? '': 'has-children'}">
-                                                            <a href="" th:text="${child.name}">2级导航菜单</a>
-
-
-                                                            <div th:class="|meganav-level level-${child.level+1}|" th:unless="${null == child.children || child.children.isEmpty()}">
-                                                                <a href="" class="meganav-level-title" th:text="${child.name}">2级导航菜单</a>
-                                                                <ul>
-                                                                    <li th:each="sub : ${child.children}"
-                                                                        th:class="${null == sub.children || sub.children.isEmpty()? '' : 'has-children'}">
-                                                                        <span th:text="${sub.name}">3级导航菜单</span>
-
-
-                                                                        <div th:class="|meganav-level level-${sub.level+1}|"  th:unless="${null == sub.children || sub.children.isEmpty()}">
-                                                                            <a href="" class="meganav-level-title" th:text="${sub.name}">3级导航菜单</a>
-                                                                            <ul>
-                                                                                <li th:each="leaf : ${sub.children}">
-                                                                                    <a href="" th:text="${leaf.name}">4级导航菜单</a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-
-
-
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-
-
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- / .primary-navigation -->
-                </div><!-- / .header-menu-wrapper-inner -->
+            <div class="header-menu-wrapper header-scroll-panel tab-content active" id="header-menu-wrapper" th:replace="common/header ::header">
             </div><!-- / .header-menu-wrapper -->
 
             <div class="header-search-wrapper header-scroll-panel tab-content" id="header-search-wrapper">
@@ -157,57 +102,70 @@
     </header>
 
     <div class="hero-widget-zone">
+        <!-- Generic SVG definitions that can be used by multiple slides -->
+        <svg width="0" height="0" class="svg-defs">
+            <defs>
+                <clipPath id="clip-path">
+                    <path d="M346,520s-98.4-55.48-209.11-203.92C31.8,175.18,0,1,0,1S506.84.7,507,1c99.33,188.25,306.9,180.23,302,180v.08s202.9,8.24,302-180c.16-.3,507,0,507,0s-31.8,174.14-136.89,315C1370.41,464.53,1272,520,1272,520Z" />
+                </clipPath>
 
+                <mask id="fade-mask">
+                    <linearGradient
+                            id="fade-mask-gradient">
+                        <stop offset="0" stop-color="white" />
+                        <stop offset="0.2" stop-color="white" />
+                        <stop offset="0.5" stop-color="black" />
+                        <stop offset="1" stop-color="black" />
+                    </linearGradient>
+                    <rect x="0" y="0" width="1300" height="520" fill="url(#fade-mask-gradient)" />
+                </mask>
+
+                <linearGradient
+                        id="gradient-2">
+                    <stop offset="0" stop-color="#00859B" />
+                    <stop offset="1" stop-color="#002E5D" />
+                </linearGradient>
+
+                <linearGradient
+                        id="gradient-1">
+                    <stop offset="0" stop-color="#ffffff" />
+                    <stop offset="1" stop-color="#8BBAD8" />
+                </linearGradient>
+            </defs>
+        </svg>
         <div class="widget showcase" id="showcase">
             <!-- Slides //-->
             <ul>
-                <!-- 1: full-size image slide -->
-                <li class="colour-dark background-image">
-                    <div class="text-wrapper">
-                        <div class='big-text'>加入我们团队</div>
-                        <div class='small-text'>在这里找到下一个职涯的机会</div>
-                        <a class="icon-link link-internal" href="/About-WinGD/Careers">查看更多详情</a>
+                <div th:each="slide : ${slides}" th:object="${slide}" th:remove="tag">
+                    <div th:if="*{imgSize == 1}" th:remove="tag">
+                        <!-- full-size image slide -->
+                        <li th:class="*{theme == 1}? 'colour-dark background-image':'colour-light background-image'"
+                            th:style="|background-image: url(*{imgMobileSrc})|">
+                            <div class="text-wrapper">
+                                <div class='big-text' th:text="*{title}"></div>
+                                <div class='small-text' th:text="*{content}"></div>
+                                <a class="icon-link link-internal" href="">查看更多详情</a>
+                            </div>
+                            <img th:src="*{imgSrc}" class="hero-bg-cover" alt="">
+                        </li>
                     </div>
-                    <img src="images/career.jpg" class="hero-bg-cover" alt="">
-                </li>
 
-                <!-- 2: full-size image slide -->
-                <li class="colour-light background-image">
-                    <div class="text-wrapper">
-                        <div class='big-text'>对船舶动力的智慧展望</div>
-                        <div class='small-text'>WinGD 双冲程发动机</div>
-                        <a class="icon-link link-internal">查看更多详情</a>
+                    <div th:if="*{imgSize != 1}" th:remove="tag">
+                        <!-- small image slide -->
+                        <li th:class="*{theme == 1}? 'colour-dark gradient-2 cutout':'colour-light gradient-1 cutout'">
+                            <div class="constrained">
+                                <div class="text-wrapper">
+                                    <div class='big-text' th:text="*{title}"></div>
+                                    <div class='small-text' th:text="*{content}"></div>
+                                    <a class="icon-link link-internal" href="/#">查看更多详情</a>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img th:src="*{imgSrc}" alt="">
+                                </div>
+                            </div>
+                        </li>
                     </div>
-                    <img src="images/index.png" class="hero-bg-cover" alt="">
-                </li>
-
-                <!-- 3: small image slide -->
-                <li class="colour-light gradient-1 cutout">
-                    <div class="constrained">
-                        <div class="text-wrapper">
-                            <div class='big-text'>X-DF 引擎: 卓越的内置功能</div>
-                            <div class='small-text'>更好的操作灵活性，确保未来的合规性，降低成本提升效益</div>
-                            <a class="icon-link link-internal" href="/#">查看更多详情</a>
-                        </div>
-                        <div class="image-wrapper">
-                            <img src="images/engine.png" alt="">
-                        </div>
-                    </div>
-                </li>
-
-                <!-- 4: small image slide -->
-                <li class="colour-dark gradient-2 cutout">
-                    <div class="constrained">
-                        <div class="text-wrapper">
-                            <div class='big-text'>减排奖得主</div>
-                            <div class='small-text'>WinGD 在 Sulphur Cap 2020 会议期间荣获优胜奖项</div>
-                            <a class="icon-link link-internal" href="/#">查看更多详情</a>
-                        </div>
-                        <div class="image-wrapper">
-                            <img src="images/winner.png" alt="">
-                        </div>
-                    </div>
-                </li>
+                </div>
             </ul>
 
             <!-- Spinny thing -->
@@ -230,22 +188,25 @@
 
             <!-- 'fade' overlay that matches background images/gradient to make it look like spinny thing is fading out -->
             <div class="overlay-fade-wrapper">
-                <!-- 1: Fade for full-size image slide -->
-                <svg class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
-                    <image x="0" y="0" width="1300" height="520" preserveAspectRatio="xMinYMid slice" xlink:href="/GetCroppedImage.axd?imageGuid=d6e55082-ef3e-4c2d-80d6-8378bfafb302&x=255&x2=2715&y=633&y2=1617&width=2500" mask="url(#fade-mask)"></image>
-                </svg>
-                <!-- 1: Fade for full-size image slide -->
-                <svg class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
-                    <image x="0" y="0" width="1300" height="520" preserveAspectRatio="xMinYMid slice" xlink:href="/GetCroppedImage.axd?imageGuid=5f381b61-a715-46b9-b698-5012486e9015&x=120&x2=2560&y=0&y2=976&width=2500" mask="url(#fade-mask)"></image>
-                </svg>
-                <!-- 2, 3: Fade for gradient background -->
-                <svg class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
-                    <rect x="0" y="0" width="1300" height="520" fill="url(#gradient-1)" mask="url(#fade-mask)" />
-                </svg>
-                <!-- 2, 3: Fade for gradient background -->
-                <svg class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
-                    <rect x="0" y="0" width="1300" height="520" fill="url(#gradient-2)" mask="url(#fade-mask)" />
-                </svg>
+                <div th:each="slide:${slides}" th:remove="tag">
+                    <div th:if="${slide.imgSize == 1}" th:remove="tag">
+                        <!-- Fade for full-size image slide -->
+                        <svg class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
+                            <image x="0" y="0" width="1300" height="520" preserveAspectRatio="xMinYMid slice" th:xlink:href="${slide.imgSrc}" mask="url(#fade-mask)"></image>
+                        </svg>
+                    </div>
+                    <div th:if="${slide.imgSize != 1}" th:remove="tag">
+                        <!-- Fade for gradient background -->
+                        <svg  class="overlay-fade hero-bg-cover" width="1300" height="520" viewbox="0 0 1300 520">
+                            <div th:if="${slide.theme == 1}" th:remove="tag">
+                                <rect x="0" y="0" width="1300" height="520" fill="url(#gradient-1)" mask="url(#fade-mask)" />
+                            </div>
+                            <div th:if="${slide.theme == 2}" th:remove="tag">
+                                <rect x="0" y="0" width="1300" height="520" fill="url(#gradient-2)" mask="url(#fade-mask)" />
+                            </div>
+                        </svg>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -264,56 +225,40 @@
                             <div class="constrained grid">
                                 <div class="row equal-heights">
                                     <div class="column one-third">
-                                        <article class="widget widget-bg-gr widget-latest-content">
-                                            <div class="content-type">最新发布新闻</div>
-                                            <div class="widget-header">WinGD入选LNG海洋燃料协会会员</div>
-                                            <div class="meta">发布时间 2018/11/29</div>
+                                        <article class="widget widget-bg-gr widget-latest-content" th:object="${lastRelease}">
+                                            <div class="content-type">最新发布</div>
+                                            <div class="widget-header" th:text="*{title}"></div>
+                                            <div class="meta" th:text="|发布时间: *{#dates.format(createDate, 'yyyy/MM/ dd')}|"></div>
                                             <ul class="actions-list">
                                                 <li>
-                                                    <a class="icon-link link-internal" href="">查看详情</a>
+                                                    <a class="icon-link link-internal" th:href="*{pageUrl}==null?'':*{pageUrl}">查看详情</a>
                                                 </li>
                                                 <li>
-                                                    <a class="icon-link link-document pdf" href="" target="_blank">
+                                                    <a class="icon-link link-document pdf" th:href="*{fileUrl}==null?'':*{fileUrl}" target="_blank">
                                                         下载
-                                                        <span>0.12MB</span>
+                                                        <!--<span>0.12MB</span>-->
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="icon-link link-internal" href="">查看所有新闻</a>
+                                                    <a class="icon-link link-internal" href="">查看所有已发布的内容</a>
                                                 </li>
                                             </ul>
                                         </article>
                                     </div>
-
-                                    <div class='column one-third'>
-                                        <div class="widget widget-document-download widget-bg widget-bg-gr" style="min-width: 355px">
-                                            <div class="content-type">
-                                                下载
+                                    <div th:each="content1:${contentsAtHome}" th:object="${content1}" th:remove="tag">
+                                        <div th:if="*{homeLocation ==1}" class='column one-third'>
+                                            <div class="widget widget-document-download widget-bg widget-bg-gr" style="min-width: 355px">
+                                                <div class="content-type" th:text="*{contentType.name}"></div>
+                                                <h2 class="widget-header widget-header--wrap" th:text="*{title}"></h2>
+                                                <div class="meta" th:if="*{createDate !=null}" th:text="|更新于: *{#dates.format(createDate, 'yyyy/MM/ dd')}|"></div>
+                                                <p th:if="*{description!=null}" th:text="*{description}"></p>
+                                                <a th:if="*{pageUrl!=null}" class="icon-link link-internal" th:href="*{pageUrl}">查看详情</a>
+                                                <a th:if="*{fileUrl!=null}" class="icon-link link-document pdf" th:href="*{fileUrl}" target="_blank">下载
+                                                    <!--<span>32.45MB</span>-->
+                                                </a>
                                             </div>
-                                            <h2 class="widget-header widget-header--wrap">WinGD 低速引擎 2018</h2>
-                                            <div class="meta">更新于 2018/09/10</div>
-                                            <p></p>
-                                            <a class="icon-link link-document pdf" href="/" target="_blank">下载
-                                                <span>32.45MB</span>
-                                            </a>
                                         </div>
                                     </div>
-
-                                    <div class='column one-third'>
-                                        <div class="widget widget-document-download widget-bg widget-bg-gr" style="min-width: 355px">
-
-
-                                            <div class="content-type">
-                                                加入我们的团队
-                                            </div>
-                                            <h2 class="widget-header widget-header--wrap">开启WinGD的职业生涯</h2>
-                                            <p>我们正在招聘。可以在这里找到你的下一个职业生涯。</p>
-                                            <a class="icon-link link-internal" href="/">查看详情 </a>
-
-                                        </div>
-                                    </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -321,7 +266,7 @@
                 </div>
             </div>
 
-            <div class="widget widget-feature-signpost background-position-top" style="background-image: url('images/middle.jpg')">
+            <div class="widget widget-feature-signpost img_82cd2b6d-8fd0-4d0b-a324-0b43aeba0277 background-position-top" style="background-image: url('images/middle.jpg')">
                 <div class="constrained clearfix">
                     <div class="text-wrapper">
                         <div class="content-type">探索</div>
@@ -332,39 +277,26 @@
                 </div>
             </div>
 
+            <style>
+                @media(max-width: 667px) {.img_82cd2b6d-8fd0-4d0b-a324-0b43aeba0277{background-image: url('images/middle_small.jpg') !important;}}
+            </style>
+
             <div class="widget widget-container heading-container container-background-dark" data-auto-indent="">
                 <div class="constrained">
                     <div>
                         <div class="widget widget-column-container ">
                             <div class="constrained grid">
                                 <div class="row equal-heights">
-                                    <div class="column one-third">
-                                        <div class="widget widget-bg widget-bg-gr widget-cta">
-                                            <div class="content-type">接洽</div>
-                                            <h2 class="widget-header widget-header--uppercase">联系我们</h2>
-                                            <p>我们非常重视您的反馈。 您可以到这里联系我们。</p>
-                                            <a class="icon-link link-internal" href="">联系我们</a>
+                                    <div th:each="content2:${contentsAtHome}" th:object="${content2}" th:remove="tag">
+                                        <div th:if="*{homeLocation ==2}" class="column one-third">
+                                            <div class="widget widget-bg widget-bg-gr widget-cta">
+                                                <div class="content-type" th:text="*{contentType.name}"></div>
+                                                <h2 class="widget-header widget-header--uppercase" th:text="*{title}">联系我们</h2>
+                                                <p th:if="*{description!=null}" th:text="*{description}"></p>
+                                                <a th:if="*{pageUrl!=null}" class="icon-link link-internal" th:href="*{pageUrl}">查看详情</a>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="column one-third">
-                                        <div class="widget widget-bg widget-bg-gr widget-cta">
-                                            <div class="content-type">接洽</div>
-                                            <h2 class="widget-header widget-header--uppercase">联系我们</h2>
-                                            <p>我们非常重视您的反馈。 您可以到这里联系我们。</p>
-                                            <a class="icon-link link-internal" href="">联系我们</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="column one-third">
-                                        <div class="widget widget-bg widget-bg-gr widget-cta">
-                                            <div class="content-type">招聘</div>
-                                            <h2 class="widget-header widget-header--uppercase">加入我们的团队</h2>
-                                            <p>WinGS的职业生涯是一种有益且具有挑战性的体验。</p>
-                                            <a class="icon-link link-internal" href="">查看详情</a>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -375,37 +307,7 @@
         </div>
     </div>
 
-    <footer class="site-footer">
-        <div class="site-footer-content">
-            <div class="constrained">
-                <div class="widget-zone">
-                    <div class="widget social-media-icons">
-                        <a class="icon-social icon-linkedin" href="" target="_blank"></a>
-                    </div>
-                </div>
-                <div class="contact-details">
-                    <div>电子邮件: <strong><a href="mailto:travelwink@msn.com">travelwink@msn.com</a></strong></div>
-                    <div>联系电话: <strong>+41 52 264 8844</strong></div>
-                </div>
-                <nav class="footer-navigation">
-                    <ul>
-                        <li>
-                            <a href="">活动</a>
-                        </li>
-                        <li>
-                            <a href="">新闻</a>
-                        </li>
-                        <li>
-                            <a href="">条款与条件</a>
-                        </li>
-                        <li>
-                            <a href="">隐私政策</a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="copyright">&copy; 2019 Winterthur Gas &amp; Diesel Ltd.</div>
-            </div>
-        </div>
+    <footer class="site-footer" th:replace="common/footer :: footer">
     </footer>
 
     <script th:src="@{js/main.min.js}"></script>

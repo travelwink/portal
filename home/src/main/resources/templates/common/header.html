@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <div class="header-menu-wrapper header-scroll-panel tab-content active" id="header-menu-wrapper" th:fragment="header">
+        <div class="header-scroll-panel-inner">
+            <div class="primary-navigation">
+                <div class="constrained">
+                    <button id="mobile-nav-back" class="desktop-hide mobile-nav-back" type="button"></button>
+                    <div class="meganav-wrapper" >
+                        <div class="meganav-level level-1">
+                            <ul>
+                                <li th:each="navigation: ${navigationList}"
+                                    th:class="${null == navigation.children || navigation.children.isEmpty()}? '': 'has-children'" th:data-level="${navigation.level}">
+                                    <a href="#" th:text="${navigation.name}">父导航菜单</a>
+                                    <div class="dropdown-wrapper">
+                                        <div th:class="|meganav-level level-${navigation.level+1}|">
+                                            <a href="" class="meganav-level-title" th:text="${navigation.name}">父导航菜单</a>
+                                            <ul th:unless="${null == navigation.children || navigation.children.isEmpty()}">
+                                                <li th:each="child : ${navigation.children}"
+                                                    th:class="${null == child.children || child.children.isEmpty()? '': 'has-children'}">
+                                                    <a href="" th:text="${child.name}">2级导航菜单</a>
+
+                                                    <div th:class="|meganav-level level-${child.level+1}|" th:unless="${null == child.children || child.children.isEmpty()}">
+                                                        <a href="" class="meganav-level-title" th:text="${child.name}">2级导航菜单</a>
+                                                        <ul>
+                                                            <li th:each="sub : ${child.children}"
+                                                                th:class="${null == sub.children || sub.children.isEmpty()? '' : 'has-children'}">
+                                                                <span th:text="${sub.name}">3级导航菜单</span>
+
+                                                                <div th:class="|meganav-level level-${sub.level+1}|"  th:unless="${null == sub.children || sub.children.isEmpty()}">
+                                                                    <a href="" class="meganav-level-title" th:text="${sub.name}">3级导航菜单</a>
+                                                                    <ul>
+                                                                        <li th:each="leaf : ${sub.children}">
+                                                                            <a href="" th:text="${leaf.name}">4级导航菜单</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- / .primary-navigation -->
+        </div><!-- / .header-menu-wrapper-inner -->
+    </div><!-- / .header-menu-wrapper -->
+</html>

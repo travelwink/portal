@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <footer class="site-footer" th:fragment="footer">
+        <div class="site-footer-content">
+            <div class="constrained">
+                <div class="widget-zone">
+                    <div class="widget social-media-icons">
+                        <a class="icon-social icon-linkedin" href="" target="_blank"></a>
+                    </div>
+                </div>
+                <div class="contact-details">
+                    <div>电子邮件: <strong><a href="mailto:travelwink@msn.com">travelwink@msn.com</a></strong></div>
+                    <div>联系电话: <strong>+86 21 1264 8844</strong></div>
+                </div>
+                <nav class="footer-navigation" >
+                    <ul>
+                        <li th:each="footerNavigation : ${footerNavigationList}" th:object="${footerNavigation}">
+                            <a href="" th:text="*{name}"></a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright">&copy; 2019 Winterthur Gas &amp; Diesel Ltd.</div>
+            </div>
+        </div>
+    </footer>
+</html>
