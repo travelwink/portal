@@ -10,5 +10,6 @@ public class Slide extends BaseEntity{
     private int theme;
     private String imgSrc;
     private String imgMobileSrc;
+    private int imgSize;
     private String url;
 }

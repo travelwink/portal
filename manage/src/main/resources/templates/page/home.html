@@ -15,46 +15,24 @@
         <!-- page heading start-->
         <div class="page-heading">
             <h3>
-                主页配置
+                首页配置
             </h3>
             <ul class="breadcrumb">
                 <li> 主页管理 </li>
-                <li class="active"> 主页配置 </li>
+                <li class="active"> 首页配置 </li>
             </ul>
         </div>
         <!-- page heading end-->
 
         <!--body wrapper start-->
         <div class="wrapper">
-            <div class="row">
+            <div class="row state-overview">
                 <div class="col-md-12">
-                    <div class="panel">
-                        <div class="panel-heading">
-                            导航菜单
-                            <!--<span class="tools pull-right">-->
-                            <!--<a class="fa fa-chevron-down" href="javascript:;"></a>-->
-                            <!--<a class="fa fa-times" href="javascript:;"></a>-->
-                            <!--</span>-->
-                        </div>
-                        <div class="panel-body">
-                            <div id="FlatTree" class="tree tree-plus-minus">
-                                <div class = "tree-folder" style="display:none;">
-                                    <div class="tree-folder-header">
-                                        <i class="fa fa-folder"></i>
-                                        <div class="tree-folder-name"></div>
-                                    </div>
-                                    <div class="tree-folder-content"></div>
-                                    <div class="tree-loader" style="display:none"></div>
-                                </div>
-
-                                <div class="tree-item" style="display:none;">
-                                    <i class="tree-dot"></i>
-                                    <div class="tree-item-name"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    <button class="panel deep-purple-box" style="width: 100%" th:onclick="|location='@{/slide}'|">
+                        <h2>
+                            轮播图管理
+                        </h2>
+                    </button>
                 </div>
             </div>
         </div>

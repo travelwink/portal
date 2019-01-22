@@ -46,6 +46,8 @@ spring:
     cache: false
     encoding: UTF-8
     suffix: .html
+  resources:
+    static-locations: file:C:/static/
 #  security:
 #    user:
 #      name: user

@@ -59,7 +59,6 @@ public class UserController {
             user.setCreateDate(new Date());
             user.setStatus(Constant.VALID);
             int result = userService.add(user);
-            log.info("--------------> # 新增用户 #" + result + "个");
             return "redirect:/user";
         }
     }
