@@ -1,7 +1,6 @@
 package travelwink.manage.domain.entity;
 
 import lombok.Data;
-import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -19,6 +18,7 @@ public class Department extends BaseEntity {
     private int level;
     private int seq;
     private List<Menu> menus;
+    private List<Navigation> navigationPermission;
 
     @Length(max = 150, message = "备注长度不能超过150字符")
     private String remark;

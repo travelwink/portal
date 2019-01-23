@@ -13,5 +13,5 @@ public class Menu extends BaseEntity{
     private String icon;
     private String href;
     private int level;
-    private List<Menu> subMenu;
+    private List<Menu> subMenus;
 }

@@ -12,6 +12,9 @@ import java.util.List;
 public interface NavigationDao {
 
     @Select("SELECT * FROM t_navigation tn WHERE tn.status = 1 AND tn.level = 1")
+    List<Navigation> findRoot();
+
+    @Select("SELECT * FROM t_navigation tn WHERE tn.status = 1 AND tn.level = 1")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "id", property = "subNavigation", javaType = List.class,
@@ -26,4 +29,6 @@ public interface NavigationDao {
                     many = @Many(select = "travelwink.manage.dao.NavigationDao.findByParentId", fetchType = FetchType.LAZY))
     })
     List<Navigation> findByParentId(int parentId);
+
+
 }

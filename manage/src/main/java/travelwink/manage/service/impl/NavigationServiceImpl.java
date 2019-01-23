@@ -15,6 +15,11 @@ public class NavigationServiceImpl implements NavigationService {
     NavigationDao navigationDao;
 
     @Override
+    public List<Navigation> findRoot() {
+        return navigationDao.findRoot();
+    }
+
+    @Override
     public List<Navigation> findAll() {
         return navigationDao.findAll();
     }
