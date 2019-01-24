@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <div class="header-section" th:fragment="header">
+<html xmlns:th="http://www.thymeleaf.org" >
+    <div class="header-section" th:fragment="header" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
         <!--toggle button start-->
         <a class="toggle-btn"><i class="fa fa-bars"></i></a>
         <!--toggle button end-->
@@ -12,6 +12,7 @@
                     <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                         <img src="images/photos/user-avatar.png" alt="" />
                             <span th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username !=null}" th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></span>
+                            <span sec:authentication="principal.username"></span>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-usermenu pull-right">

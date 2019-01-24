@@ -15,11 +15,19 @@
         <form class="form-signin" th:action="@{/login}" method="post">
             <div class="form-signin-heading text-center">
                 <h1 class="sign-title">登 陆</h1>
-                <img src="../static/images/login-logo.png" alt=""/>
+                <img th:src="@{images/login-logo.png}" alt=""/>
+
             </div>
             <div class="login-wrap">
-                <input id="userName" name="userName" type="text" class="form-control" placeholder="工号" required>
+                <input id="name" name="name" type="text" class="form-control" placeholder="工号" required>
                 <input id="password" name="password" type="password" class="form-control" placeholder="密码" required>
+
+                <div th:if="${param.error}" class="alert alert-block alert-danger fade in">
+                    <button class="close close-sm" type="button" data-dismiss="alert">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <span th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+                </div>
 
                 <button id="signIn" class="btn btn-lg btn-login btn-block" type="submit">
                     <i class="fa fa-check"></i>
