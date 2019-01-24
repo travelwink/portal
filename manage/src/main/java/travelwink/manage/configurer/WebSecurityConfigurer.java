@@ -23,11 +23,11 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .formLogin()
-//                    .loginPage("/login.html")
-//                    .usernameParameter("userName")
-//                    .passwordParameter("password")
-//                    .defaultSuccessUrl("/")
-//                    .loginProcessingUrl("/manage/login")
+                    .loginPage("/login")
+                    .usernameParameter("userName")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/")
+//                    .loginProcessingUrl("/manage/user/login")
                     .permitAll()
                 .and()
                     .logout().logoutSuccessUrl("/")
@@ -39,6 +39,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                                 "/images/**",
                                 "/js/**"
                         )
-                        .permitAll().anyRequest().authenticated();
+                        .permitAll()
+                .anyRequest().authenticated();
+
+        httpSecurity.csrf().disable();
     }
 }

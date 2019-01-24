@@ -46,8 +46,10 @@ public class DepartmentController {
     public String initPage(Department department, Model model){
         List<Menu> menus = menuService.findAll();
         List<Navigation> navigationRoots = navigationService.findRoot();
+        List<Department> departments = departmentService.findAll();
         model.addAttribute("menus",menus);
         model.addAttribute("navigationRoots", navigationRoots);
+        model.addAttribute("departments", departments);
         return "manage/department";
     }
 

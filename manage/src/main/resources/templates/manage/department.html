@@ -51,17 +51,23 @@
                                     <tr>
                                         <th hidden>id</th>
                                         <th>部门名称</th>
-                                        <th >菜单权限</th>
+                                        <th>管理菜单权限</th>
+                                        <th>导航菜单权限</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="department: ${departments}">
-                                        <td th:text="${department.id}" hidden></td>
-                                        <td th:text="${department.name}"></td>
-                                        <td th:if="${department.menus} != null">
-                                            <span th:each="menu: ${department.menus}">
-                                                <span th:text="${menu.name}">, </span>
+                                    <tr th:each="department: ${departments}" th:object="${department}">
+                                        <td th:text="*{id}" hidden></td>
+                                        <td th:text="*{name}"></td>
+                                        <td th:if="*{menus} != null">
+                                            <span th:each="menu: *{menus}" th:object="${menu}">
+                                                <span th:text="*{name}"></span>
+                                            </span>
+                                        </td>
+                                        <td th:if="*{navigationPermissions} != null">
+                                            <span th:each="navigationPermission: *{navigationPermissions}" th:object="${navigationPermission}">
+                                                <span th:text="*{name}"></span>
                                             </span>
                                         </td>
                                         <td>
@@ -102,8 +108,8 @@
                 <form class="form-horizontal" role="form" th:action="@{/department/add}" th:object="${department}" method="post">
                     <div class="form-group">
                         <label for="name" class="col-lg-2 col-sm-2 control-label">部门名称</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control"th:field="*{name}">
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control valid" th:field="*{name}" required>
                         </div>
                     </div>
 
@@ -118,7 +124,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2">菜单权限1</label>
+                        <label class="control-label col-md-2">菜单权限</label>
 
                         <div class="col-md-10">
                             <select multiple="multiple" class="multi-select" id="menuSelect"

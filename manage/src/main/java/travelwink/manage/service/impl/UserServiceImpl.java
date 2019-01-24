@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loadUserByUsername(String name) {
-        log.info("登陆用户名为：" + name);
         return userDao.loadUserByUsername(name);
     }
 

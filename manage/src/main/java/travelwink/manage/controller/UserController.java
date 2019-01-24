@@ -45,7 +45,6 @@ public class UserController {
         model.addAttribute("users", users);
         List<Department> departments = departmentService.findAllForSelect();
         model.addAttribute("departments", departments);
-        log.info("--------------> # 跳转用户管理页面 #");
         return "manage/user";
     }
 
