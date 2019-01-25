@@ -60,12 +60,12 @@
                                     <tr th:each="department: ${departments}" th:object="${department}">
                                         <td th:text="*{id}" hidden></td>
                                         <td th:text="*{name}"></td>
-                                        <td th:if="*{menus} != null">
+                                        <td th:if="*{menus!= null} ">
                                             <span th:each="menu: *{menus}" th:object="${menu}">
-                                                <span th:text="*{name}"></span>
+                                                <span th:if="*{level>1}" th:text="*{name}"></span>
                                             </span>
                                         </td>
-                                        <td th:if="*{navigationPermissions} != null">
+                                        <td th:if="*{navigationPermissions!= null}">
                                             <span th:each="navigationPermission: *{navigationPermissions}" th:object="${navigationPermission}">
                                                 <span th:text="*{name}"></span>
                                             </span>
