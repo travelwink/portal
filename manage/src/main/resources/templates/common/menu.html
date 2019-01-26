@@ -15,13 +15,13 @@
                         <span>首页</span>
                     </a>
                 </li>
-                <li th:each=" menu: *{menus}" class="menu-list" th:object="${menu}">
+                <li th:each=" menu: *{menus}" th:class="${breadcrumb.name == menu.name}?'menu-list nav-active':'menu-list'" th:object="${menu}">
                     <a>
                         <i th:class="*{icon}"></i> <span th:text="*{name}"></span>
                     </a>
                     <ul th:if="*{null != subMenus}" class="sub-menu-list">
-                        <li th:each="subMenu : *{subMenus}" th:object="${subMenu}">
-                            <a th:href="@{*{href}}" th:text="*{name}"></a>
+                        <li th:each="subMenu : *{subMenus}" th:object="${subMenu}" th:class="${breadcrumb.subMenus[0].name == subMenu.name}? 'active':''">
+                            <a th:href="@{*{url}}" th:text="*{name}"></a>
                         </li>
                     </ul>
                 </li>

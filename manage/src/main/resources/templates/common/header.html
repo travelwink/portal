@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" >
-    <div class="header-section" th:fragment="header" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-        <!--toggle button start-->
-        <a class="toggle-btn"><i class="fa fa-bars"></i></a>
-        <!--toggle button end-->
+    <th:block th:fragment="header">
+        <div class="header-section">
+            <!--toggle button start-->
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+            <!--toggle button end-->
 
-        <!--notification menu start -->
-        <div class="menu-right">
-            <ul class="notification-menu">
-                <li>
-                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <img src="images/photos/user-avatar.png" alt="" />
-                            <!--<span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.department.name}"></span>-->
-                            <!--<span> </span>-->
-                            <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                        <!--<li><a href="#"><i class="fa fa-user"></i>  个人中心</a></li>-->
-                        <li><a href="#"><i class="fa fa-cog"></i>  设置密码</a></li>
-                        <li><a th:href="@{/logout}"><i class="fa fa-sign-out"></i> 退出登陆</a></li>
-                    </ul>
-                </li>
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="images/photos/user-avatar.png" alt="" />
+                                <!--<span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.department.name}"></span>-->
+                                <!--<span> </span>-->
+                                <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                            <!--<li><a href="#"><i class="fa fa-user"></i>  个人中心</a></li>-->
+                            <li><a href="#"><i class="fa fa-cog"></i>  设置密码</a></li>
+                            <li><a th:href="@{/logout}"><i class="fa fa-sign-out"></i> 退出登陆</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--notification menu end -->
+        </div>
+
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3 th:text="${breadcrumb.subMenus[0].name}">
+                用户管理
+            </h3>
+            <ul class="breadcrumb">
+                <li th:text="${breadcrumb.name}"> 系统设置 </li>
+                <li class="active" th:text="${breadcrumb.subMenus[0].name}"> 用户管理 </li>
             </ul>
         </div>
-        <!--notification menu end -->
-    </div>
+        <!-- page heading end-->
+    </th:block>
 </html>

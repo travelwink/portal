@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import travelwink.manage.common.Constant;
 import travelwink.manage.domain.dto.AdditionalParameters;
 import travelwink.manage.domain.dto.NavigationTree;
+import travelwink.manage.domain.entity.Menu;
 import travelwink.manage.domain.entity.Navigation;
+import travelwink.manage.service.MenuService;
 import travelwink.manage.service.NavigationService;
 
 import java.util.ArrayList;
@@ -23,11 +25,16 @@ public class NavigationController {
     @Autowired
     NavigationService navigationService;
 
+    @Autowired
+    MenuService menuService;
+
     @GetMapping
     public String initPage(Navigation navigation, Model model) {
         List<Navigation> navigationList =  navigationService.findAll();
         List<NavigationTree> navigationTrees = recursiveTreeData(navigationList);
         model.addAttribute("navigationTrees", navigationTrees);
+        Menu breadcrumb = menuService.findByUrl("/navigation");
+        model.addAttribute("breadcrumb", breadcrumb);
         return "page/navigation";
     }
 

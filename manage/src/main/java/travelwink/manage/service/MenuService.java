@@ -8,4 +8,6 @@ public interface MenuService {
 
     List<Menu> findAll();
 
+    Menu findByUrl(String url);
+
 }

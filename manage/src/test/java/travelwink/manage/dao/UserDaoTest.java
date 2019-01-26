@@ -23,9 +23,6 @@ public class UserDaoTest {
     @Test
     @Ignore
     public void queryUser() {
-        User user = new User();
-        List<User> userList = userDao.findById(user.getId());
-        assertEquals(3,userList.size());
     }
 
     @Test
@@ -34,8 +31,6 @@ public class UserDaoTest {
         User userDto = new User();
         userDto.setName("travelwink");
         userDto.setStatus(1);
-        User user = userDao.findById(userDto.getId()).get(0);
-        assertEquals("travelwink", user.getName());
     }
 
     @Test

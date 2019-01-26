@@ -6,10 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import travelwink.manage.bean.Message;
 import travelwink.manage.common.Constant;
 import travelwink.manage.domain.entity.Department;
+import travelwink.manage.domain.entity.Menu;
 import travelwink.manage.domain.entity.User;
 import travelwink.manage.service.DepartmentService;
+import travelwink.manage.service.MenuService;
 import travelwink.manage.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +31,9 @@ public class UserController {
     @Autowired
     private DepartmentService departmentService;
 
+    @Autowired
+    private MenuService menuService;
+
 //    @ModelAttribute("departments")
 //    public List<Department> populateDepartments() {
 //        log.info("--------------> # 部门列表 #");
@@ -43,6 +50,8 @@ public class UserController {
     public String initPage (User user, Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
+        Menu breadcrumb = menuService.findByUrl("/user");
+        model.addAttribute("breadcrumb", breadcrumb);
         List<Department> departments = departmentService.findAllForSelect();
         model.addAttribute("departments", departments);
         return "manage/user";
@@ -63,9 +72,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete", params = {"delete"})
-    public String delete(User user, BindingResult bindingResult, HttpServletRequest request) {
-        int userId = Integer.valueOf(request.getParameter("delete"));
-        userService.delete(userId);
+    public String delete(User user, RedirectAttributes attributes) {
+        int resultCount = userService.delete(user.getId());
+        Message message;
+        if (1 == resultCount) {
+            message = new Message(1,Constant.MESSAGE_DELETE_SUCCESS);
+        } else {
+            message = new Message(0,Constant.MESSAGE_DELETE_FAIL);
+        }
+        attributes.addFlashAttribute("message",message);
         return "redirect:/user";
     }
 

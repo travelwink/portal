@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import travelwink.manage.domain.entity.Menu;
 import travelwink.manage.domain.entity.Slide;
+import travelwink.manage.service.MenuService;
 import travelwink.manage.service.SlideService;
 
 import java.nio.file.Files;
@@ -22,8 +24,13 @@ public class SlideController {
     @Autowired
     SlideService slideService;
 
+    @Autowired
+    MenuService menuService;
+
     @RequestMapping
     public String initPage(Slide slide, Model model){
+        Menu breadcrumb = menuService.findByUrl("/slide");
+        model.addAttribute("breadcrumb", breadcrumb);
         List<Slide> slides = slideService.findAll();
         model.addAttribute("slides", slides);
         return "page/slide";

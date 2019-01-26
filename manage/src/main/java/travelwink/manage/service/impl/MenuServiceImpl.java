@@ -6,6 +6,7 @@ import travelwink.manage.dao.MenuDao;
 import travelwink.manage.domain.entity.Menu;
 import travelwink.manage.service.MenuService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,5 +18,14 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> findAll() {
         return menuDao.findAll();
+    }
+
+    @Override
+    public Menu findByUrl(String url) {
+        Menu menu = menuDao.findByUrl(url);
+        Menu menuRoot = menuDao.findParentById(menu.getParentId());
+        menuRoot.setSubMenus(new ArrayList<Menu>());
+        menuRoot.getSubMenus().add(menu);
+        return menuRoot;
     }
 }

@@ -9,7 +9,11 @@ public interface UserService extends UserDetailsService {
 
     int add(User user);
 
+    int modifyUser(User user);
+
     int delete(int id);
+
+    User findById(int id);
 
     List<User> findAll();
 

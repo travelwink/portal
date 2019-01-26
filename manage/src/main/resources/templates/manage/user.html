@@ -9,20 +9,7 @@
 
     <!-- main content start-->
     <div class="main-content">
-
-        <div class="header-section" th:replace="common/header :: header"></div>
-
-        <!-- page heading start-->
-        <div class="page-heading">
-            <h3>
-                用户管理
-            </h3>
-            <ul class="breadcrumb">
-                <li> 系统设置 </li>
-                <li class="active"> 用户管理 </li>
-            </ul>
-        </div>
-        <!-- page heading end-->
+        <th:block th:replace="common/header :: header" />
 
         <!--body wrapper start-->
         <div class="wrapper">
@@ -38,6 +25,12 @@
                             </span>
                         </header>
                         <div class="panel-body">
+                            <div th:if="${null != message}" th:class="${message.type == 1}?'alert alert-success fade in':'alert alert-block alert-danger fade in'" >
+                                <button type="button" class="close close-sm" data-dismiss="alert">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                                <span th:text="${message.content}"></span>
+                            </div>
                             <div class="adv-table">
                                 <div class="clearfix">
                                     <div class="btn-group">
@@ -46,6 +39,7 @@
                                         </a>
                                     </div>
                                 </div>
+
                                 <table class="display table table-bordered table-striped table-hover" id="dynamic-table">
                                     <thead>
                                         <tr>
@@ -66,8 +60,8 @@
                                             <td th:text="${user.email}"></td>
                                             <td>
                                                 <div class="btn-group btn-group-xs">
-                                                    <a class="btn btn-info" href="#modifyModal" data-toggle="modal" th:value="${user.id}"><i class="fa fa-edit"></i> 编辑 </a>
-                                                    <a class="btn btn-danger" href="#deleteModal" data-toggle="modal" th:value="${user.id}"><i class="fa fa-trash-o"></i> 删除 </a>
+                                                    <a class="btn btn-info" href="#modifyModal" data-toggle="modal" th:data-userid="${user.id}"><i class="fa fa-edit"></i> 编辑 </a>
+                                                    <a class="btn btn-danger" href="#deleteModal" data-toggle="modal" th:data-userid="${user.id}"><i class="fa fa-trash-o"></i> 删除 </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -94,12 +88,13 @@
 <div aria-hidden="true" role="dialog" tabindex="-1" id="addModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">新增用户</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" role="form" th:action="@{/user/add}" th:object="${user}" method="post">
+            <form class="form-horizontal" role="form" th:action="@{/user/add}" th:object="${user}" method="post">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">新增用户</h4>
+                </div>
+                <div class="modal-body">
+
                     <div class="form-group">
                         <label for="name" class="col-lg-2 col-sm-2 control-label">工号</label>
                         <div class="col-lg-9">
@@ -135,17 +130,12 @@
                             </span>
                         </div>
                     </div>
-                    <br>
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-9">
-                            <button type="submit" class="btn btn-primary" name="add">保存</button>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                    <button type="submit" class="btn btn-primary" name="add">保存</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -153,12 +143,18 @@
 <div aria-hidden="true" role="dialog" tabindex="-1" id="modifyModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">修改用户</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" role="form" th:action="@{/user/add}" th:object="${user}" method="post">
+            <form class="form-horizontal" role="form" th:action="@{/user/modify}" th:object="${user}" method="post">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">修改用户</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" hidden>
+                        <label for="id" class="col-lg-2 col-sm-2 control-label">id</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control valid" th:field="*{id}" disabled>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="name" class="col-lg-2 col-sm-2 control-label">工号</label>
                         <div class="col-lg-9">
@@ -190,21 +186,16 @@
                         <div class="col-lg-9">
                             <span class="label label-danger ">提示</span>
                             <span>
-                                修改用户会将初始密码重置为6个1
+                                修改用户会将密码重置为6个1
                             </span>
                         </div>
                     </div>
-                    <br>
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-9">
-                            <button type="submit" class="btn btn-primary" name="add">保存</button>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                    <button type="submit" class="btn btn-primary" name="modify">保存</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -212,19 +203,27 @@
 <div aria-hidden="true" role="dialog" tabindex="-1" id="deleteModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">删除确认</h4>
-            </div>
-            <div class="modal-body">
+            <form class="form-horizontal" role="form" th:action="@{/user/delete}" th:object="${user}" method="post">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">删除确认</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" hidden>
+                        <label for="id" class="col-lg-2 col-sm-2 control-label">id</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control valid" th:field="*{id}">
+                        </div>
+                    </div>
 
-                确认删除用户？
+                    确认删除用户？
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
-                <button type="button" class="btn btn-danger"> 确认</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                    <button type="submit" class="btn btn-danger" name="delete"> 确认</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -252,9 +251,33 @@
     $().ready(function() {
         $("form").validate();
 
-        function deleteUser(id) {
+        // $('#modifyModal').on('shown.bs.modal', function () {
+        //     // 执行一些动作...
+        // })
 
-        }
+        $('#addModal').on('hide.bs.modal', function () {
+            alert("!23123");
+        })
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var userid = button.data('userid') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-body #id').val(userid)
+        })
+        $('#modifyModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var userid = button.data('userid') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-body #id').val(userid)
+        })
+        $('#modifyModal').on('hide.bs.modal', function () {
+            var modal = $(this)
+            alert(modal.find('.modal-body #id').val());
+        })
     });
 </script>
 

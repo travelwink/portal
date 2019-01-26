@@ -23,7 +23,7 @@ public interface UserDao {
 
     int modifyUser(User user);
 
-    @Delete("Delete t_user tu WHERE tu.id = #{id}")
+    @Delete("DELETE FROM t_user WHERE id = #{id}")
     int delete(int id);
 
     @Select("SELECT * FROM t_user tu WHERE tu.status = 1")
@@ -36,7 +36,7 @@ public interface UserDao {
     @Results({
             @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.DepartmentDao.findById", fetchType = FetchType.EAGER))
     })
-    List<User> findById(int id);
+    User findById(int id);
 
     @Select("SELECT * FROM t_department td WHERE td.id = #{id} ")
     Department findDepartment(int id);

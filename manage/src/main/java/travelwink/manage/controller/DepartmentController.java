@@ -47,9 +47,11 @@ public class DepartmentController {
         List<Menu> menus = menuService.findAll();
         List<Navigation> navigationRoots = navigationService.findRoot();
         List<Department> departments = departmentService.findAll();
+        Menu breadcrumb = menuService.findByUrl("/department");
         model.addAttribute("menus",menus);
         model.addAttribute("navigationRoots", navigationRoots);
         model.addAttribute("departments", departments);
+        model.addAttribute("breadcrumb",breadcrumb);
         return "manage/department";
     }
 
