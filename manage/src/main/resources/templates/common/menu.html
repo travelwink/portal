@@ -8,25 +8,21 @@
             <a th:href="@{/}"><img src="images/logo_icon.png" alt=""></a>
         </div>
         <div class="left-side-inner">
-            <ul class="nav nav-pills nav-stacked custom-nav">
+            <ul class="nav nav-pills nav-stacked custom-nav" th:object="${session.SPRING_SECURITY_CONTEXT.authentication.principal.department}">
                 <li class="menu">
                     <a th:href="@{/}">
                         <i class="fa fa-home"></i>
                         <span>首页</span>
                     </a>
                 </li>
-                <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>系统设置</span></a>
-                    <ul class="sub-menu-list">
-                        <li><a th:href="@{/user}"> 用户管理</a></li>
-                        <li><a th:href="@{/department}"> 部门管理</a></li>
-                    </ul>
-                </li>
-                <li class="menu-list"><a href=""><i class="fa fa-th"></i> <span>主页管理</span></a>
-                    <ul class="sub-menu-list">
-                        <li><a th:href="@{/navigation}"> 导航管理</a></li>
-                        <li><a th:href="@{/slide}"> 轮播图管理</a></li>
-                        <li><a th:href="@{/home}"> 首页配置</a></li>
-                        <li><a href="#"> 内容管理</a></li>
+                <li th:each=" menu: *{menus}" class="menu-list" th:object="${menu}">
+                    <a>
+                        <i th:class="*{icon}"></i> <span th:text="*{name}"></span>
+                    </a>
+                    <ul th:if="*{null != subMenus}" class="sub-menu-list">
+                        <li th:each="subMenu : *{subMenus}" th:object="${subMenu}">
+                            <a th:href="@{*{href}}" th:text="*{name}"></a>
+                        </li>
                     </ul>
                 </li>
             </ul>

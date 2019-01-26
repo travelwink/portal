@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * 后台管理菜单实体类
+ */
 @Data
 public class Menu extends BaseEntity{
     private int id;

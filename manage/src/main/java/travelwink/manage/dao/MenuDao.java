@@ -9,7 +9,9 @@ import java.util.List;
 @Mapper
 @Repository
 public interface MenuDao {
-    List<Menu> getFirstMenu();
+
+    @Select("SELECT * FROM t_menu tm WHERE tm.status = 1 AND tm.level = 1")
+    List<Menu> getMenuRoot();
 
     @Select("SELECT * FROM t_menu tm WHERE tm.status = 1 AND tm.level = 1")
     @Results({

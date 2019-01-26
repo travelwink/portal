@@ -13,6 +13,9 @@ import java.util.List;
 public interface UserDao {
 
     @Select("SELECT * FROM t_user tu WHERE tu.name = #{name}")
+    @Results({
+            @Result(column = "fk_dept_id", property = "department", one = @One(select = "travelwink.manage.dao.DepartmentDao.findById", fetchType = FetchType.EAGER))
+    })
     User loadUserByUsername(String name);
 
     @Insert("INSERT INTO t_user (name, password, nick_name, avatar, email, mobile, fk_dept_id, status, create_date, create_by) VALUES (#{name}, #{password}, #{nickName}, #{avatar}, #{email}, #{mobile}, #{department.id}, #{status}, #{createDate}, #{createBy})")

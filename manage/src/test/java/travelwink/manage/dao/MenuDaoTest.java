@@ -21,7 +21,7 @@ public class MenuDaoTest {
 
     @Test
     public void getFirstMenu(){
-        List<Menu> menuList = menuDao.getFirstMenu();
+        List<Menu> menuList = menuDao.getMenuRoot();
         assertEquals(1,menuList.size());
     }
 
