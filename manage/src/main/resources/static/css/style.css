@@ -3492,9 +3492,9 @@ h3.timeline-title {
     border: 5px solid #F1F2F7;
     border-radius: 50%;
     -webkit-border-radius: 50%;
-    height: 150px;
+    height: 100px;
     margin: 10px 0;
-    width: 150px;
+    width: 100px;
 }
 
 .profile-desk h1 {

@@ -18,7 +18,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                            <!--<li><a href="#"><i class="fa fa-user"></i>  个人中心</a></li>-->
+                            <li><a href="#profileModal" data-toggle="modal"><i class="fa fa-user"></i>  个人中心</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i>  设置密码</a></li>
                             <li><a th:href="@{/logout}"><i class="fa fa-sign-out"></i> 退出登陆</a></li>
                         </ul>
@@ -39,5 +39,54 @@
             </ul>
         </div>
         <!-- page heading end-->
+
+        <div aria-hidden="true" role="dialog" tabindex="-1" id="profileModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">用户资料</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="profile-pic text-center">
+                                        <img alt="" src="images/photos/user-avatar.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel">
+                                <div class="panel-body" th:object="${session.SPRING_SECURITY_CONTEXT.authentication.principal}">
+                                    <ul class="p-info">
+                                        <li>
+                                            <div class="title">工号</div>
+                                            <div class="desk" th:text="*{name}"></div>
+                                        </li>
+                                        <li>
+                                            <div class="title">部门</div>
+                                            <div class="desk" th:text="*{department.name}"></div>
+                                        </li>
+                                        <li>
+                                            <div class="title">姓名</div>
+                                            <div class="desk" th:text="*{nickName}"></div>
+                                        </li>
+                                        <li>
+                                            <div class="title">邮件地址</div>
+                                            <div class="desk" th:text="*{email}"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </th:block>
 </html>

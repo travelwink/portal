@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface DepartmentService {
 
+    int add(Department department);
+
     List<Department> findAll();
 
     List<Department> findAllForSelect();

@@ -17,6 +17,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     DepartmentDao departmentDao;
 
     @Override
+    public int add(Department department) {
+        int resultCount = departmentDao.create(department);
+        return resultCount;
+    }
+
+    @Override
     public List<Department> findAll() {
         return departmentDao.findAll();
     }

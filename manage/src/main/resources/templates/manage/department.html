@@ -28,7 +28,7 @@
                             <div class="adv-table">
                                 <div class="clearfix">
                                     <div class="btn-group">
-                                        <a id="editable-sample_new" class="btn btn-primary" href="#addModal" data-toggle="modal">
+                                        <a class="btn btn-primary" href="#departmentModal" data-toggle="modal" data-title="新增部门">
                                             新增 <i class="fa fa-plus"></i>
                                         </a>
                                     </div>
@@ -40,6 +40,8 @@
                                         <th>部门名称</th>
                                         <th>管理菜单权限</th>
                                         <th>导航菜单权限</th>
+                                        <th hidden>导航菜单id</th>
+                                        <th>状态</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -48,19 +50,27 @@
                                         <td th:text="*{id}" hidden></td>
                                         <td th:text="*{name}"></td>
                                         <td th:if="*{menus!= null} ">
-                                            <span th:each="menu: *{menus}" th:object="${menu}">
-                                                <span th:if="*{level>1}" th:text="*{name}"></span>
-                                            </span>
+                                            <th:block th:each="menu: *{menus}" th:object="${menu}">
+                                                <span class="label label-info" style="font-size: 13px;" th:if="*{level>1}" th:text="*{name}"></span>
+                                            </th:block>
                                         </td>
-                                        <td th:if="*{navigationPermissions!= null}">
-                                            <span th:each="navigationPermission: *{navigationPermissions}" th:object="${navigationPermission}">
-                                                <span th:text="*{name}"></span>
-                                            </span>
+                                        <td>
+                                            <th:block th:each="navigationPermission: *{navigationPermissions}" th:object="${navigationPermission}">
+                                                <span class="label label-info" style="font-size: 13px;" th:text="*{name}"></span>
+                                            </th:block>
+                                        </td>
+                                        <td hidden>
+                                            <th:block th:each="navigationPermission: *{navigationPermissions}" th:object="${navigationPermission}">
+                                                <th:block th:text="|*{id},|" />
+                                            </th:block>
+                                        </td>
+                                        <td>
+                                            <span th:class="*{status == 1}?'label label-success':'label label-danger'" th:text="*{status == 1}? '有效':'无效'"></span>
                                         </td>
                                         <td>
                                             <div class="btn-group btn-group-xs">
-                                                <button class="btn btn-info" type="button"><i class="fa fa-edit"></i> 编辑 </button>
-                                                <a class="btn btn-danger" href="#deleteModal" data-toggle="modal" name="delete" th:value="${department.id}"><i class="fa fa-trash-o"></i> 删除 </a>
+                                                <a class="btn btn-info" href="#departmentModal" data-toggle="modal" th:data-id="*{id}" data-title="编辑部门" th:data-navigation="*{navigationPermissions}"><i class="fa fa-edit"></i> 编辑 </a>
+                                                <!--<a class="btn btn-danger" href="#deleteModal" data-toggle="modal" th:data-id="*{id}"><i class="fa fa-trash-o"></i> 删除 </a>-->
                                             </div>
                                         </td>
                                     </tr>
@@ -84,15 +94,15 @@
     <!-- main content end-->
 </section>
 
-<div aria-hidden="true" role="dialog" tabindex="-1" id="addModal" class="modal fade">
+<div aria-hidden="true" role="dialog" tabindex="-1" id="departmentModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">新增部门</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" role="form" th:action="@{/department/add}" th:object="${department}" method="post">
+            <form class="form-horizontal" role="form" th:action="@{/department/add}" th:object="${department}" method="post">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="name" class="col-lg-2 col-sm-2 control-label">部门名称</label>
                         <div class="col-lg-8">
@@ -104,8 +114,8 @@
                         <label class="control-label col-md-2">导航权限</label>
 
                         <div class="col-md-10">
-                            <select multiple="multiple" class="multi-select" id="navigationSelect" name="navigationSelect[]">
-                                <option th:each="navigation : ${navigationRoots}" th:value="${navigation.id}" th:text="${navigation.name}"></option>
+                            <select multiple="multiple" class="multi-select" id="navigationSelect">
+                                <option th:each="navigation : ${navigationRoots}" th:object="${navigation}" th:value="*{id}" th:text="*{name}"></option>
                             </select>
                         </div>
                     </div>
@@ -121,51 +131,102 @@
                                         <option th:each="subMenu : ${menu.subMenus}" th:value="${subMenu.id}" th:text="${subMenu.name}"></option>
                                     </optgroup>
                                 </div>
-                                <!--<optgroup label="菜单">-->
-                                    <!--<option>我</option>-->
-                                    <!--<option>你</option>-->
-                                <!--</optgroup>-->
-                                <!--<optgroup label="导航">-->
-                                    <!--<option>它</option>-->
-                                    <!--<option>他</option>-->
-                                <!--</optgroup>-->
                             </select>
                         </div>
                     </div>
 
-                    <br>
                     <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <button type="submit" class="btn btn-primary" name="add">保存</button>
+                        <label for="status" class="col-lg-2 col-sm-2 control-label">状态</label>
+                        <div class="col-md-8">
+                            <select class="form-control m-bot15" th:field="*{status}" th:value="*{status}">
+                                <option value="0"> 无效</option>
+                                <option value="1"> 有效</option>
+                            </select>
                         </div>
                     </div>
-
-
-
-                </form>
-
-            </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                    <button type="submit" class="btn btn-primary" name="add"> 保存</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="deleteModal" class="modal fade">
+<!--<div aria-hidden="true" role="dialog" tabindex="-1" id="modifyModal" class="modal fade">-->
+    <!--<div class="modal-dialog">-->
+        <!--<div class="modal-content">-->
+            <!--<form class="form-horizontal" role="form" th:action="@{/department/modify}" th:object="${department}" method="post">-->
+                <!--<div class="modal-header">-->
+                    <!--<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>-->
+                    <!--<h4 class="modal-title">编辑部门</h4>-->
+                <!--</div>-->
+                <!--<div class="modal-body">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="name" class="col-lg-2 col-sm-2 control-label">部门名称</label>-->
+                        <!--<div class="col-lg-8">-->
+                            <!--<input type="text" class="form-control valid" th:field="*{name}" required>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-md-2">导航权限</label>-->
+
+                        <!--<div class="col-md-10">-->
+                            <!--<select multiple="multiple" class="multi-select" id="navigationSelect" name="navigationSelect[]">-->
+                                <!--<option th:each="navigation : ${navigationRoots}" th:value="${navigation.id}" th:text="${navigation.name}"></option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-md-2">菜单权限</label>-->
+
+                        <!--<div class="col-md-10">-->
+                            <!--<select multiple="multiple" class="multi-select" id="menuSelect"-->
+                                    <!--name="menuSelect[]">-->
+                                <!--<div th:each="menu : ${menus}" th:remove="tag">-->
+                                    <!--<optgroup th:label="${menu.name}">-->
+                                        <!--<option th:each="subMenu : ${menu.subMenus}" th:value="${subMenu.id}" th:text="${subMenu.name}"></option>-->
+                                    <!--</optgroup>-->
+                                <!--</div>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>-->
+                    <!--<button type="submit" class="btn btn-primary" name="modify"> 保存</button>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="deleteModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">删除确认</h4>
-            </div>
-            <div class="modal-body">
+            <form class="form-horizontal" role="form" th:action="@{/department/delete}" th:object="${department}" method="post">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">删除确认</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" hidden>
+                        <label for="id" class="col-lg-2 col-sm-2 control-label">id</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control valid" th:field="*{id}">
+                        </div>
+                    </div>
+                    确认删除部门？
 
-                确认删除部门？
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
-                <button type="button" class="btn btn-danger"> 确认</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                    <button type="submit" class="btn btn-danger" name="delete"> 确认</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -186,10 +247,64 @@
 
 <!--multi-select-->
 <script type="text/javascript" src="js/jquery-multi-select/js/jquery.multi-select.js"></script>
-<script type="text/javascript" th:src="@{js/multi-select-init.js}"></script>
+<!--<script type="text/javascript" th:src="@{js/multi-select-init.js}"></script>-->
 
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
+
+<script>
+    $().ready(function() {
+        // $("form").validate();
+
+        $('#departmentModal').on('show.bs.modal', function (event) {
+            // 清空模态框
+            var button = $(event.relatedTarget);
+            var title = button.data('title');
+            var modal = $(this);
+            modal.find('.modal-title').text('' + title);
+            // modal.find('.modal-body input').val('');
+        });
+
+        // $('#modifyModal').on('show.bs.modal', function (event) {
+        //     // 模态框传值
+        //     var button = $(event.relatedTarget);
+        //     var id = button.data('id');
+        //     // var formData = button.data('data');
+        //     // var data = formData.split(",");
+        //     var modal = $(this);
+        //     // modal.find('.modal-body #id').val(id);
+        //     // modal.find('.modal-body #name').val(data[0])
+        //     // modal.find('.modal-body #nickName').val(data[1])
+        //     // modal.find('.modal-body #email').val(data[2])
+        //     // modal.find('.modal-body #department').val(data[3])
+        //     // alert(""+userid+", "+data);
+        // });
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            // 模态框传id
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #id').val(id);
+        });
+
+        $('#navigationSelect').multiSelect({
+            afterSelect: function(values){
+                alert("Select value: "+values);
+            },
+            afterDeselect: function(values){
+                alert("Deselect value: "+values);
+            }
+        });
+        $('#menuSelect').multiSelect({
+            selectableOptgroup: true
+        });
+
+
+
+    });
+</script>
 
 </body>
 </html>

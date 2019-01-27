@@ -13,6 +13,10 @@ import java.util.List;
 @Repository
 public interface DepartmentDao {
 
+    @Insert("INSERT INTO t_department (name, create_by, create_date) VALUES (#{name}, #{createBy}, #{createDate})")
+    @Options(useGeneratedKeys = true)
+    int create(Department department);
+
     @Select("SELECT * FROM t_department td WHERE td.status = 1")
     @Results({
             @Result(column = "id", property = "id"),
