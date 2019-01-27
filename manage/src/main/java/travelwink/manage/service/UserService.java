@@ -9,7 +9,7 @@ public interface UserService extends UserDetailsService {
 
     int add(User user);
 
-    int modifyUser(User user);
+    int modify(User user);
 
     int delete(int id);
 

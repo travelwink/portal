@@ -56,7 +56,7 @@ public class UserDaoTest {
         user.setMobile("17701677661");
         user.setUpdateDate(new Date());
         user.setStatus(1);
-        int effectedNum = userDao.modifyUser(user);
+        int effectedNum = userDao.update(user);
         assertEquals(1,effectedNum);
     }
 }

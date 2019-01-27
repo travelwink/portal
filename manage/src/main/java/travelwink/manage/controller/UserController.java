@@ -16,7 +16,7 @@ import travelwink.manage.service.DepartmentService;
 import travelwink.manage.service.MenuService;
 import travelwink.manage.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -58,17 +58,43 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", params = {"add"})
-    public String add (User user, BindingResult bindingResult) {
+    public String add (User user, BindingResult bindingResult, RedirectAttributes attributes, Principal principal) {
+        Message message;
         if (bindingResult.hasErrors()) {
             log.info(bindingResult.getAllErrors().toString());
-            return "manage/user";
+            attributes.addFlashAttribute(new Message(0, Constant.MESSAGE_SAVE_FAILURE));
+            return "redirect:/user";
         } else {
             user.setPassword("111111");
+            user.setCreateBy(""+ userService.loadUserByUsername(principal.getName()).getId());
             user.setCreateDate(new Date());
             user.setStatus(Constant.VALID);
-            int result = userService.add(user);
+            int resultCount = userService.add(user);
+            if (1 == resultCount) {
+                message = new Message(1,Constant.MESSAGE_SAVE_SUCCESS);
+            } else {
+                message = new Message(0, Constant.MESSAGE_SAVE_FAILURE);
+            }
+            attributes.addFlashAttribute("message",message);
             return "redirect:/user";
         }
+    }
+
+    @RequestMapping(value = "/modify", params = {"modify"})
+    public String modify (User user, RedirectAttributes attributes, Principal principal) {
+        Message message;
+        user.setPassword("111111");
+        user.setUpdateBy(""+ userService.loadUserByUsername(principal.getName()).getId());
+        user.setUpdateDate(new Date());
+        user.setStatus(Constant.VALID);
+        int resultCount = userService.modify(user);
+        if (1 == resultCount) {
+            message = new Message(1,Constant.MESSAGE_SAVE_SUCCESS);
+        } else {
+            message = new Message(0, Constant.MESSAGE_SAVE_FAILURE);
+        }
+        attributes.addFlashAttribute("message",message);
+        return "redirect:/user";
     }
 
     @RequestMapping(value = "/delete", params = {"delete"})
@@ -78,7 +104,7 @@ public class UserController {
         if (1 == resultCount) {
             message = new Message(1,Constant.MESSAGE_DELETE_SUCCESS);
         } else {
-            message = new Message(0,Constant.MESSAGE_DELETE_FAIL);
+            message = new Message(0,Constant.MESSAGE_DELETE_FAILURE);
         }
         attributes.addFlashAttribute("message",message);
         return "redirect:/user";
