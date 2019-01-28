@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="travelwink.manage.dao.DepartmentDao">
+    <insert id="createbatchNavigationRelation">
+        INSERT INTO tr_department_navigation (id, name, del_flag) VALUES
+        <foreach collection ="list" item="user" separator =",">
+          (#{user.id}, #{user.name}, #{user.delFlag})
+        </foreach >
+    </insert>
+</mapper>

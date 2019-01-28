@@ -18,7 +18,7 @@ public class Department extends BaseEntity {
     private int level;
     private int seq;
     private List<Menu> menus;
-    private List<Navigation> navigationPermissions;
+    private List<Navigation> navigations;
 
     @Length(max = 150, message = "备注长度不能超过150字符")
     private String remark;

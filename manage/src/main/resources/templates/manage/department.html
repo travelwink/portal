@@ -25,6 +25,12 @@
                             </span>
                         </header>
                         <div class="panel-body">
+                            <div th:if="${null != message}" th:class="${message.type == 1}?'alert alert-success fade in':'alert alert-block alert-danger fade in'" >
+                                <button type="button" class="close close-sm" data-dismiss="alert">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                                <span th:text="${message.content}"></span>
+                            </div>
                             <div class="adv-table">
                                 <div class="clearfix">
                                     <div class="btn-group">
@@ -55,12 +61,12 @@
                                             </th:block>
                                         </td>
                                         <td>
-                                            <th:block th:each="navigationPermission: *{navigationPermissions}" th:object="${navigationPermission}">
+                                            <th:block th:each="navigation: *{navigations}" th:object="${navigation}">
                                                 <span class="label label-info" style="font-size: 13px;" th:text="*{name}"></span>
                                             </th:block>
                                         </td>
                                         <td hidden>
-                                            <th:block th:each="navigationPermission: *{navigationPermissions}" th:object="${navigationPermission}">
+                                            <th:block th:each="navigation: *{navigations}" th:object="${navigation}">
                                                 <th:block th:text="|*{id},|" />
                                             </th:block>
                                         </td>
@@ -69,7 +75,7 @@
                                         </td>
                                         <td>
                                             <div class="btn-group btn-group-xs">
-                                                <a class="btn btn-info" href="#departmentModal" data-toggle="modal" th:data-id="*{id}" data-title="编辑部门" th:data-navigation="*{navigationPermissions}"><i class="fa fa-edit"></i> 编辑 </a>
+                                                <a class="btn btn-info" href="#departmentModal" data-toggle="modal" th:data-id="*{id}" data-title="编辑部门" th:data-navigation="*{navigations}"><i class="fa fa-edit"></i> 编辑 </a>
                                                 <!--<a class="btn btn-danger" href="#deleteModal" data-toggle="modal" th:data-id="*{id}"><i class="fa fa-trash-o"></i> 删除 </a>-->
                                             </div>
                                         </td>
@@ -114,8 +120,8 @@
                         <label class="control-label col-md-2">导航权限</label>
 
                         <div class="col-md-10">
-                            <select multiple="multiple" class="multi-select" id="navigationSelect">
-                                <option th:each="navigation : ${navigationRoots}" th:object="${navigation}" th:value="*{id}" th:text="*{name}"></option>
+                            <select multiple="multiple" class="multi-select" id="navigationSelect" th:field="*{navigations}">
+                                <option th:each="navigation : ${navigationRoots}" th:value="${{navigation.id}}" th:text="${navigation.name}" selected="selected"></option>
                             </select>
                         </div>
                     </div>
@@ -124,11 +130,10 @@
                         <label class="control-label col-md-2">菜单权限</label>
 
                         <div class="col-md-10">
-                            <select multiple="multiple" class="multi-select" id="menuSelect"
-                                    name="menuSelect[]">
+                            <select multiple="multiple" class="multi-select" id="menuSelect" th:field="*{menus}">
                                 <div th:each="menu : ${menus}" th:remove="tag">
                                     <optgroup th:label="${menu.name}">
-                                        <option th:each="subMenu : ${menu.subMenus}" th:value="${subMenu.id}" th:text="${subMenu.name}"></option>
+                                        <option th:each="subMenu : ${menu.subMenus}" th:value="${{subMenu.id}}" th:text="${subMenu.name}"></option>
                                     </optgroup>
                                 </div>
                             </select>
@@ -290,12 +295,6 @@
         });
 
         $('#navigationSelect').multiSelect({
-            afterSelect: function(values){
-                alert("Select value: "+values);
-            },
-            afterDeselect: function(values){
-                alert("Deselect value: "+values);
-            }
         });
         $('#menuSelect').multiSelect({
             selectableOptgroup: true

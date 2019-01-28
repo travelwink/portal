@@ -34,18 +34,6 @@ public class UserController {
     @Autowired
     private MenuService menuService;
 
-//    @ModelAttribute("departments")
-//    public List<Department> populateDepartments() {
-//        log.info("--------------> # 部门列表 #");
-//        return this.departmentService.findAll();
-//    }
-
-//    @ModelAttribute("users")
-//    public List<User> populateUsers() {
-//        log.info("--------------> # 用户列表 #");
-//        return this.userService.findAll();
-//    }
-
     @RequestMapping
     public String initPage (User user, Model model) {
         List<User> users = userService.findAll();

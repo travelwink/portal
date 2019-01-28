@@ -21,6 +21,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public Menu findById(int id) {
+        return menuDao.findById(id);
+    }
+
+    @Override
     public Menu findByUrl(String url) {
         Menu menu = menuDao.findByUrl(url);
         Menu menuRoot = menuDao.findParentById(menu.getParentId());

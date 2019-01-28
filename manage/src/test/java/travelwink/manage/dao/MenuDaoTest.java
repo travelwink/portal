@@ -1,6 +1,5 @@
 package travelwink.manage.dao;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class MenuDaoTest {
 
     @Test
     public void getFirstMenu(){
-        List<Menu> menuList = menuDao.getMenuRoot();
+        List<Menu> menuList = menuDao.getRootMenu();
         assertEquals(1,menuList.size());
     }
 

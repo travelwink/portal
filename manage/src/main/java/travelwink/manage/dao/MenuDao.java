@@ -11,7 +11,13 @@ import java.util.List;
 public interface MenuDao {
 
     @Select("SELECT * FROM t_menu tm WHERE tm.status = 1 AND tm.level = 1")
-    List<Menu> getMenuRoot();
+    List<Menu> getRootMenu();
+
+    @Select("SELECT * FROM t_menu tm WHERE tm.status = 1 AND tm.id = #{id}")
+    @Results({
+            @Result(column = "id", property = "subMenus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByParentId"))
+    })
+    Menu findById(int id);
 
     @Select("SELECT * FROM t_menu tm WHERE tm.status = 1 AND tm.level = 1")
     @Results({

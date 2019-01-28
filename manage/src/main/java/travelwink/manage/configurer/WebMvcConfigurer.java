@@ -4,9 +4,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import travelwink.manage.conversion.DepartmentFormatter;
+import travelwink.manage.conversion.MenuFormatter;
+import travelwink.manage.conversion.NavigationFormatter;
 
 @Configuration
 @EnableAutoConfiguration
@@ -16,17 +17,23 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         super.addFormatters(registry);
         registry.addFormatter(departmentFormatter());
+        registry.addFormatter(navigationFormatter());
+        registry.addFormatter(menuFormatter());
     }
-
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/signIn").setViewName("login");
-//        registry.addViewController("/").setViewName("index");
-//    }
 
     @Bean
     public DepartmentFormatter departmentFormatter() {
         return new DepartmentFormatter();
+    }
+
+    @Bean
+    public NavigationFormatter navigationFormatter() {
+        return new NavigationFormatter();
+    }
+
+    @Bean
+    public MenuFormatter menuFormatter(){
+        return new MenuFormatter();
     }
 
 }
