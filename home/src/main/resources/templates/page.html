@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head ::head"></head>
+<body>
+<header class="site-header">
+    <div class="site-header-top constrained">
+
+        <button type="button" id="button-search" class="icon-link icon-link-header icon-link-search desktop-only">
+            <span>搜索</span>
+        </button>
+
+        <a th:href="@{/}" class="header-logo-wrapper">
+            <img th:src="@{/images/logo-wingd-top.svg}" alt="WinGD" class="header-logo">
+        </a>
+
+        <a class="icon-link icon-link-header icon-link-portal desktop-only" href="/" target="_blank" style="opacity: 0">Portal</a>
+
+
+        <button type="button" class="mobile-nav-toggle desktop-hide" id="mobile-nav-toggle">
+				<span class="hide-text">
+                    菜单
+				</span>
+            <span class="burger-icon">
+					<span class="burger-icon-line top"></span>
+					<span class="burger-icon-line middle"></span>
+					<span class="burger-icon-line bottom"></span>
+				</span>
+        </button>
+    </div>
+
+
+    <div id="mobile-navigation-panel" class="mobile-navigation-panel">
+
+
+        <div class="tab-group desktop-hide">
+            <button type="button" class="tab active" data-href="#header-menu-wrapper">
+					<span class="icon-link icon-link-menu stack-icon-on-tablet">
+                        菜单
+					</span>
+            </button>
+            <button type="button" class="tab" data-href="#header-search-wrapper">
+					<span class="icon-link icon-link-search stack-icon-on-tablet">
+                        搜索
+					</span>
+            </button>
+            <a class="tab" href="#" target="_blank" style="opacity: 0">
+                    <span class="icon-link icon-link-header icon-link-portal stack-icon-on-tablet">
+                        登陆管理
+                    </span>
+            </a>
+        </div><!-- / .header-tabs -->
+
+        <div class="header-menu-wrapper header-scroll-panel tab-content active" id="header-menu-wrapper" th:replace="common/header ::header">
+        </div><!-- / .header-menu-wrapper -->
+
+        <div class="header-search-wrapper header-scroll-panel tab-content" id="header-search-wrapper">
+            <div class="constrained constrained--small">
+                <div id="" class="widget quick-search-container" data-indexes="Documents;News;Pages_crawler;PressReleases;Images;Events" data-search-page="/en/search/" data-autocomplete-after="3">
+
+                    <div class="input-wrapper search-input-wrapper search-wrapper js-search-wrapper">
+                        <input name="" class="text-input" type="search" />
+                        <input name="" type="button" class="button button-submit button-search" value="搜索" />
+                        <i class="search-cancel alt js-search-cancel">取消</i>
+                    </div>
+
+                    <div class="no-results">
+                        <p>没有找到对应的结果</p>
+                    </div>
+
+                    <div class="loading-indicator">搜索中...</div>
+
+                    <ul class="quick-search-results-listing">
+                    </ul>
+
+                    <a class="icon-link link-internal search-view-all">查看所有结果</a>
+
+                </div>
+
+            </div>
+        </div>	<!-- / .header-search-wrapper -->
+
+    </div>
+
+</header>
+
+<div class="hero-widget-zone">
+
+
+    <!-- standard image layout //-->
+
+
+    <!-- full image background layout //-->
+    <div id="p_lt_ctl01_heroplaceholder_p_lt_ctl00_PageHeader_pnlFullImageBackground" class="widget widget-page-header full-image-background img_a0355ce3-c592-4015-8b4a-ae654fc44360 background-position-middle " style="background-image:url('/web/upload/images/career_head.jpg');">
+
+        <div class="constrained">
+            <div class="text-wrapper">
+            </div>
+
+            <div id="p_lt_ctl01_heroplaceholder_p_lt_ctl00_PageHeader_pnlFullImageBackgroundOverlay" class="overlay overlay-2">
+
+            </div> <!-- add overlay class overlay-2 etc //-->
+        </div>
+
+    </div>
+
+    <style>@media(max-width: 667px) {.img_a0355ce3-c592-4015-8b4a-ae654fc44360{background-image: url('/GetCroppedImage.axd?imageGuid=1ce65884-d4d6-445a-bb6d-eb4e641d79b2&x=1160&x2=2350&y=0&y2=850&width=2500') !important;}}</style>
+</div>
+
+
+<div class="widget breadcrumbs">
+    <div class="constrained">
+        <div class="breadrumbs-list">
+            <a href='/en/'>Home</a> > <a href='/en/about-wingd/'>About WinGD</a> > <span>Careers</span>
+        </div>
+    </div>
+</div>
+
+<div class="main">
+    <div class="secondary_navigation">
+        <div class="constrained">
+            <div class="subnav">
+                <a href='/en/about-wingd/' class='subnav-back'>About WinGD</a>
+                <ul class='subnav-list'>
+                    <li class='sub-nav-parent'>
+                        <ul>
+                            <li class=' active'>
+                                <a href='/en/about-wingd/careers/'>Careers</a>
+                            </li>
+                            <li class=''>
+                                <a href='/en/about-wingd/wingd-company-overview/'>WinGD Company Overview</a>
+                            </li>
+                            <li class=''>
+                                <a href='/en/about-wingd/our-history/'>Our History</a>
+                            </li>
+                            <li class=''>
+                                <a href='/en/about-wingd/our-people/'>Our People</a>
+                            </li>
+                            <li class=''>
+                                <a href='/en/about-wingd/contact-us/'>Contact Us</a>
+                            </li>
+                            <li class=''>
+                                <a href='/en/about-wingd/our-office-locations/'>Our Office Locations</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="constrained page-title" data-auto-indent>
+        <h1>Careers</h1>
+    </div>
+    <div class="main-widget-zone">
+        <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_WinGDEditableText_pnlWrapper" class="widget rich-text constrained" data-auto-indent="">
+
+            <p class="intro-copy">View our full list of available career opportunities here.</p>
+
+            <p class="intro-copy">There has never been a more exciting time to start a career in the shipping industry. We face unprecedented change as we strive to meet the environmental regulations impacting the maritime industry. As engine designers our responsibility in this is significant. A career with WinGD has a direct impact on shaping a better world for tomorrow.&nbsp;</p>
+
+            <p class="copy">It is a rewarding and&nbsp;challenging experience. Inspired to innovate, collaborate and think beyond boundaries, we are surrounded by brilliant minds and passionate people.&nbsp;</p>
+
+            <p>Our success in this fast-moving environment is based on the drive of our dynamic, innovative employees. With worldwide operations, we work within a diverse and multicultural environment. As a small &amp; flexible company, there is room to grow and opportunity to make a mark within the marine industry and&nbsp;our environment.&nbsp;</p>
+
+            <p>&nbsp;</p>
+
+            <p>&nbsp;</p>
+        </div>
+
+        <div class='widget widget-container heading-container container-background-dark' data-auto-indent>
+            <div class='constrained'>
+                <div class='widget widget-column-container container-background-dark' data-auto-indent>
+                    <div class='constrained grid'>
+                        <div class='row equal-heights'>
+                            <div class='column one-third'>
+                                <div class="widget widget-bg widget-bg-gr widget-cta">
+                                    <div class="content-type">featured job</div>
+                                    <h2 class="widget-header widget-header--uppercase">
+                                        System Integrator, Automation and Control
+                                    </h2>
+                                    <p>
+                                        Manage and organize the resources, technology and development of the automation and control system for large two-stroke dual-fuel engines.
+                                    </p>
+                                    <a class="icon-link link-external" href="https://recruitingapp-2795.umantis.com/Vacancies/590/Description/2" target="_blank">View job details</a>
+                                </div>
+                            </div>
+                            <div class='column one-third'>
+                                <div class="widget widget-bg widget-bg-gr widget-cta">
+                                    <div class="content-type">featured job</div>
+                                    <h2 class="widget-header widget-header--uppercase">
+                                        Service Support Engineer
+                                    </h2>
+                                    <p>
+                                        Support the establishment and updates of the engine product data base for two-stroke dual-fuel engines.
+                                    </p>
+                                    <a class="icon-link link-external" href="https://recruitingapp-2795.umantis.com/Vacancies/575/Description/2" target="_blank">View job details</a>
+                                </div>
+                            </div>
+                            <div class='column one-third'>
+                                <div class="widget widget-bg widget-bg-gr widget-cta">
+                                    <div class="content-type">featured job</div>
+                                    <h2 class="widget-header widget-header--uppercase">
+                                        Software Function Developer
+                                    </h2>
+                                    <p>Responsible for engine control software development and maintenance for two-stroke dual fuel engines.</p>
+                                    <a class="icon-link link-external" href="https://recruitingapp-2795.umantis.com/Vacancies/561/Description/2" target="_blank">View job details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer class="site-footer" th:replace="common/footer :: footer">
+</footer>
+
+<script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/swiper/4.4.6/js/swiper.min.js}"></script>
+<script th:src="@{/js/showcase.js}"></script>
+</body>
+</html>

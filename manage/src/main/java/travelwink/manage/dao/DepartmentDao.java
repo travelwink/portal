@@ -22,7 +22,7 @@ public interface DepartmentDao {
     @Insert("INSERT INTO tr_department_menu (fk_department_id, fk_menu_id) VALUES (#{fkDepartmentId}, #{fkMenuId})")
     int addMenuRel(DepartmentMenuRel deptMenuRel);
 
-    @Select("SELECT * FROM t_department td WHERE td.status = 1")
+    @Select("SELECT * FROM t_department td")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "id", property = "menus", many = @Many(select = "travelwink.manage.dao.MenuDao.findByDeptId", fetchType = FetchType.LAZY)),

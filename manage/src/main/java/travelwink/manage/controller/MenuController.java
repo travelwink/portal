@@ -11,7 +11,7 @@ import travelwink.manage.service.MenuService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/menu")
+@RequestMapping("/menu")
 public class MenuController {
 
     @Autowired

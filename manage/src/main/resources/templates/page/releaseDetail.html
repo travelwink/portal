@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head :: head"></head>
+
+<body class="sticky-header">
+
+<section>
+    <div th:replace="common/menu :: menu"></div>
+
+    <!-- main content start-->
+    <div class="main-content">
+
+        <th:block th:replace="common/header :: header" />
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            轮播图列表
+                            <span class="tools pull-right">
+                                <!--<a href="javascript:;" class="fa fa-chevron-down"></a>-->
+                                <!--<a href="javascript:;" class="fa fa-times"></a>-->
+                            </span>
+                        </header>
+                        <div class="panel-body">
+                            <!--<div class="adv-table">-->
+                                <!--<div class="clearfix">-->
+                                    <!--<div class="btn-group">-->
+                                        <!--<a id="editable-sample_new" class="btn btn-primary" href="#addModal" data-toggle="modal">-->
+                                            <!--新增 <i class="fa fa-plus"></i>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<table class="display table table-bordered table-striped table-hover" id="dynamic-table">-->
+                                    <!--<thead>-->
+                                    <!--<tr>-->
+                                        <!--<th hidden>id</th>-->
+                                        <!--<th>管理编号</th>-->
+                                        <!--<th>主标题</th>-->
+                                        <!--<th>副标题</th>-->
+                                        <!--<th>发布状态</th>-->
+                                        <!--<th>操作</th>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--<tbody>-->
+                                    <!--<tr th:each="content: ${contents}" th:object="${content}">-->
+                                        <!--<td th:text="*{id}" hidden></td>-->
+                                        <!--<td th:text="*{no}"></td>-->
+                                        <!--<td th:text="*{title}"></td>-->
+                                        <!--<td th:text="*{description}"></td>-->
+                                        <!--<td th:if="*{status==1}">-->
+                                            <!--<span class="label label-success">已发布</span>-->
+                                            <!--<span th:if="*{homeLocation!=0}" class="label label-primary">首页内容</span>-->
+                                        <!--</td>-->
+                                        <!--<td th:if="*{status==0}">-->
+                                            <!--<span class="label label-warning label-mini">未发布</span>-->
+                                        <!--</td>-->
+                                        <!--<td>-->
+                                            <!--<div class="btn-group btn-group-xs">-->
+                                                <!--<a class="btn btn-info" href="#modifyModal" data-toggle="modal"><i class="fa fa-edit"></i> 编辑 </a>-->
+                                                <!--<a class="btn btn-primary" th:href="@{|/release/modifyDetail/${content.id}|}" data-toggle="modal"><i class="fa fa-edit"></i> 内容编辑 </a>-->
+                                                <!--<a class="btn btn-danger" href="#deleteModal" data-toggle="modal"><i class="fa fa-trash-o"></i> 删除 </a>-->
+                                            <!--</div>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--</tbody>-->
+                                <!--</table>-->
+                            <!--</div>-->
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+        <!--body wrapper end-->
+
+        <!--footer section start-->
+        <footer th:replace="common/footer :: footer"></footer>
+        <!--footer section end-->
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="addModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">新增内容</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" th:action="@{/release/add}" th:object="${content}" method="post" enctype="multipart/form-data">
+                    <div class="form-group" hidden>
+                        <label for="title" class="col-lg-2 col-sm-2 control-label">id</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control valid" th:field="*{id}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-lg-2 col-sm-2 control-label">管理编号</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control valid" th:field="*{no}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-lg-2 col-sm-2 control-label">主标题</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control valid" th:field="*{title}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content" class="col-lg-2 col-sm-2 control-label">副标题</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control valid" th:field="*{description}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status" class="col-lg-2 col-sm-2 control-label">状态</label>
+                        <div class="col-lg-10">
+                            <select class="form-control m-bot15" th:field="*{status}">
+                                <option value="0">未发布</option>
+                                <option value="1">已发布</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" class="btn btn-primary" name="add">保存</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="deleteModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">删除确认</h4>
+            </div>
+            <div class="modal-body">
+                删除后，相关关联发布内容的网页无法访问此内容。</br>
+                确认删除发布内容？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                <button type="button" class="btn btn-danger"> 确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/localization/messages_zh.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+
+<!--file upload-->
+<script type="text/javascript" src="js/bootstrap-fileupload.min.js"></script>
+
+<!--dynamic table-->
+<script type="text/javascript" language="javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
+<!--dynamic table initialization -->
+<script src="js/dynamic_table_init.js"></script>
+
+<!--common scripts for all pages-->
+<script src="js/scripts.js"></script>
+
+</body>
+</html>

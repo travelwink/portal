@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head">
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="keywords" th:content="${keywords}" />
+        <title>Document</title>
+        <link rel="stylesheet" th:href="@{/css/bootstrap/4.2.1/css/bootstrap.min.css}" />
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <link rel="stylesheet" th:href="@{/css/showcase.css}" />
+
+
+
+        <script th:src="@{/js/jquery/3.3.1/jquery-3.3.1.min.js}"></script>
+        <script th:src="@{/js/popper/1.14.6/popper.js}"></script>
+        <script th:src="@{/css/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+    </head>
+</html>

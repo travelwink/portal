@@ -17,20 +17,20 @@
                                             <ul th:unless="${null == navigation.children || navigation.children.isEmpty()}">
                                                 <li th:each="child : ${navigation.children}"
                                                     th:class="${null == child.children || child.children.isEmpty()? '': 'has-children'}">
-                                                    <a href="" th:text="${child.name}">2级导航菜单</a>
+                                                    <a th:href="@{*{child.url}}" th:text="${child.name}">2级导航菜单</a>
 
                                                     <div th:class="|meganav-level level-${child.level+1}|" th:unless="${null == child.children || child.children.isEmpty()}">
-                                                        <a href="" class="meganav-level-title" th:text="${child.name}">2级导航菜单</a>
+                                                        <a th:href="@{*{child.url}}" class="meganav-level-title" th:text="${child.name}">2级导航菜单</a>
                                                         <ul>
                                                             <li th:each="sub : ${child.children}"
                                                                 th:class="${null == sub.children || sub.children.isEmpty()? '' : 'has-children'}">
                                                                 <span th:text="${sub.name}">3级导航菜单</span>
 
                                                                 <div th:class="|meganav-level level-${sub.level+1}|"  th:unless="${null == sub.children || sub.children.isEmpty()}">
-                                                                    <a href="" class="meganav-level-title" th:text="${sub.name}">3级导航菜单</a>
+                                                                    <a th:href="@{*{child.url}}" class="meganav-level-title" th:text="${sub.name}">3级导航菜单</a>
                                                                     <ul>
                                                                         <li th:each="leaf : ${sub.children}">
-                                                                            <a href="" th:text="${leaf.name}">4级导航菜单</a>
+                                                                            <a th:href="@{*{child.url}}" th:text="${leaf.name}">4级导航菜单</a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>

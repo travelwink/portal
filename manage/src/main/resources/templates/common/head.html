@@ -10,27 +10,21 @@
         <title>Dynamic Table</title>
 
         <!--external css-->
-        <link rel="stylesheet" type="text/css" href="js/fuelux/css/tree-style.css" />
+        <link rel="stylesheet" type="text/css" th:href="@{/js/fuelux/css/tree-style.css}" />
 
         <!--file upload-->
-        <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap-fileupload.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-fileupload.min.css}" />
 
         <!--multi-select-->
-        <link rel="stylesheet" type="text/css" th:href="@{js/jquery-multi-select/css/multi-select.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/js/jquery-multi-select/css/multi-select.css}" />
 
         <!--dynamic table-->
-        <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
-        <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
-        <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
+        <link rel="stylesheet" th:href="@{/js/advanced-datatable/css/demo_page.css}" />
+        <link rel="stylesheet" th:href="@{/js/advanced-datatable/css/demo_table.css}" />
+        <link rel="stylesheet" th:href="@{/js/data-tables/DT_bootstrap.css}" />
 
-        <link href="css/style.css" rel="stylesheet">
-        <link href="css/style-responsive.css" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{/css/style.css}" >
+        <link rel="stylesheet" th:href="@{/css/style-responsive.css}" >
 
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-        <![endif]-->
     </head>
 </html>
