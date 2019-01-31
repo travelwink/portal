@@ -83,135 +83,206 @@
 
 </header>
 
-<div class="hero-widget-zone">
-
-
-    <!-- standard image layout //-->
-
-
+<div th:if="${null!=page.headImg}" class="hero-widget-zone">
     <!-- full image background layout //-->
-    <div id="p_lt_ctl01_heroplaceholder_p_lt_ctl00_PageHeader_pnlFullImageBackground" class="widget widget-page-header full-image-background img_a0355ce3-c592-4015-8b4a-ae654fc44360 background-position-middle " style="background-image:url('/web/upload/images/career_head.jpg');">
-
+    <div class="widget widget-page-header full-image-background background-position-middle " th:style="|background-image:url(/web/${page.headImg});|">
         <div class="constrained">
             <div class="text-wrapper">
             </div>
-
-            <div id="p_lt_ctl01_heroplaceholder_p_lt_ctl00_PageHeader_pnlFullImageBackgroundOverlay" class="overlay overlay-2">
-
-            </div> <!-- add overlay class overlay-2 etc //-->
+            <div class="overlay overlay-2">
+            </div>
         </div>
-
     </div>
 
-    <style>@media(max-width: 667px) {.img_a0355ce3-c592-4015-8b4a-ae654fc44360{background-image: url('/GetCroppedImage.axd?imageGuid=1ce65884-d4d6-445a-bb6d-eb4e641d79b2&x=1160&x2=2350&y=0&y2=850&width=2500') !important;}}</style>
+    <style th:text="|@media(max-width: 667px){.full-image-background{background-image: url(/web/${page.headImgVertical}) !important;}}|"> </style>
 </div>
 
 
 <div class="widget breadcrumbs">
     <div class="constrained">
-        <div class="breadrumbs-list">
-            <a href='/en/'>Home</a> > <a href='/en/about-wingd/'>About WinGD</a> > <span>Careers</span>
+        <div class="breadrumbs-list" th:object="${breadcrumbs}">
+            <a th:href='@{/}'>首页</a> >
+            <span th:if="*{null==children}" th:remove="tag">
+                <span th:text="*{name}"></span>
+            </span>
+            <span th:if="*{null != children}" th:remove="tag">
+                <a th:href="@{*{url}}" th:text="*{name}"></a>
+                >
+                <span th:text="*{children[0].name}"></span>
+                    <span th:if="*{null != children[0].children}" th:remove="tag">
+                        >
+                    <a href='/en/about-wingd/' th:text="*{children[0].children[0].name}"></a>
+                    <span th:if="*{null != children[0].children}" th:remove="tag">
+                        >
+                        <span th:text="*{children[0].children[0].name}"></span>
+                    </span>
+                </span>
+            </span>
         </div>
     </div>
 </div>
 
 <div class="main">
-    <div class="secondary_navigation">
-        <div class="constrained">
-            <div class="subnav">
-                <a href='/en/about-wingd/' class='subnav-back'>About WinGD</a>
-                <ul class='subnav-list'>
-                    <li class='sub-nav-parent'>
-                        <ul>
-                            <li class=' active'>
-                                <a href='/en/about-wingd/careers/'>Careers</a>
-                            </li>
-                            <li class=''>
-                                <a href='/en/about-wingd/wingd-company-overview/'>WinGD Company Overview</a>
-                            </li>
-                            <li class=''>
-                                <a href='/en/about-wingd/our-history/'>Our History</a>
-                            </li>
-                            <li class=''>
-                                <a href='/en/about-wingd/our-people/'>Our People</a>
-                            </li>
-                            <li class=''>
-                                <a href='/en/about-wingd/contact-us/'>Contact Us</a>
-                            </li>
-                            <li class=''>
-                                <a href='/en/about-wingd/our-office-locations/'>Our Office Locations</a>
+    <div class="main-widget-zone">
+        <div class="secondary_navigation">
+            <div class="constrained">
+                <div class="subnav">
+                    <div th:if="@{${page.navigation.parentId != 0}}" th:remove="tag">
+                        <a th:href="@{${secondaryNavigation.url}}" class='subnav-back' th:text="${secondaryNavigation.name}"></a>
+                        <ul class='subnav-list'>
+                            <li class='sub-nav-parent'>
+                                <ul>
+                                    <li th:each="subNavigation : ${secondaryNavigation.children}"
+                                        th:class="${null!=subNavigation.children && subNavigation.children.size()>0}?'has-children':''"
+                                        th:classappend="${subNavigation.id == page.navigation.id}? 'active':''"
+                                    >
+                                        <a th:href="@{${subNavigation.url}}" th:text="${subNavigation.name}"></a>
+                                        <ul th:if="${null!=subNavigation.children && subNavigation.children.size()>0}" >
+                                            <li th:each="child: ${subNavigation.children}" th:class="${null!=child.children && child.children.size()>0}?'has-children':''">
+                                                <a th:href="@{${child.url}}" th:text="${child.name}"></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
-                    </li>
-                </ul>
+                    </div>
+                    <div th:if="@{${page.navigation.parentId == 0}}" th:remove="tag">
+                        <a th:href="@{/}" class='subnav-back' th:text="首页"></a>
+                        <ul class='subnav-list'>
+                            <li class='sub-nav-parent' th:each="navigation : ${navigationList}"
+                                th:class="${navigation.id == page.navigation.id}? 'active':''"
+                                th:classappend="${null!=navigation.children && navigation.children.size() > 0}?'has-children':'' ">
+                                <a th:href="@{${navigation.url}}" th:text="${navigation.name}"></a>
+                                <ul th:if="${navigation.id == page.navigation.id}">
+                                    <li th:each="subNavigation: ${navigation.children}" th:class="${null!=subNavigation.children && subNavigation.children.size()>0}? 'has-children' : ''">
+                                        <a th:href="@{${subNavigation.url}}" th:text="${subNavigation.name}"></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="constrained page-title" data-auto-indent>
-        <h1>Careers</h1>
-    </div>
-    <div class="main-widget-zone">
-        <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_WinGDEditableText_pnlWrapper" class="widget rich-text constrained" data-auto-indent="">
-
-            <p class="intro-copy">View our full list of available career opportunities here.</p>
-
-            <p class="intro-copy">There has never been a more exciting time to start a career in the shipping industry. We face unprecedented change as we strive to meet the environmental regulations impacting the maritime industry. As engine designers our responsibility in this is significant. A career with WinGD has a direct impact on shaping a better world for tomorrow.&nbsp;</p>
-
-            <p class="copy">It is a rewarding and&nbsp;challenging experience. Inspired to innovate, collaborate and think beyond boundaries, we are surrounded by brilliant minds and passionate people.&nbsp;</p>
-
-            <p>Our success in this fast-moving environment is based on the drive of our dynamic, innovative employees. With worldwide operations, we work within a diverse and multicultural environment. As a small &amp; flexible company, there is room to grow and opportunity to make a mark within the marine industry and&nbsp;our environment.&nbsp;</p>
-
-            <p>&nbsp;</p>
+        <div class="constrained page-title" data-auto-indent="">
+            <h1 th:text="${page.navigation.name}"></h1>
+        </div>
+        <div class="widget rich-text constrained" data-auto-indent="">
+            <p th:each="paragraph : ${page.paragraphs}" th:classappend="${paragraph.style}">
+                <strong th:if="${paragraph.type == 1}" th:text="${paragraph.text}"></strong>
+                <span th:if="${paragraph.type != 1}" th:utext="${paragraph.text}" th:remove="tag"></span>
+            </p>
 
             <p>&nbsp;</p>
         </div>
 
-        <div class='widget widget-container heading-container container-background-dark' data-auto-indent>
-            <div class='constrained'>
-                <div class='widget widget-column-container container-background-dark' data-auto-indent>
-                    <div class='constrained grid'>
-                        <div class='row equal-heights'>
-                            <div class='column one-third'>
-                                <div class="widget widget-bg widget-bg-gr widget-cta">
-                                    <div class="content-type">featured job</div>
-                                    <h2 class="widget-header widget-header--uppercase">
-                                        System Integrator, Automation and Control
-                                    </h2>
-                                    <p>
-                                        Manage and organize the resources, technology and development of the automation and control system for large two-stroke dual-fuel engines.
-                                    </p>
-                                    <a class="icon-link link-external" href="https://recruitingapp-2795.umantis.com/Vacancies/590/Description/2" target="_blank">View job details</a>
+        <div th:if="${page.customerForm == 1}" class="widget constrained constrained--indented">
+            <div class="form">
+                <div class="biz-form form-wrapper">
+                    <div class="form-horizontal">
+                        <div class="editing-form-category category_">
+                            <div class="editing-form-category-fields">
+                                <div class="form-group">
+                                    <label class="control-label editing-form-label" for="">
+                                        姓名 *
+                                    </label>
+                                    <div class="EditingFormControlNestedControl editing-form-control-nested-control">
+                                        <input name="" type="text" maxlength="200" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label editing-form-label" for="">
+                                        联系电话 *
+                                    </label>
+                                    <div class="EditingFormControlNestedControl editing-form-control-nested-control">
+                                        <input name="p$lt$ctl03$pageplaceholder$p$lt$ctl01$WinGDBizForm$viewBiz$Phone$txtText" type="text" maxlength="200" id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_WinGDBizForm_viewBiz_Phone_txtText" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label editing-form-label" for="">
+                                        电子邮件 *
+                                    </label>
+                                    <div class="EditingFormControlNestedControl editing-form-control-nested-control">
+                                        <input name="" type="text" maxlength="200" class="form-control">
+                                    </div>
+                                </div>
+                                <div id="field_CompanyName" class="form-group">
+                                    <label class="control-label editing-form-label" for="">
+                                        公司名称 *
+                                    </label>
+                                    <div class="EditingFormControlNestedControl editing-form-control-nested-control">
+                                        <input name="p$lt$ctl03$pageplaceholder$p$lt$ctl01$WinGDBizForm$viewBiz$CompanyName$txtText" type="text" maxlength="200" id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_WinGDBizForm_viewBiz_CompanyName_txtText" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label editing-form-label" for="">
+                                        您的留言
+                                    </label>
+                                    <div class="EditingFormControlNestedControl editing-form-control-nested-control">
+                                        <textarea name="" rows="2" cols="20" class="form-control"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class='column one-third'>
-                                <div class="widget widget-bg widget-bg-gr widget-cta">
-                                    <div class="content-type">featured job</div>
-                                    <h2 class="widget-header widget-header--uppercase">
-                                        Service Support Engineer
-                                    </h2>
-                                    <p>
-                                        Support the establishment and updates of the engine product data base for two-stroke dual-fuel engines.
-                                    </p>
-                                    <a class="icon-link link-external" href="https://recruitingapp-2795.umantis.com/Vacancies/575/Description/2" target="_blank">View job details</a>
-                                </div>
-                            </div>
-                            <div class='column one-third'>
-                                <div class="widget widget-bg widget-bg-gr widget-cta">
-                                    <div class="content-type">featured job</div>
-                                    <h2 class="widget-header widget-header--uppercase">
-                                        Software Function Developer
-                                    </h2>
-                                    <p>Responsible for engine control software development and maintenance for two-stroke dual fuel engines.</p>
-                                    <a class="icon-link link-external" href="https://recruitingapp-2795.umantis.com/Vacancies/561/Description/2" target="_blank">View job details</a>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="form-group form-group-submit FieldPanel">
+                            <input type="submit" name="" value="发送联系方式" class="FormButton btn btn-primary">
+                        </div>
+                    </div>
+                </div>
+                <div class="loading-indicator js-loading-indicator">
+                    Submitting
+                </div>
+            </div>
+        </div>
+
+
+
+        <div th:if="${page.navigation.level==1}" th:each="subNavigation : ${secondaryNavigation.children}" class="widget constrained constrained--indented child-listing-wrapper">
+            <div class="constrained constrained--indented">
+                <div th:class="${secondaryNavigation.linkStyle==1}?'widget widget-child-listing gradient-1 colour-light': 'widget widget-child-listing gradient-3' " th:classappend="${subNavigation.imgUrl!=null}? 'has-image':''">
+                    <div class="text-wrapper">
+                        <h2 th:text="${subNavigation.name}"></h2>
+                        <p th:text="${subNavigation.desc}"></p>
+                        <a th:href="@{${subNavigation.url}}" class="icon-link link-internal">访问页面</a>
+                    </div>
+                    <div th:if="${subNavigation.imgUrl!=null}" class="image-wrapper" th:style="|background-image: url(/web/@{${subNavigation.imgUrl}})|">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<div th:if="${null!=page.footerLinks && page.footerLinks.size()>0}" class='widget widget-container heading-container'
+     th:classappend="${page.footerLinkStyle == 1}?'container-background-dark':'container-background-light'"
+>
+    <div class='constrained'>
+        <div class='widget widget-column-container'
+            th:classappend="${page.footerLinkStyle == 1}?'container-background-dark':''"
+        >
+            <div class='constrained grid'>
+                <div class='row equal-heights'>
+                    <div class='column one-third' th:each="footerLink:${page.footerLinks}">
+                        <div class="widget widget-bg widget-bg-gr widget-cta">
+                            <div class="content-type" th:text="${footerLink.contentType.name}"></div>
+                            <h2 class="widget-header widget-header--uppercase" th:text="${footerLink.title}">
+                            </h2>
+                            <p th:if="${null==footerLink.file}" th:text="${footerLink.desc}"></p>
+                            <div th:if="${null!=footerLink.file}" class="meta" th:text="|上传日期：${#dates.format(footerLink.file.createDate,'yyyy-MM-dd')}|"></div>
+                            <!--<a class="icon-link link-external" th:href="@{${footerLink.file.url}}" target="_blank">下载文件查看详情</a>-->
+                            <a th:if="${null==footerLink.file}" class="icon-link link-external" target="_blank">查看详情</a>
+                            <a th:if="${null!=footerLink.file}" class="icon-link link-document pdf" th:href="@{${footerLink.file.url}}">下载</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <footer class="site-footer" th:replace="common/footer :: footer">

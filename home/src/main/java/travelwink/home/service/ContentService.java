@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface ContentService {
 
+    Content findById(int id);
+
     Content findLastRelease();
 
     List<Content> findAtHome();

@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface ContentDao {
 
+    @Select("SELECT * FROM t_content tc WHERE tc.id = #{id}")
+    Content findById(int id);
+
     @Select("SELECT * FROM t_content tc WHERE tc.status = 1 AND tc.fk_content_type_id = 1 ORDER BY tc.create_date DESC LIMIT 1")
     @Results({
             @Result(column = "fk_content_type_id", property = "contentType",

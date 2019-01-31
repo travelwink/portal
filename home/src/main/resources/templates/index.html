@@ -211,10 +211,10 @@
                                             <div class="meta" th:text="|发布时间: *{#dates.format(createDate, 'yyyy/MM/ dd')}|"></div>
                                             <ul class="actions-list">
                                                 <li>
-                                                    <a class="icon-link link-internal" th:href="*{fkPageId}==null?'':@{|/page/*{fkPageId}|}">查看详情</a>
+                                                    <a class="icon-link link-internal" th:href="*{fkPageId}==null?'':@{*{fkPageId}}">查看详情</a>
                                                 </li>
                                                 <li>
-                                                    <a class="icon-link link-document pdf" th:href="*{fileUrl}==null?'': @{|/page/*{fileUrl}|}" target="_blank">
+                                                    <a class="icon-link link-document pdf" th:href="*{fileUrl}==null?'': @{*{fileUrl}}" target="_blank">
                                                         下载
                                                         <!--<span>0.12MB</span>-->
                                                     </a>
@@ -232,8 +232,8 @@
                                                 <h2 class="widget-header widget-header--wrap" th:text="*{title}"></h2>
                                                 <div class="meta" th:if="*{createDate !=null}" th:text="|更新于: *{#dates.format(createDate, 'yyyy/MM/ dd')}|"></div>
                                                 <p th:if="*{description!=null}" th:text="*{description}"></p>
-                                                <a th:if="*{fkPageId!=null}" class="icon-link link-internal" th:href="@{|/page/*{fkPageId}|}">查看详情</a>
-                                                <a th:if="*{fileUrl!=null}" class="icon-link link-document pdf" th:href="@{|/page/*{fileUrl}|}" target="_blank">下载
+                                                <a th:if="*{fkPageId!=null}" class="icon-link link-internal" th:href="@{*{fkPageId}}">查看详情</a>
+                                                <a th:if="*{fileUrl!=null}" class="icon-link link-document pdf" th:href="@{*{fileUrl}}" target="_blank">下载
                                                     <!--<span>32.45MB</span>-->
                                                 </a>
                                             </div>

@@ -4,16 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import travelwink.home.entity.Content;
-import travelwink.home.entity.FooterNavigation;
-import travelwink.home.entity.Navigation;
-import travelwink.home.entity.Slide;
-import travelwink.home.service.ContentService;
-import travelwink.home.service.FooterNavigationService;
-import travelwink.home.service.NavigationService;
-import travelwink.home.service.SlideService;
+import travelwink.home.entity.*;
+import travelwink.home.service.*;
 
 import java.util.List;
 
@@ -33,30 +28,54 @@ public class IndexController {
     SlideService slideService;
 
     @Autowired
+    PageService pageService;
+
+    @Autowired
     FooterNavigationService footerNavigationService;
+
+    // 导航菜单
+    @ModelAttribute("navigationList")
+    public List<Navigation> populateNavigationList() {
+        return this.navigationService.findAll();
+    }
+
+    // 页脚
+    @ModelAttribute("footerNavigationList")
+    public List<FooterNavigation> populateFooterNavigationList() {
+        return this.footerNavigationService.findAll();
+    }
 
     @RequestMapping
     public String init(Model model){
-        Content lastRelease = contentService.findLastRelease();
-        List<Content> contentsAtHome = contentService.findAtHome();
-        List<Navigation> navigationList = navigationService.findAll();
+
+        // 轮播图
         List<Slide> slides = slideService.findAll();
-        List<FooterNavigation> footerNavigationList = footerNavigationService.findAll();
-        model.addAttribute("navigationList", navigationList);
-        model.addAttribute("lastRelease", lastRelease);
-        model.addAttribute("contentsAtHome", contentsAtHome);
         model.addAttribute("slides", slides);
-        model.addAttribute("footerNavigationList", footerNavigationList);
+
+        // 主页最新发布新闻栏
+        Content lastRelease = contentService.findLastRelease();
+        model.addAttribute("lastRelease", lastRelease);
+
+        // 主页发布内容
+        List<Content> contentsAtHome = contentService.findAtHome();
+        model.addAttribute("contentsAtHome", contentsAtHome);
+
         return "index";
     }
 
     @RequestMapping("/page/{id}")
     public String page(@PathVariable String id, Model model) {
-        log.info("id:" + id);
-        List<Navigation> navigationList = navigationService.findAll();
-        model.addAttribute("navigationList", navigationList);
-        List<FooterNavigation> footerNavigationList = footerNavigationService.findAll();
-        model.addAttribute("footerNavigationList", footerNavigationList);
+
+        int pageId = Integer.valueOf(id);
+        Page page = pageService.findById(pageId);
+        model.addAttribute("page", page);
+
+        Navigation secondaryNavigation = navigationService.populateSecondaryNavigationByCurrentId(page.getNavigation().getId());
+        model.addAttribute("secondaryNavigation", secondaryNavigation);
+
+        Navigation breadcrumbs = navigationService.populateBreadcrumbsByCurrentId(page.getNavigation().getId());
+        model.addAttribute("breadcrumbs",breadcrumbs);
+
         return "page";
     }
 

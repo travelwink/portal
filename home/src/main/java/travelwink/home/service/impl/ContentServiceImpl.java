@@ -16,6 +16,11 @@ public class ContentServiceImpl implements ContentService {
     ContentDao contentDao;
 
     @Override
+    public Content findById(int id) {
+        return contentDao.findById(id);
+    }
+
+    @Override
     public Content findLastRelease() {
         Content lastRelease = contentDao.findLastRelease();
         return lastRelease;

@@ -11,14 +11,23 @@ import java.util.List;
 @Repository
 public interface NavigationDao {
 
+    @Select("SELECT * FROM t_navigation tn WHERE tn.id = #{id}")
+    Navigation findById(int id);
+
+    @Select("SELECT * FROM t_navigation tn WHERE tn.parent_id = #{parentId} AND tn.id != #{id}")
+    List<Navigation> findBrotherByNavigation(@Param("parentId") int parentId, @Param("id") int id);
+
+    @Select("SELECT * FROM t_navigation tn WHERE tn.id = #{parentId}")
+    Navigation findCurrentParent(int parentId);
+
     @Select("SELECT * FROM t_navigation tn WHERE tn.level = 1 AND tn.status = 1")
-    List<Navigation> findLevel1();
+    List<Navigation> findRoots();
 
     @Select("SELECT * FROM t_navigation tn WHERE tn.status = 1 AND tn.level = 1")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "id", property = "children", javaType = List.class,
-                    many = @Many(select = "travelwink.home.dao.NavigationDao.findByParentId", fetchType = FetchType.LAZY))
+                    many = @Many(select = "travelwink.home.dao.NavigationDao.findChildrenByParentId", fetchType = FetchType.LAZY))
     })
     List<Navigation> findAll();
 
@@ -26,8 +35,8 @@ public interface NavigationDao {
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "id", property = "children", javaType = List.class,
-                    many = @Many(select = "travelwink.home.dao.NavigationDao.findByParentId", fetchType = FetchType.LAZY))
+                    many = @Many(select = "travelwink.home.dao.NavigationDao.findChildrenByParentId", fetchType = FetchType.LAZY))
     })
-    List<Navigation> findByParentId(int parentId);
+    List<Navigation> findChildrenByParentId(int parentId);
 
 }
