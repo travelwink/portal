@@ -40,6 +40,7 @@
                                         <th>管理编号</th>
                                         <th>主标题</th>
                                         <th>副标题</th>
+                                        <th>类型</th>
                                         <th>发布状态</th>
                                         <th>操作</th>
                                     </tr>
@@ -50,18 +51,24 @@
                                         <td th:text="*{no}"></td>
                                         <td th:text="*{title}"></td>
                                         <td th:text="*{description}"></td>
+                                        <td>
+                                            <span th:text="*{contentType.name}"></span>
+                                        </td>
                                         <td th:if="*{status==1}">
                                             <span class="label label-success">已发布</span>
-                                            <span th:if="*{homeLocation!=0}" class="label label-primary">首页内容</span>
+                                            <span th:if="*{homeLocation==1}" class="label label-primary">首页内容</span>
+                                            <span th:if="*{homeLocation==2}" class="label label-info">首页页脚</span>
                                         </td>
                                         <td th:if="*{status==0}">
                                             <span class="label label-warning label-mini">未发布</span>
                                         </td>
                                         <td>
-                                            <div class="btn-group btn-group-xs">
-                                                <a class="btn btn-info" href="#modifyModal" data-toggle="modal"><i class="fa fa-edit"></i> 编辑 </a>
-                                                <a class="btn btn-primary" th:href="@{|/release/modifyDetail/${content.id}|}" data-toggle="modal"><i class="fa fa-edit"></i> 内容编辑 </a>
-                                                <a class="btn btn-danger" href="#deleteModal" data-toggle="modal"><i class="fa fa-trash-o"></i> 删除 </a>
+                                            <div style="width: 205px;">
+                                                <div class="btn-group btn-group-sm">
+                                                    <a class="btn btn-info" href="#modifyModal" data-toggle="modal"><i class="fa fa-edit"></i> 编辑 </a>
+                                                    <a class="btn btn-primary" th:classappend="*{contentType.id == 3}?'':'disabled'" th:href="@{|/release/modifyDetail/${content.id}|}" data-toggle="modal"><i class="fa fa-edit"></i> 编辑页面 </a>
+                                                    <a class="btn btn-danger" href="#deleteModal" data-toggle="modal"><i class="fa fa-trash-o"></i> 删除 </a>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

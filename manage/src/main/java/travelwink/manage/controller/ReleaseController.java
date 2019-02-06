@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import travelwink.manage.domain.entity.Content;
 import travelwink.manage.domain.entity.Menu;
+import travelwink.manage.domain.entity.Page;
 import travelwink.manage.service.MenuService;
 import travelwink.manage.service.ReleaseService;
 
@@ -38,9 +39,15 @@ public class ReleaseController {
 
     @RequestMapping("/modifyDetail/{id}")
     public String modifyDetail(@PathVariable String id, Model model) {
-        log.info("id:" + id);
+        int contentId = Integer.valueOf(id);
+        Page page = releaseService.findPageById(contentId);
+        model.addAttribute("page", page);
+
         Menu breadcrumb = menuService.findByUrl("/release");
         model.addAttribute("breadcrumb", breadcrumb);
+
+        String action = "页面编辑";
+        model.addAttribute("action",action);
         return "page/releaseDetail";
     }
 

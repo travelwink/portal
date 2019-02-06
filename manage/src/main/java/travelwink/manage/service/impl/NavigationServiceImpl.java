@@ -15,6 +15,12 @@ public class NavigationServiceImpl implements NavigationService {
     NavigationDao navigationDao;
 
     @Override
+    public int addRoot(Navigation navigation) {
+        int resultCount = navigationDao.addRoot(navigation);
+        return resultCount;
+    }
+
+    @Override
     public List<Navigation> findRoot() {
         return navigationDao.findRoot();
     }

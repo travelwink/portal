@@ -5,15 +5,17 @@
     <header class="site-header">
         <div class="site-header-top constrained">
 
+            <a  href="#" class="header-logo-wrapper">
+                <img th:src="@{/images/logo-b.svg}" alt="CSSC" class="header-logo">
+            </a>
+
             <button type="button" id="button-search" class="icon-link icon-link-header icon-link-search desktop-only">
                 <span>搜索</span>
             </button>
 
-            <a  href="#" class="header-logo-wrapper">
-                <img th:src="@{/images/logo-wingd-top.svg}" alt="WinGD" class="header-logo">
-            </a>
 
-            <a class="icon-link icon-link-header icon-link-portal desktop-only" href="/#" target="_blank" style="opacity: 0">Portal</a>
+
+            <!--<a class="icon-link icon-link-header icon-link-portal desktop-only" href="/#" target="_blank" style="opacity: 0">Portal</a>-->
 
 
             <button type="button" class="mobile-nav-toggle desktop-hide" id="mobile-nav-toggle">
@@ -232,7 +234,7 @@
                                                 <h2 class="widget-header widget-header--wrap" th:text="*{title}"></h2>
                                                 <div class="meta" th:if="*{createDate !=null}" th:text="|更新于: *{#dates.format(createDate, 'yyyy/MM/ dd')}|"></div>
                                                 <p th:if="*{description!=null}" th:text="*{description}"></p>
-                                                <a th:if="*{fkPageId!=null}" class="icon-link link-internal" th:href="@{*{fkPageId}}">查看详情</a>
+                                                <a th:if="*{fkPageId!=null}" class="icon-link link-internal" th:href="@{|/page/*{fkPageId}|}">查看详情</a>
                                                 <a th:if="*{fileUrl!=null}" class="icon-link link-document pdf" th:href="@{*{fileUrl}}" target="_blank">下载
                                                     <!--<span>32.45MB</span>-->
                                                 </a>

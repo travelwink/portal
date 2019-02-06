@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface NavigationDao {
 
+    @Insert("INSERT INTO t_navigation (name, parent_id, level) VALUES (#{name}, 0, 1)")
+    int addRoot(Navigation navigation);
+
     @Select("SELECT * FROM t_navigation tn WHERE tn.status = 1 AND tn.level = 1")
     List<Navigation> findRoot();
 

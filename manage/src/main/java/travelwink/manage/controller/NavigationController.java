@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import travelwink.manage.common.Constant;
 import travelwink.manage.domain.dto.AdditionalParameters;
@@ -17,6 +18,10 @@ import travelwink.manage.service.NavigationService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Navigation Management Controller
+ * @author Chris Liao
+ */
 @Slf4j
 @Controller
 @RequestMapping("/navigation")
@@ -38,6 +43,12 @@ public class NavigationController {
         return "page/navigation";
     }
 
+    @RequestMapping("/addRoot")
+    public String addRoot(Navigation navigation) {
+        navigationService.addRoot(navigation);
+        return "redirect:/navigation";
+    }
+
     /**
      * Recursion tree data for fuelux tree constructor method
      * @return List<NavigationTree>
@@ -55,6 +66,7 @@ public class NavigationController {
                             new AdditionalParameters(navigation.getId(), recursiveTreeData(subNavigationList)));
                 } else {
                     navigationTree.setType(Constant.NAVIGATION_ITEM_TYPE);
+                    navigationTree.setAdditionalParameters(new AdditionalParameters(navigation.getId(), null));
                 }
                 navigationTrees.add(navigationTree);
             }

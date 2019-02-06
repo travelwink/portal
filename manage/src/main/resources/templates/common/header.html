@@ -11,9 +11,7 @@
                 <ul class="notification-menu">
                     <li>
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <img src="images/photos/user-avatar.png" alt="" />
-                                <!--<span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.department.name}"></span>-->
-                                <!--<span> </span>-->
+                            <img th:src="@{/images/photos/user-avatar.png}" alt="" />
                                 <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.name}"></span>
                             <span class="caret"></span>
                         </a>
@@ -30,12 +28,14 @@
 
         <!-- page heading start-->
         <div class="page-heading">
-            <h3 th:text="${breadcrumb.subMenus[0].name}">
-                用户管理
+            <h3 th:if="${action == null}" th:text="${breadcrumb.subMenus[0].name}">
+            </h3>
+            <h3 th:if="${action != null}" th:text="${action}">
             </h3>
             <ul class="breadcrumb">
-                <li th:text="${breadcrumb.name}"> 系统设置 </li>
-                <li class="active" th:text="${breadcrumb.subMenus[0].name}"> 用户管理 </li>
+                <li th:text="${breadcrumb.name}"></li>
+                <li th:class="${action==null}?'active':''" th:text="${breadcrumb.subMenus[0].name}"></li>
+                <li th:if="${action != null}" th:text="${action}" class="active"></li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -52,7 +52,7 @@
                             <div class="panel">
                                 <div class="panel-body">
                                     <div class="profile-pic text-center">
-                                        <img alt="" src="images/photos/user-avatar.png">
+                                        <img alt="" th:src="@{/images/photos/user-avatar.png}">
                                     </div>
                                 </div>
                             </div>

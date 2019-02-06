@@ -73,7 +73,7 @@
                                             <span th:class="*{status == 1}?'label label-success':'label label-danger'" th:text="*{status == 1}? '有效':'无效'"></span>
                                         </td>
                                         <td>
-                                            <div class="btn-group btn-group-xs">
+                                            <div class="btn-group btn-group-sm">
                                                 <a class="btn btn-info" href="#modifyModal" data-toggle="modal" th:data-id="*{id}" th:data-name="*{name}" th:data-navigation="*{navigations}" th:data-status="*{status}"><i class="fa fa-edit"></i> 编辑 </a>
                                                 <!--<a class="btn btn-danger" href="#deleteModal" data-toggle="modal" th:data-id="*{id}"><i class="fa fa-trash-o"></i> 删除 </a>-->
                                             </div>

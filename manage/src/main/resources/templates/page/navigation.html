@@ -24,7 +24,20 @@
                             <!--</span>-->
                         </div>
                         <div class="panel-body">
-                            <div id="FlatTree" class="tree tree-plus-minus">
+                            <div class="clearfix">
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="#addModal" data-toggle="modal">
+                                        新增主导航 <i class="fa fa-plus"></i>
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" onclick="getDatas()" data-toggle="modal">
+                                        123 <i class="fa fa-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <p></p>
+                            <div id="FlatTree" class="tree tree-plus-minus tree-folder-select" role="tree">
                                 <div class = "tree-folder" style="display:none;">
                                     <div class="tree-folder-header">
                                         <i class="fa fa-folder"></i>
@@ -54,6 +67,42 @@
     <!-- main content end-->
 </section>
 
+<div aria-hidden="true" role="dialog" tabindex="-1" id="addModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" role="form" th:action="@{/navigation/addRoot}" th:object="${navigation}" method="post">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">新增导航菜单</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name" class="col-lg-2 col-sm-2 control-label">名称</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control valid" th:field="*{name}" required>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="level" class="col-lg-2 col-sm-2 control-label">层级</label>-->
+                        <!--<div class="col-lg-9">-->
+                            <!--<select class="form-control m-bot15" th:field="*{level}" th:value="*{level}">-->
+                                <!--<option value="1">1</option>-->
+                                <!--<option value="2">2</option>-->
+                                <!--<option value="3">3</option>-->
+                                <!--<option value="4">4</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                    <button type="submit" class="btn btn-primary" name="add">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Placed js at the end of the document so the pages load faster -->
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
@@ -61,31 +110,28 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/modernizr.min.js"></script>
 <script src="js/jquery.nicescroll.js"></script>
-
-<!--tree-->
-<script src="js/fuelux/js/tree.min.js"></script>
-<!--<script src="js/tree-init.js"></script>-->
-
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
+<!--tree-->
+<script src="js/fuelux/js/tree.min.js"></script>
+
+
 
 <script th:inline="javascript">
-    // jQuery(document).ready(function() {
-    //     TreeView.init();
-    // });
 
     jQuery(function($){
         $('#FlatTree').tree({
             dataSource: treeDataSource,
-            multiSelect:true,
+            multiSelect: false,
             loadingHTML: '<img src="images/input-spinner.gif"/>'
         });
+        // $('#FlatTree').tree('discloseAll');
     });
 
     var DataSourceTree = function(options) {
         this._data 	= options.data;
         this._delay = options.delay;
-    }
+    };
 
     DataSourceTree.prototype.data = function(options, callback) {
         var $data = null;
@@ -108,6 +154,23 @@
     var navigationTrees = [[${navigationTrees}]];
 
     var treeDataSource = new DataSourceTree({data: navigationTrees});
+
+    // function getDatas(){
+    //     var ids = "";
+    //     var items = $('#FlatTree' ).tree('selectedItems' );
+    //     for (var i in items) if (items.hasOwnProperty(i)) {
+    //         var item = items[i];
+    //         ids += item.additionalParameters['id'] + ",";
+    //     }
+    //
+    //     ids = ids.substring(0, ids.lastIndexOf(","));
+    //     alert("ids: "+ids);
+    // };
+
+    $('#FlatTree').on('selected.fu.tree', function (event, data) {
+        // do something with data: { selected: [array], target: [object] }
+        console.log(data.info[0].additionalParameters.id);
+    })
 </script>
 
 </body>
