@@ -186,7 +186,7 @@
                             <div class="adv-table">
                                 <div class="clearfix">
                                     <div class="btn-group">
-                                        <a id="editable-sample_new" class="btn btn-primary" href="#addModal" data-toggle="modal">
+                                        <a id="editable-sample_new" class="btn btn-primary" href="#addParagraphModal" data-toggle="modal">
                                             新增 <i class="fa fa-plus"></i>
                                         </a>
                                     </div>
@@ -205,11 +205,14 @@
                                     <tr th:each="paragraph: ${page.paragraphs}" th:object="${paragraph}">
                                         <td th:text="*{id}" hidden></td>
                                         <td th:text="*{seq}"></td>
-                                        <td th:utext="*{text}"></td>
+                                        <td th:if="*{type== 1}" th:utext="*{text}"></td>
+                                        <td th:if="*{type == 2}">
+                                            <img th:src="@{*{text}}" alt="" style="max-height: 180px">
+                                        </td>
                                         <td>
-                                            <span th:if="*{type== 1 && style eq 'intro-copy'}" class="label label-primary">小标题</span>
-                                            <span th:if="*{type != 1 && style eq 'intro-copy'}" class="label label-success">概要文字</span>
-                                            <span th:if="*{type != 1 && style==null}" class="label label-info">正文</span>
+                                            <span th:if="*{type== 1}" class="label label-primary">文字</span>
+                                            <span th:if="*{type == 2}" class="label label-success">图片</span>
+                                            <span th:if="*{type == 3}" class="label label-info">视频</span>
                                         </td>
                                         <td>
                                             <div style="min-width: 121px">
@@ -290,10 +293,69 @@
         <footer th:replace="common/footer :: footer"></footer>
         <!--footer section end-->
 
-
     </div>
     <!-- main content end-->
 </section>
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="addParagraphModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal" role="form" th:action="@{/release/addParagraph}" th:object="${paragraph}" method="post">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">新增内容段落</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group hidden">
+                        <label for="fkPageId" class="col-lg-2 col-sm-2 control-label">fkPageId</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control valid" th:value="${page.id}" id="fkPageId" name="fkPageId">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text" class="col-lg-2 col-sm-2 control-label">内容</label>
+                        <div class="col-lg-9">
+                            <textarea type="text" class="form-control valid" th:field="*{text}" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2 col-sm-2 control-label"></div>
+                        <div class="col-lg-9">
+                            <span class="label label-danger ">提示</span>
+                            <span>
+                                支持html标签
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type" class="col-lg-2 col-sm-2 control-label">类型</label>
+                        <div class="col-lg-9">
+                            <select class="form-control m-bot15" th:field="*{type}" th:value="*{type}">
+                                <option value="1">文字</option>
+                                <option value="2">图片</option>
+                                <option value="2">视屏</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="style" class="col-lg-2 col-sm-2 control-label">字体大小</label>
+                        <div class="col-lg-9">
+                            <select class="form-control m-bot15" th:field="*{style}" th:value="*{style}">
+                                <option value="intro-copy">概要大字体</option>
+                                <option value="copy">正文小字体</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+                    <button type="submit" class="btn btn-primary" name="add">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 

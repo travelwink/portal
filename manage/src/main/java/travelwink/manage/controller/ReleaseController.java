@@ -64,8 +64,22 @@ public class ReleaseController {
         return "redirect:/release";
     }
 
+    @RequestMapping("/addParagraph")
+    public String addParagraph(Paragraph paragraph, RedirectAttributes attributes) {
+        Message message;
+        int resultCount = releaseService.addParagraph(paragraph);
+        Content content = releaseService.findByPageId(paragraph.getFkPageId());
+        if (1 == resultCount) {
+            message = new Message(1, Constant.MESSAGE_SAVE_SUCCESS);
+        } else {
+            message = new Message(0, Constant.MESSAGE_SAVE_FAILURE);
+        }
+        attributes.addFlashAttribute("message", message);
+        return "redirect:/release/modifyDetail/" + content.getId();
+    }
+
     @RequestMapping("/modifyDetail/{id}")
-    public String modifyDetail(@PathVariable String id, Navigation navigation, Model model) {
+    public String modifyDetail(@PathVariable String id, Paragraph paragraph, Model model) {
         int contentId = Integer.valueOf(id);
         Page page = releaseService.findPageById(contentId);
         model.addAttribute("page", page);

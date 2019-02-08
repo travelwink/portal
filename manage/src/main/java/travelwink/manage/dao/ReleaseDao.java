@@ -18,11 +18,18 @@ public interface ReleaseDao {
     @Options(useGeneratedKeys = true)
     int addPage(Page page);
 
+    @Insert("INSERT INTO t_paragraph (fk_page_id, text, type, style, seq) VALUES (#{fkPageId}, #{text}, #{type}, #{style}, #{seq})")
+    @Options(useGeneratedKeys = true)
+    int addParagraph(Paragraph paragraph);
+
     @Select("SELECT * FROM t_content")
     @Results({
             @Result(column = "fk_content_type_id", property = "contentType", one = @One(select = "travelwink.manage.dao.ContentTypeDao.findById"))
     })
     List<Content> findAll();
+
+    @Select("SELECT * FROM t_content tc WHERE tc.fk_page_id = #{id}")
+    Content findByPageId(int id);
 
     @Select("SELECT * FROM t_page tp WHERE id = (SELECT tc.fk_page_id FROM t_content tc WHERE tc.id = #{id})")
     @Results({

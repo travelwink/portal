@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Paragraph extends BaseEntity{
     int id;
+    int fkPageId;
     String text;
     int type;
     String style;

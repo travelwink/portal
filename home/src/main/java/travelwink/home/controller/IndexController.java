@@ -78,9 +78,10 @@ public class IndexController {
             Navigation secondaryNavigation = navigationService.populateSecondaryNavigationByCurrentId(page.getNavigation().getId());
             model.addAttribute("secondaryNavigation", secondaryNavigation);
             breadcrumbs = navigationService.populateBreadcrumbsByCurrentId(page.getNavigation().getId());
+        } else {
+            breadcrumbs = new Navigation();
+            breadcrumbs.setName(page.getTitle());
         }
-        breadcrumbs = new Navigation();
-        breadcrumbs.setName(page.getTitle());
         model.addAttribute("breadcrumbs",breadcrumbs);
 
         return "page";

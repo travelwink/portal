@@ -10,6 +10,7 @@ import travelwink.manage.dao.ReleaseDao;
 import travelwink.manage.domain.entity.Content;
 import travelwink.manage.domain.entity.Navigation;
 import travelwink.manage.domain.entity.Page;
+import travelwink.manage.domain.entity.Paragraph;
 import travelwink.manage.service.ReleaseService;
 
 import java.util.ArrayList;
@@ -42,6 +43,11 @@ public class ReleaseServiceImpl implements ReleaseService {
     }
 
     @Override
+    public int addParagraph(Paragraph paragraph) {
+        return releaseDao.addParagraph(paragraph);
+    }
+
+    @Override
     public List<Content> findAll() {
         return releaseDao.findAll();
     }
@@ -49,6 +55,11 @@ public class ReleaseServiceImpl implements ReleaseService {
     @Override
     public Page findPageById(int id) {
         return releaseDao.findPageById(id);
+    }
+
+    @Override
+    public Content findByPageId(int id) {
+        return releaseDao.findByPageId(id);
     }
 
     @Override
