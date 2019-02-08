@@ -22,6 +22,9 @@ public interface NavigationDao {
     })
     Navigation findById(int id);
 
+    @Select("SELECT * FROM t_navigation tn WHERE tn.id = #{id}")
+    Navigation simpleFindById(int id);
+
     @Select("SELECT * FROM t_navigation tn WHERE tn.status = 1 AND tn.level = 1")
     @Results({
             @Result(column = "id", property = "id"),
@@ -29,6 +32,9 @@ public interface NavigationDao {
                     many = @Many(select = "travelwink.manage.dao.NavigationDao.findByParentId", fetchType = FetchType.LAZY))
     })
     List<Navigation> findRoot();
+
+    @Select("SELECT * FROM t_navigation tn WHERE tn.status = 1 AND tn.parent_id = #{id}")
+    List<Navigation> findChildren(int id);
 
     @Select("SELECT * FROM t_navigation tn WHERE tn.status = 1 AND tn.level = 1")
     @Results({

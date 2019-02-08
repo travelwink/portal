@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import travelwink.manage.common.Constant;
 import travelwink.manage.domain.dto.AdditionalParameters;
 import travelwink.manage.domain.dto.NavigationTree;
@@ -47,6 +47,14 @@ public class NavigationController {
     public String addRoot(Navigation navigation) {
         navigationService.addRoot(navigation);
         return "redirect:/navigation";
+    }
+
+    @RequestMapping("/getChildren")
+    @ResponseBody
+    public List<Navigation> getChildren(String parentId) {
+        int id = Integer.valueOf(parentId);
+        List<Navigation> navigations = navigationService.findChildren(id);
+        return navigations;
     }
 
     /**

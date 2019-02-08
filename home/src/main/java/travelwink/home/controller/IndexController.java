@@ -73,10 +73,14 @@ public class IndexController {
         String keywords = page.getKeywords();
         model.addAttribute("keywords", keywords);
 
-        Navigation secondaryNavigation = navigationService.populateSecondaryNavigationByCurrentId(page.getNavigation().getId());
-        model.addAttribute("secondaryNavigation", secondaryNavigation);
-
-        Navigation breadcrumbs = navigationService.populateBreadcrumbsByCurrentId(page.getNavigation().getId());
+        Navigation breadcrumbs;
+        if (null != page.getNavigation()) {
+            Navigation secondaryNavigation = navigationService.populateSecondaryNavigationByCurrentId(page.getNavigation().getId());
+            model.addAttribute("secondaryNavigation", secondaryNavigation);
+            breadcrumbs = navigationService.populateBreadcrumbsByCurrentId(page.getNavigation().getId());
+        }
+        breadcrumbs = new Navigation();
+        breadcrumbs.setName(page.getTitle());
         model.addAttribute("breadcrumbs",breadcrumbs);
 
         return "page";

@@ -30,17 +30,35 @@
                                     </select>
                                 </div>
                             </div>
-                            <!--<div th:if="${null != navigation.subNavigation && 0 != navigation.subNavigation.size}" class="form-group" th:object="${navigation}">-->
                             <div class="form-group" th:object="${navigation}">
                                 <label for="root" class="col-lg-3 col-sm-3 control-label">二级菜单</label>
                                 <div class="col-lg-8">
                                     <select class="form-control m-bot15" id="level2">
-                                        <th:block th:each="navigation, navigationStat : ${navigations}">
+                                        <option value="">--请选择--</option>
+                                        <th:block th:each="navigation : ${navigations}">
                                             <th:block th:if="${pageNavigation.id == navigation.id}">
-                                                <option value="">--请选择--</option>
-                                                <option th:each="navigationLv2 : ${navigation.subNavigation}" th:value="${navigationLv2.id}" th:text="${navigationLv2.name}" th:selected="${pageNavigation.subNavigation[0].id == navigationLv2.id}"></option>
+                                                <th:block th:if="${pageNavigation.subNavigation != null}">
+                                                    <option th:each="navigationLv2 : ${navigation.subNavigation}" th:value="${navigationLv2.id}" th:text="${navigationLv2.name}" th:selected="${pageNavigation.subNavigation[0].id == navigationLv2.id}"></option>
+                                                </th:block>
+                                                <option th:each="navigationLv2 : ${navigation.subNavigation}" th:value="${navigationLv2.id}" th:text="${navigationLv2.name}"></option>
                                             </th:block>
                                         </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" th:object="${navigation}">
+                                <label for="root" class="col-lg-3 col-sm-3 control-label">三级菜单</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control m-bot15" id="level3">
+                                        <option value="">--请选择--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" th:object="${navigation}">
+                                <label for="root" class="col-lg-3 col-sm-3 control-label">四级菜单</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control m-bot15" id="level4">
+                                        <option value="">--请选择--</option>
                                     </select>
                                 </div>
                             </div>
@@ -87,29 +105,65 @@
                             页面模块
                         </header>
                         <div class="panel-body">
-                            <div class="icheck ">
-                                <div class="flat-green single-row">
-                                    <div class="radio ">
-                                        <input id="children" type="checkbox" >
-                                        <label for="children">显示子菜单介绍链接 </label>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">页头图片</label>
+                                    <div class="col-md-9">
+                                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                                            <div class="fileupload-new thumbnail" style="max-width: 300px; max-height: 300px;">
+                                                <img th:if="${page.headImg==null}" th:src="@{/images/noImg.jpg}" alt="" />
+                                                <img th:if="${page.headImg!=null}"th:src="@{${page.headImg}}" alt="" />
+                                            </div>
+                                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 300px; line-height: 20px;"></div>
+                                            <div>
+                                            <span class="btn btn-default btn-file">
+                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i>选择图片</span>
+                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> 变更</span>
+                                                <input type="file" class="default" />
+                                            </span>
+                                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> 移除</a>
+                                            </div>
+                                        </div>
+                                        <br/>
                                     </div>
                                 </div>
-                                <div class="flat-green single-row">
-                                    <div class="radio ">
-                                        <input id="customer_form" type="checkbox" th:checked="${page.customerForm == 1}">
-                                        <label for="customer_form">加入联系方式提交表单 </label>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">竖屏页头</label>
+                                    <div class="col-md-9">
+                                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                                            <div class="fileupload-new thumbnail" style="max-width: 300px; max-height: 300px;">
+                                                <img th:if="${page.headImgVertical==null}" th:src="@{/images/noImg.jpg}" alt="" />
+                                                <img th:if="${page.headImgVertical!=null}" th:src="@{${page.headImgVertical}}" alt="" />
+                                            </div>
+                                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 300px; line-height: 20px;"></div>
+                                            <div>
+                                            <span class="btn btn-default btn-file">
+                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> 选择图片 </span>
+                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> 变更</span>
+                                                <input type="file" class="default" />
+                                            </span>
+                                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> 移除</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="flat-green single-row">
-                                    <div class="radio ">
-                                        <input id="news" type="checkbox" >
-                                        <label for="news">加入新闻搜索列表 </label>
-                                    </div>
-                                </div>
-                                <div class="flat-green single-row">
-                                    <div class="radio ">
-                                        <input id="production" type="checkbox" >
-                                        <label for="production">加入产品搜索列表 </label>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">其他</label>
+                                    <div class="col-sm-9 icheck">
+                                        <!--<div class="flat-green single-row">-->
+                                        <!--<div class="radio ">-->
+                                        <!--<input id="children" type="checkbox" >-->
+                                        <!--<label for="children">显示子菜单介绍链接 </label>-->
+                                        <!--</div>-->
+                                        <!--</div>-->
+                                        <div class="flat-green single-row">
+                                            <div class="radio ">
+                                                <input id="customer_form" type="checkbox" th:checked="${page.customerForm == 1}">
+                                                <label for="customer_form">加入联系方式提交表单 </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -151,7 +205,7 @@
                                     <tr th:each="paragraph: ${page.paragraphs}" th:object="${paragraph}">
                                         <td th:text="*{id}" hidden></td>
                                         <td th:text="*{seq}"></td>
-                                        <td th:text="*{text}"></td>
+                                        <td th:utext="*{text}"></td>
                                         <td>
                                             <span th:if="*{type== 1 && style eq 'intro-copy'}" class="label label-primary">小标题</span>
                                             <span th:if="*{type != 1 && style eq 'intro-copy'}" class="label label-success">概要文字</span>
@@ -229,7 +283,6 @@
             </div>
 
 
-
         </div>
         <!--body wrapper end-->
 
@@ -275,29 +328,92 @@
 <script th:src="@{/js/tagsinput-init.js}"></script>
 
 <script>
-    $("#root").change(function () {
-        var rootId = $("#root").val();
-        if (rootId == "") {
-            return;
-        }
-        $.ajax({
-            cache:true,
-            type:"get",
-            url:"/navigation/getLv2",
-            data:{"rootId":rootId},
-            success: function (data) {
-                console.log(data.data);
-                var level2 = $("#level2").empty();
-                for (var i = 0; i<data.data.length(); i++) {
-                    level2.append("<option value='" + data.data[i].id + "'>" + data.data[i].name + "</option>")
-                }
-            },
-            error: function (error) {
-                console.log(""+ error);
+    $(document).ready(function(){
+        $("#root").change(function () {
+            var rootId = $("#root").val();
+            if (rootId == "") {
+                $("#level2").html("<option value=''>--请选择--</option>");
+                $("#level3").html("<option value=''>--请选择--</option>");
+                $("#level4").html("<option value=''>--请选择--</option>");
+                return;
             }
+            $.ajax({
+                cache:true,
+                type:"GET",
+                url:"/manage/navigation/getChildren",
+                data:{"parentId":rootId},
+                success: function (data) {
+                    // console.log(data + "length:" + data.length);
+                    var level2 = $("#level2").empty();
+                    $("#level3").html("<option value=''>--请选择--</option>");
+                    $("#level4").html("<option value=''>--请选择--</option>");
+                    level2.append("<option value=''>--请选择--</option>");
+                    for (var i = 0; i<data.length; i++) {
+                        level2.append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+                    }
+                },
+                error: function (error) {
+                    console.log(""+ error);
+                }
 
+            })
         })
-    })
+
+        $("#level2").change(function () {
+            var level2Id = $("#level2").val();
+            if (level2Id == "") {
+                $("#level3").html("<option value=''>--请选择--</option>");
+                $("#level4").html("<option value=''>--请选择--</option>");
+                return;
+            }
+            $.ajax({
+                cache:true,
+                type:"GET",
+                url:"/manage/navigation/getChildren",
+                data:{"parentId":level2Id},
+                success: function (data) {
+                    // console.log(data + "length:" + data.length);
+                    var level3 = $("#level3").empty();
+                    level3.append("<option value=''>--请选择--</option>");
+                    $("#level4").html("<option value=''>--请选择--</option>");
+                    for (var i = 0; i<data.length; i++) {
+                        level3.append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+                    }
+                },
+                error: function (error) {
+                    console.log(""+ error);
+                }
+
+            })
+        });
+
+        $("#level3").change(function () {
+            var level3Id = $("#level3").val();
+            if (level3Id == "") {
+                $("#level4").html("<option value=''>--请选择--</option>");
+                return;
+            }
+            $.ajax({
+                cache:true,
+                type:"GET",
+                url:"/manage/navigation/getChildren",
+                data:{"parentId":level3Id},
+                success: function (data) {
+                    // console.log(data + "length:" + data.length);
+                    var level4 = $("#level4").empty();
+                    level4.append("<option value=''>--请选择--</option>");
+                    for (var i = 0; i<data.length; i++) {
+                        level4.append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+                    }
+                },
+                error: function (error) {
+                    console.log(""+ error);
+                }
+
+            })
+        });
+
+    });
 </script>
 
 </body>

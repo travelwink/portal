@@ -26,6 +26,11 @@ public class NavigationServiceImpl implements NavigationService {
     }
 
     @Override
+    public List<Navigation> findChildren(int id) {
+        return navigationDao.findChildren(id);
+    }
+
+    @Override
     public List<Navigation> findAll() {
         return navigationDao.findAll();
     }

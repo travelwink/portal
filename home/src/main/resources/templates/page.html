@@ -13,10 +13,7 @@
             <span>搜索</span>
         </button>
 
-
-
         <!--<a class="icon-link icon-link-header icon-link-portal desktop-only" href="/" target="_blank" style="opacity: 0">Portal</a>-->
-
 
         <button type="button" class="mobile-nav-toggle desktop-hide" id="mobile-nav-toggle">
 				<span class="hide-text">
@@ -99,7 +96,7 @@
     <style th:text="|@media(max-width: 667px){.full-image-background{background-image: url(/web/${page.headImgVertical}) !important;}}|"> </style>
 </div>
 
-
+<!--面包屑导航-->
 <div class="widget breadcrumbs">
     <div class="constrained">
         <div class="breadrumbs-list" th:object="${breadcrumbs}">
@@ -126,18 +123,18 @@
 
 <div class="main">
     <div class="main-widget-zone">
+        <!--左侧导航菜单-->
         <div class="secondary_navigation">
             <div class="constrained">
                 <div class="subnav">
-                    <div th:if="@{${page.navigation.parentId != 0}}" th:remove="tag">
+                    <th:block th:if="${null != page.navigation and page.navigation.parentId != 0}">
                         <a th:href="@{${secondaryNavigation.url}}" class='subnav-back' th:text="${secondaryNavigation.name}"></a>
                         <ul class='subnav-list'>
                             <li class='sub-nav-parent'>
                                 <ul>
                                     <li th:each="subNavigation : ${secondaryNavigation.children}"
                                         th:class="${null!=subNavigation.children && subNavigation.children.size()>0}?'has-children':''"
-                                        th:classappend="${subNavigation.id == page.navigation.id}? 'active':''"
-                                    >
+                                        th:classappend="${subNavigation.id == page.navigation.id}? 'active':''">
                                         <a th:href="@{${subNavigation.url}}" th:text="${subNavigation.name}"></a>
                                         <ul th:if="${null!=subNavigation.children && subNavigation.children.size()>0}" >
                                             <li th:each="child: ${subNavigation.children}" th:class="${null!=child.children && child.children.size()>0}?'has-children':''">
@@ -148,8 +145,8 @@
                                 </ul>
                             </li>
                         </ul>
-                    </div>
-                    <div th:if="@{${page.navigation.parentId == 0}}" th:remove="tag">
+                    </th:block>
+                    <th:block th:if="@{${null != page.navigation and page.navigation.parentId == 0}}">
                         <a th:href="@{/}" class='subnav-back' th:text="首页"></a>
                         <ul class='subnav-list'>
                             <li class='sub-nav-parent' th:each="navigation : ${navigationList}"
@@ -163,20 +160,37 @@
                                 </ul>
                             </li>
                         </ul>
-                    </div>
+                    </th:block>
                 </div>
             </div>
         </div>
-        <div class="constrained page-title" data-auto-indent="">
-            <h1 th:text="${page.navigation.name}"></h1>
-        </div>
-        <div class="widget rich-text constrained" data-auto-indent="">
-            <p th:each="paragraph : ${page.paragraphs}" th:classappend="${paragraph.style}">
-                <strong th:if="${paragraph.type == 1}" th:text="${paragraph.text}"></strong>
-                <span th:if="${paragraph.type != 1}" th:utext="${paragraph.text}" th:remove="tag"></span>
-            </p>
 
-            <p>&nbsp;</p>
+        <!--标题-->
+        <div class="constrained page-title" data-auto-indent="">
+            <h1 th:if="${null != page.navigation}" th:text="${page.navigation.name}"></h1>
+            <h1 th:if="${null == page.navigation}" th:text="${page.title}"></h1>
+        </div>
+
+        <!--正文-->
+        <div class="main-widget-zone">
+            <div class="constrained constrained--indented">
+                <div class="constrained page-title indented auto-indented" data-auto-indent="">
+
+                    <div class="rich-text">
+                        <th:block th:each="paragraph : ${page.paragraphs}">
+                            <p th:if="${paragraph.type == 1}" th:class="${paragraph.style}" th:utext="${paragraph.text}"></p>
+                            <div th:if="${paragraph.type == 2}" class="image-caption">
+                                <div class="image-caption-image">
+                                    <img th:src="@{${paragraph.text}}" alt="">
+                                </div>
+                                <br/>
+                            </div>
+                        </th:block>
+                        <p>&nbsp;</p>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
         <div th:if="${page.customerForm == 1}" class="widget constrained constrained--indented">
@@ -239,54 +253,58 @@
         </div>
 
 
-
-        <div th:if="${page.navigation.level==1}" th:each="subNavigation : ${secondaryNavigation.children}" class="widget constrained constrained--indented child-listing-wrapper">
-            <div class="constrained constrained--indented">
-                <div th:class="${secondaryNavigation.linkStyle==1}?'widget widget-child-listing gradient-1 colour-light': 'widget widget-child-listing gradient-3' " th:classappend="${subNavigation.imgUrl!=null}? 'has-image':''">
-                    <div class="text-wrapper">
-                        <h2 th:text="${subNavigation.name}"></h2>
-                        <p th:text="${subNavigation.desc}"></p>
-                        <a th:href="@{${subNavigation.url}}" class="icon-link link-internal">访问页面</a>
-                    </div>
-                    <div th:if="${subNavigation.imgUrl!=null}" class="image-wrapper" th:style="|background-image: url(/web/@{${subNavigation.imgUrl}})|">
+        <!--二级页面链接模块-->
+        <th:block th:if="${page.navigation != null}">
+            <div th:if="${page.navigation.level==1}" th:each="subNavigation : ${secondaryNavigation.children}" class="widget constrained constrained--indented child-listing-wrapper">
+                <div class="constrained constrained--indented">
+                    <div th:class="${secondaryNavigation.linkStyle==1}?'widget widget-child-listing gradient-1 colour-light': 'widget widget-child-listing gradient-3' " th:classappend="${subNavigation.imgUrl!=null}? 'has-image':''">
+                        <div class="text-wrapper">
+                            <h2 th:text="${subNavigation.name}"></h2>
+                            <p th:text="${subNavigation.desc}"></p>
+                            <a th:href="@{${subNavigation.url}}" class="icon-link link-internal">访问页面</a>
+                        </div>
+                        <div th:if="${subNavigation.imgUrl!=null}" class="image-wrapper" th:style="|background-image: url(/web/@{${subNavigation.imgUrl}})|">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-
+        </th:block>
     </div>
 
-
-</div>
-
-<div th:if="${null!=page.footerLinks && page.footerLinks.size()>0}" class='widget widget-container heading-container'
-     th:classappend="${page.footerLinkStyle == 1}?'container-background-dark':'container-background-light'"
->
-    <div class='constrained'>
-        <div class='widget widget-column-container'
-            th:classappend="${page.footerLinkStyle == 1}?'container-background-dark':''"
-        >
-            <div class='constrained grid'>
-                <div class='row equal-heights'>
-                    <div class='column one-third' th:each="footerLink:${page.footerLinks}">
-                        <div class="widget widget-bg widget-bg-gr widget-cta">
-                            <div class="content-type" th:text="${footerLink.contentType.name}"></div>
-                            <h2 class="widget-header widget-header--uppercase" th:text="${footerLink.title}">
-                            </h2>
-                            <p th:if="${null==footerLink.file}" th:text="${footerLink.desc}"></p>
-                            <div th:if="${null!=footerLink.file}" class="meta" th:text="|上传日期：${#dates.format(footerLink.file.createDate,'yyyy-MM-dd')}|"></div>
-                            <!--<a class="icon-link link-external" th:href="@{${footerLink.file.url}}" target="_blank">下载文件查看详情</a>-->
-                            <a th:if="${null==footerLink.file}" class="icon-link link-external" target="_blank">查看详情</a>
-                            <a th:if="${null!=footerLink.file}" class="icon-link link-document pdf" th:href="@{${footerLink.file.url}}">下载</a>
+    <!--页脚链接-->
+    <div th:if="${null!=page.footerLinks && page.footerLinks.size()>0}" class='widget widget-container heading-container'
+         th:classappend="${page.footerLinkStyle == 1}?'container-background-dark':'container-background-light'">
+        <div class='constrained'>
+            <div class='widget widget-column-container'
+                 th:classappend="${page.footerLinkStyle == 1}?'container-background-dark':''">
+                <div class='constrained grid'>
+                    <div class='row equal-heights'>
+                        <div class='column one-third' th:each="footerLink:${page.footerLinks}">
+                            <div class="widget widget-bg widget-bg-gr widget-cta">
+                                <div class="content-type" th:text="${footerLink.contentType.name}"></div>
+                                <h2 class="widget-header widget-header--uppercase" th:text="${footerLink.title}">
+                                </h2>
+                                <p th:if="${null==footerLink.file}" th:text="${footerLink.desc}"></p>
+                                <div th:if="${null!=footerLink.file}" class="meta" th:text="|上传日期：${#dates.format(footerLink.file.createDate,'yyyy-MM-dd')}|"></div>
+                                <!--<a class="icon-link link-external" th:href="@{${footerLink.file.url}}" target="_blank">下载文件查看详情</a>-->
+                                <a th:if="${null==footerLink.file}" class="icon-link link-external" target="_blank">查看详情</a>
+                                <a th:if="${null!=footerLink.file}" class="icon-link link-document pdf" th:href="@{${footerLink.file.url}}">下载</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 </div>
 
+
+
+
+
+<!--页脚-->
 <footer class="site-footer" th:replace="common/footer :: footer">
 </footer>
 

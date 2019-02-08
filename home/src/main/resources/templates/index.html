@@ -13,10 +13,7 @@
                 <span>搜索</span>
             </button>
 
-
-
             <!--<a class="icon-link icon-link-header icon-link-portal desktop-only" href="/#" target="_blank" style="opacity: 0">Portal</a>-->
-
 
             <button type="button" class="mobile-nav-toggle desktop-hide" id="mobile-nav-toggle">
 				<span class="hide-text">
@@ -213,14 +210,14 @@
                                             <div class="meta" th:text="|发布时间: *{#dates.format(createDate, 'yyyy/MM/ dd')}|"></div>
                                             <ul class="actions-list">
                                                 <li>
-                                                    <a class="icon-link link-internal" th:href="*{fkPageId}==null?'':@{*{fkPageId}}">查看详情</a>
+                                                    <a class="icon-link link-internal" th:href="*{fkPageId}==null?'':@{|/page/*{fkPageId}|}">查看详情</a>
                                                 </li>
-                                                <li>
-                                                    <a class="icon-link link-document pdf" th:href="*{fileUrl}==null?'': @{*{fileUrl}}" target="_blank">
-                                                        下载
-                                                        <!--<span>0.12MB</span>-->
-                                                    </a>
-                                                </li>
+                                                <!--<li>-->
+                                                    <!--<a class="icon-link link-document pdf" th:href="*{fileUrl}==null?'': @{*{fileUrl}}" target="_blank">-->
+                                                        <!--下载-->
+                                                        <!--&lt;!&ndash;<span>0.12MB</span>&ndash;&gt;-->
+                                                    <!--</a>-->
+                                                <!--</li>-->
                                                 <li>
                                                     <a class="icon-link link-internal" href="">查看所有已发布的内容</a>
                                                 </li>

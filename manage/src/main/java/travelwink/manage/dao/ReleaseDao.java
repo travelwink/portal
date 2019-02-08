@@ -27,7 +27,7 @@ public interface ReleaseDao {
     @Select("SELECT * FROM t_page tp WHERE id = (SELECT tc.fk_page_id FROM t_content tc WHERE tc.id = #{id})")
     @Results({
             @Result(column = "id", property = "id"),
-            @Result(column = "fk_navigation_id", property = "navigation", one = @One(select = "travelwink.manage.dao.NavigationDao.findById")),
+            @Result(column = "fk_navigation_id", property = "navigation", one = @One(select = "travelwink.manage.dao.NavigationDao.simpleFindById")),
             @Result(column = "id", property = "paragraphs", many = @Many(select = "travelwink.manage.dao.ReleaseDao.findParagraphByPageId")),
             @Result(column = "id", property = "footerLinks", many = @Many(select = "travelwink.manage.dao.ReleaseDao.findFooterLinkByPageId"))
     })

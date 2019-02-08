@@ -10,6 +10,8 @@ public interface NavigationService {
 
     List<Navigation> findRoot();
 
+    List<Navigation> findChildren(int id);
+
     List<Navigation> findAll();
 
 }

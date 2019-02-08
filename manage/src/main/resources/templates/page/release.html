@@ -66,7 +66,7 @@
                                             <div style="width: 205px;">
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-info" href="#modifyModal" data-toggle="modal"><i class="fa fa-edit"></i> 编辑 </a>
-                                                    <a class="btn btn-primary" th:classappend="*{contentType.id == 3}?'':'disabled'" th:href="@{|/release/modifyDetail/${content.id}|}" data-toggle="modal"><i class="fa fa-edit"></i> 编辑页面 </a>
+                                                    <a class="btn btn-primary" th:classappend="*{contentType.id == 2}?'disabled':''" th:href="@{|/release/modifyDetail/${content.id}|}" data-toggle="modal"><i class="fa fa-edit"></i> 编辑页面 </a>
                                                     <a class="btn btn-danger" href="#deleteModal" data-toggle="modal"><i class="fa fa-trash-o"></i> 删除 </a>
                                                 </div>
                                             </div>
@@ -129,7 +129,6 @@
                         <label for="contentType" class="col-lg-2 col-sm-2 control-label">内容类型</label>
                         <div class="col-lg-10">
                             <select class="form-control m-bot15" th:field="*{contentType}">
-                                <option value="">--请选择--</option>
                                 <option th:each="contentType : ${contentTypes}" th:value="${contentType.id}" th:text="${contentType.name}"></option>
                             </select>
                         </div>
