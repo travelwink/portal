@@ -13,6 +13,7 @@ public class Constant {
     public static final String MESSAGE_DELETE_FAILURE = "删除失败";
 
     public static final int MENU_ROOT = 0;
+    public static final int NAVIGATION_ROOT = 0;
 
     public static final String NAVIGATION_FOLDER_TYPE = "folder";
     public static final String NAVIGATION_ITEM_TYPE = "item";

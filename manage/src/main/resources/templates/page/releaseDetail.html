@@ -20,12 +20,29 @@
                         <header class="panel-heading">
                             关联导航菜单
                         </header>
-                        <div class="panel-body">
-                            <div class="form-group">
-
+                        <div class="panel-body form-horizontal">
+                            <div class="form-group" th:object="${navigation}">
+                                <label for="root" class="col-lg-3 col-sm-3 control-label">一级菜单</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control m-bot15" id="root">
+                                        <option value="">--请选择--</option>
+                                        <option th:each="navigation : ${navigations}" th:value="${navigation.id}" th:text="${navigation.name}" th:selected="${pageNavigation.id == navigation.id}"></option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-
+                            <!--<div th:if="${null != navigation.subNavigation && 0 != navigation.subNavigation.size}" class="form-group" th:object="${navigation}">-->
+                            <div class="form-group" th:object="${navigation}">
+                                <label for="root" class="col-lg-3 col-sm-3 control-label">二级菜单</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control m-bot15" id="level2">
+                                        <th:block th:each="navigation, navigationStat : ${navigations}">
+                                            <th:block th:if="${pageNavigation.id == navigation.id}">
+                                                <option value="">--请选择--</option>
+                                                <option th:each="navigationLv2 : ${navigation.subNavigation}" th:value="${navigationLv2.id}" th:text="${navigationLv2.name}" th:selected="${pageNavigation.subNavigation[0].id == navigationLv2.id}"></option>
+                                            </th:block>
+                                        </th:block>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -33,26 +50,29 @@
                 <div class="col-lg-4">
                     <section class="panel">
                         <header class="panel-heading">
-                            主题及样式
+                            基础属性
                         </header>
                         <div class="panel-body">
-                            <div class="form-group">
-                                <div class="form-horizontal bucket-form" method="get">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">页脚链接主题</label>
-                                        <div class="col-sm-9 icheck ">
-                                            <div class="flat-grey single-row">
-                                                <div class="radio ">
-                                                    <input id="footer_gray" tabindex="3" type="radio" name="footerLinkStyle" th:checked="${page.footerLinkStyle != 1}">
-                                                    <label for="footer_gray"> 浅灰色</label>
-                                                </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">页面关键字</label>
+                                    <div class="col-md-9">
+                                        <input id="keywords" type="text" class="tags" th:value="${page.keywords}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">页脚链接主题</label>
+                                    <div class="col-sm-9 icheck ">
+                                        <div class="flat-grey single-row">
+                                            <div class="radio ">
+                                                <input id="footer_gray" tabindex="3" type="radio" name="footerLinkStyle" th:checked="${page.footerLinkStyle != 1}">
+                                                <label for="footer_gray"> 浅灰色 </label>
                                             </div>
-
-                                            <div class="flat-blue single-row">
-                                                <div class="radio ">
-                                                    <input id="footer_blue" tabindex="3" type="radio" name="footerLinkStyle" th:checked="${page.footerLinkStyle == 1}">
-                                                    <label for="footer_blue"> 深蓝色 </label>
-                                                </div>
+                                        </div>
+                                        <div class="flat-blue single-row">
+                                            <div class="radio ">
+                                                <input id="footer_blue" tabindex="3" type="radio" name="footerLinkStyle" th:checked="${page.footerLinkStyle == 1}">
+                                                <label for="footer_blue"> 深蓝色 </label>
                                             </div>
                                         </div>
                                     </div>
@@ -249,6 +269,36 @@
 <!--icheck -->
 <script th:src="@{/js/iCheck/jquery.icheck.js}"></script>
 <script th:src="@{/js/icheck-init.js}"></script>
+
+<!--tags input-->
+<script th:src="@{/js/jquery-tags-input/jquery.tagsinput.js}"></script>
+<script th:src="@{/js/tagsinput-init.js}"></script>
+
+<script>
+    $("#root").change(function () {
+        var rootId = $("#root").val();
+        if (rootId == "") {
+            return;
+        }
+        $.ajax({
+            cache:true,
+            type:"get",
+            url:"/navigation/getLv2",
+            data:{"rootId":rootId},
+            success: function (data) {
+                console.log(data.data);
+                var level2 = $("#level2").empty();
+                for (var i = 0; i<data.data.length(); i++) {
+                    level2.append("<option value='" + data.data[i].id + "'>" + data.data[i].name + "</option>")
+                }
+            },
+            error: function (error) {
+                console.log(""+ error);
+            }
+
+        })
+    })
+</script>
 
 </body>
 </html>

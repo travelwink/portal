@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 public class Page extends BaseEntity {
     int id;
+    String keywords;
     Navigation navigation;
     String headImg;
     String headImgVertical;

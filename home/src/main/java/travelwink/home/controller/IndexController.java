@@ -70,6 +70,9 @@ public class IndexController {
         Page page = pageService.findById(pageId);
         model.addAttribute("page", page);
 
+        String keywords = page.getKeywords();
+        model.addAttribute("keywords", keywords);
+
         Navigation secondaryNavigation = navigationService.populateSecondaryNavigationByCurrentId(page.getNavigation().getId());
         model.addAttribute("secondaryNavigation", secondaryNavigation);
 

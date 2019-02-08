@@ -9306,8 +9306,9 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
-		
+			// "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "显示 0 至 0 条，共 0 条数据",
+
 		
 			/**
 			 * When a user filters the information in a table, this string is appended 

@@ -11,7 +11,7 @@ public class Content extends BaseEntity{
     private String no;
     private String title;
     private String description;
-    private String pageUrl;
+    private Page page;
     private String fileUrl;
     private int homeLocation;
 }

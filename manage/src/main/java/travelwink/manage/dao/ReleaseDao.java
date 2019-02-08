@@ -10,18 +10,24 @@ import java.util.List;
 @Repository
 public interface ReleaseDao {
 
+    @Insert("INSERT INTO t_content (fk_content_type_id, no, title, description, fk_page_id, status) VALUES (#{contentType.id}, #{no}, #{title}, #{description}, #{page.id}, #{status})")
+    @Options(useGeneratedKeys = true)
+    int addContent(Content content);
+
+    @Insert("INSERT INTO t_page (keywords, fk_navigation_id, head_img, head_img_vertical, customer_form, footer_link_style) VALUES (#{keywords}, #{navigation.id}, #{headImg}, #{headImgVertical}, #{customerForm}, #{footerLinkStyle})")
+    @Options(useGeneratedKeys = true)
+    int addPage(Page page);
+
     @Select("SELECT * FROM t_content")
     @Results({
-            @Result(column = "fk_content_type_id", property = "contentType", one = @One(select = "travelwink.manage.dao.ReleaseDao.findById"))
+            @Result(column = "fk_content_type_id", property = "contentType", one = @One(select = "travelwink.manage.dao.ContentTypeDao.findById"))
     })
     List<Content> findAll();
-
-    @Select("SELECT * FROM t_content_type tct WHERE tct.id = #{id}")
-    ContentType findById(int id);
 
     @Select("SELECT * FROM t_page tp WHERE id = (SELECT tc.fk_page_id FROM t_content tc WHERE tc.id = #{id})")
     @Results({
             @Result(column = "id", property = "id"),
+            @Result(column = "fk_navigation_id", property = "navigation", one = @One(select = "travelwink.manage.dao.NavigationDao.findById")),
             @Result(column = "id", property = "paragraphs", many = @Many(select = "travelwink.manage.dao.ReleaseDao.findParagraphByPageId")),
             @Result(column = "id", property = "footerLinks", many = @Many(select = "travelwink.manage.dao.ReleaseDao.findFooterLinkByPageId"))
     })
@@ -32,7 +38,7 @@ public interface ReleaseDao {
 
     @Select("SELECT * FROM t_footer_link tfl WHERE tfl.fk_page_id = #{id}")
     @Results({
-            @Result(column = "fk_content_type_id", property = "contentType", one = @One(select = "travelwink.manage.dao.ReleaseDao.findById"))
+            @Result(column = "fk_content_type_id", property = "contentType", one = @One(select = "travelwink.manage.dao.ContentTypeDao.findById"))
     })
     List<FooterLink> findFooterLinkByPageId (int id);
 }

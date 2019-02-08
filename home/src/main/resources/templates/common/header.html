@@ -10,7 +10,7 @@
                             <ul>
                                 <li th:each="navigation: ${navigationList}"
                                     th:class="${null == navigation.children || navigation.children.isEmpty()}? '': 'has-children'" th:data-level="${navigation.level}">
-                                    <a th:text="${navigation.name}">父导航菜单</a>
+                                    <a th:text="${navigation.name}" th:href="${null == navigation.children || navigation.children.isEmpty()}? @{${navigation.url}}:'' ">父导航菜单</a>
                                     <div class="dropdown-wrapper">
                                         <div th:class="|meganav-level level-${navigation.level+1}|">
                                             <a th:href="@{${navigation.url}}" class="meganav-level-title" th:text="${navigation.name}">父导航菜单</a>
